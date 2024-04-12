@@ -48,7 +48,6 @@ import { toast } from "sonner";
 import { useContextMenu } from "@/renderer/hooks/useContextMenu";
 import { deepMutableClone } from "@/renderer/utils/clone";
 import { Link } from "react-router-dom";
-import { useSocketStore } from "@/renderer/stores/socket";
 import FlowControlButtons from "../flow_chart/views/ControlBar/FlowControlButtons";
 import _ from "lodash";
 import { Input } from "@/renderer/components/ui/input";
@@ -202,7 +201,6 @@ const ControlPanelView = () => {
       }
     : undefined;
 
-  const serverStatus = useSocketStore((state) => state.serverStatus);
 
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     useShallow((state) => ({
@@ -282,13 +280,6 @@ const ControlPanelView = () => {
           </Button>
           <ClearCanvasBtn clearCanvas={clearCanvas} />
           <div className="grow" />
-          <div
-            data-cy="app-status"
-            id="app-status"
-            className="mr-5 flex items-center justify-center text-sm"
-          >
-            <code>{serverStatus}</code>
-          </div>
 
           <Link to="/flowchart" data-cy="script-btn">
             <Button

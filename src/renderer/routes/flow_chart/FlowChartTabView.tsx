@@ -269,7 +269,6 @@ const FlowChartTab = () => {
   );
 
   const addBlockReady = manifest !== undefined;
-  const serverStatus = useSocketStore((state) => state.serverStatus);
 
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     useShallow((state) => ({
@@ -388,13 +387,6 @@ const FlowChartTab = () => {
               </>
             )}
             <div className="grow" />
-            <div
-              data-cy="app-status"
-              id="app-status"
-              className="mr-5 flex items-center justify-center text-sm"
-            >
-              <code>{serverStatus}</code>
-            </div>
 
             <Link to="/control" data-cy="control-btn">
               <Button

@@ -165,12 +165,18 @@ const ControlBar = () => {
 
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
-              <Icons.discord className="h-5 w-5" />
+              Discord
             </MenubarTrigger>
+          </MenubarMenu>
+          <MenubarMenu>
           </MenubarMenu>
         </Menubar>
       </div>
-      <ProfileMenu />
+      <Menubar>
+        <MenubarMenu>
+        <ProfileMenu />
+        </MenubarMenu>
+      </Menubar>
       <DarkModeToggle />
     </div>
   );

@@ -154,7 +154,7 @@ const ProfileBox = ({
           </div>
         </div>
 
-        <p className="text-sm">{user.name}</p>
+        <p className="text-sm">{user.name.slice(0, 20)}</p>
       </div>
       <ConfirmPrompt
         open={openConfirmPrompt}

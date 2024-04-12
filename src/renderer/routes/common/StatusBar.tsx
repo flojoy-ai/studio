@@ -9,12 +9,21 @@ import { cn } from "@/renderer/lib/utils";
 import { Button } from "@/renderer/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 import { useSocketStore } from "@/renderer/stores/socket";
+// eslint-disable-next-line no-restricted-imports
+import packageJson from "../../../../package.json";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
   const serverStatus = useSocketStore((state) => state.serverStatus);
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
 
   useEffect(() => {
     if (lastElem.current?.scrollIntoView) {
@@ -32,6 +41,7 @@ const StatusBar = (): JSX.Element => {
       setMessages((prev) => (prev.includes(data) ? prev : [...prev, data]));
     });
   }, []);
+
 
   return (
     <div
@@ -52,24 +62,43 @@ const StatusBar = (): JSX.Element => {
         }}
       >
         {minimize && (
-          <div className="flex min-w-fit items-center gap-2 ps-2">
+          <div className="flex min-w-fit items-center gap-2 ps-2 w-full">
+            <div>
             {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
               serverStatus,
             ) ? (
-              <Badge>Operational</Badge>
+              <Badge>Studio - {packageJson.version}</Badge>
             ) : (
               <Badge variant={"destructive"}>Disconnected</Badge>
             )}
-            <div className="text-xs">
-              <code>
-                {messages[messages.length - 1]?.slice(0, 145)}...
-              </code>
             </div>
+            { activeTab === "Flowchart" || activeTab === "Control Panel" ? (
+              <>
+                <div className="grow" />
+                <div 
+                  data-cy="app-status"
+                  id="app-status"
+                  className="flex text-xs"
+                >
+                  <code>
+                    {serverStatus}
+                  </code>
+                </div>
+              </>
+              ) : (
+                <>
+                  <code className="text-xs">
+                    {messages[messages.length - 1]?.slice(0, 145)}...
+                  </code>
+                  <div className="grow" />
+                </>
+              )}
+            <div className="grow" />
           </div>
         )}
         <div
           className={cn(
-            "sticky right-0 top-0 z-50 flex h-full w-full justify-end",
+            "sticky right-0 top-0 z-50 flex h-full justify-end w-32",
             {
               "w-full p-0": !minimize,
             },
@@ -77,7 +106,7 @@ const StatusBar = (): JSX.Element => {
         >
           <Button
             variant="link"
-            className="w-29 rounded-none text-xs"
+            className="w-29 text-xs"
             onClick={() => setMinimize((p) => !p)}
           >
             {minimize ? "Expand log" : "Collapse log"}

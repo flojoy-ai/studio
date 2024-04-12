@@ -29,8 +29,8 @@ const App = () => {
     <div>
       <Toaster theme={resolvedTheme} richColors closeButton />
       <SocketReceiver />
-      <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
-        Flojoy Studio ({packageJson.version})
+      <div className="titlebar flex h-8 items-center justify-center bg-background font-bold">
+        Flojoy Studio
       </div>
       <Routes>
         <Route path="/" element={<Index />} />
