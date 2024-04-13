@@ -55,9 +55,8 @@ async def get_cloud_part_variation(part_variation_id: str):
     response = requests.get(url, headers=headers_builder())
     res = response.json()
     res["partVariationId"] = part_variation_id
-    part_variation = PartVariation(**res)
-    # Get Parent Info => Get Product Info and attach the Product name to the request
-    return part_variation.model_dump(by_alias=True)
+    logging.info("Part variation retrieved: %s", res)
+    return PartVariation(**res)
 
 
 class SecretNotFound(Exception):
@@ -108,7 +107,7 @@ class Project(CloudModel):
 
 class Part(CloudModel):
     name: str
-    product_id: str = Field(..., alias='productId')
+    product_name: str = Field(..., alias='productName')
     description: str
 
 
@@ -185,16 +184,12 @@ def get_measurement(m: Measurement) -> MeasurementData:
     return data
 
 
-def get_part(part_id: str) -> Part:
+async def get_part(part_id: str) -> Part:
+    logging.info("Querying part")
     url = get_flojoy_cloud_url() + "part/" + part_id
     response = requests.get(url, headers=headers_builder())
+    logging.info("Part retrieved: %s", response.json())
     return Part(**response.json())
-
-
-def get_product(product_id: str) -> Product:
-    url = get_flojoy_cloud_url() + "product/" + product_id
-    response = requests.get(url, headers=headers_builder())
-    return Product(**response.json())
 
 
 # Routes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -217,18 +212,21 @@ async def get_cloud_projects():
         logging.info("Projects retrieved: %s", response.json())
         projects = [Project(**project_data) for project_data in response.json()]
         logging.info("Projects: %s", projects)
+        projects_res = []
+        for p in projects:
+            part_var = await get_cloud_part_variation(p.part_variation_id)
+            part = await get_part(part_var.part_id)
+            projects_res.append(
+                {
+                    "label": p.name,
+                    "value": p.id,
+                    "part": part_var.model_dump(by_alias=True),
+                    "productName": part.product_name,
+                }
+            )
         return Response(
             status_code=200,
-            content=json.dumps(
-                [
-                    {
-                        "label": p.name,
-                        "value": p.id,
-                        "part": await get_cloud_part_variation(p.part_variation_id),
-                    }
-                    for p in projects
-                ]
-            ),
+            content=json.dumps(projects_res),
         )
     except Exception as e:
         return error_response_builder(e)
