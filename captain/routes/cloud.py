@@ -94,20 +94,20 @@ def headers_builder(with_workspace_id=True) -> dict:
 
 class CloudModel(BaseModel):
     id: str
-    created_at: str = Field(..., alias='createdAt')
-    workspace_id: str = Field(..., alias='workspaceId')
+    created_at: str = Field(..., alias="createdAt")
+    workspace_id: str = Field(..., alias="workspaceId")
 
 
 class Project(CloudModel):
     name: str
-    updated_at: Optional[datetime.datetime] = Field(..., alias='updatedAt')
-    part_variation_id: str = Field(..., alias='partVariationId')
-    repo_url: Optional[str] = Field(..., alias='repoUrl')
+    updated_at: Optional[datetime.datetime] = Field(..., alias="updatedAt")
+    part_variation_id: str = Field(..., alias="partVariationId")
+    repo_url: Optional[str] = Field(..., alias="repoUrl")
 
 
 class Part(CloudModel):
     name: str
-    product_name: str = Field(..., alias='productName')
+    product_name: str = Field(..., alias="productName")
     description: str
 
 
@@ -118,40 +118,40 @@ class Product(CloudModel):
 
 class Station(BaseModel):
     id: str
-    created_at: str = Field(..., alias='createdAt')
+    created_at: str = Field(..., alias="createdAt")
     name: str
 
 
 class PartVariation(CloudModel):
-    part_id: str = Field(..., alias='partId')
-    part_variation_id: str = Field(..., alias='partVariationId')
-    part_number: str = Field(..., alias='partNumber')
+    part_id: str = Field(..., alias="partId")
+    part_variation_id: str = Field(..., alias="partVariationId")
+    part_number: str = Field(..., alias="partNumber")
     description: str
 
 
 class Unit(CloudModel):
-    serial_number: str = Field(..., alias='serialNumber')
-    lot_number: Optional[str] = Field(..., alias='lotNumber')
+    serial_number: str = Field(..., alias="serialNumber")
+    lot_number: Optional[str] = Field(..., alias="lotNumber")
     parent: Optional[str]
-    part_variation_id: str = Field(..., alias='partVariationId')
+    part_variation_id: str = Field(..., alias="partVariationId")
 
 
 class Measurement(CloudModel):
-    test_id: str = Field(..., alias='testId')
-    sequence_name: str = Field(..., alias='sequenceName')
-    cycle_number: int = Field(..., alias='cycleNumber')
+    test_id: str = Field(..., alias="testId")
+    sequence_name: str = Field(..., alias="sequenceName")
+    cycle_number: int = Field(..., alias="cycleNumber")
     name: str
     pass_: Optional[bool]
-    completion_time: float = Field(..., alias='completionTime')
+    completion_time: float = Field(..., alias="completionTime")
 
 
 class Session(CloudModel):
     serial_number: str
-    station_id: str = Field(..., alias='stationId')
+    station_id: str = Field(..., alias="stationId")
     integrity: bool
     aborted: bool
     notes: str
-    commit_hash: str = Field(..., alias='commitHash')
+    commit_hash: str = Field(..., alias="commitHash")
     measurements: list[Measurement]
 
 
