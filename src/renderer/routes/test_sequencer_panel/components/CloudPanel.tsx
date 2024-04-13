@@ -35,7 +35,6 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { toast } from "sonner";
 import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
-import { useAuth } from "@/renderer/context/auth.context";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
 
 export function CloudPanel() {
@@ -48,7 +47,6 @@ export function CloudPanel() {
   const [partVarId, setPartVarId] = useState("");
   const [productName, setProductName] = useState("N/A");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
-  const { user } = useAuth();
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
   const {

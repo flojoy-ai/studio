@@ -5,7 +5,6 @@ import {
   TestSequenceDropResult,
 } from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
 import {
-  tableRowVariants,
   TableCell,
   TableRow,
 } from "@/renderer/components/ui/table";
