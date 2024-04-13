@@ -71,10 +71,23 @@ export const DraggableRowStep = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
+  let cssBaseOnStatus = "";
+  if (row.original.type === "test") {
+    if (row.original.status === "fail" || row.original.status === "aborted") {
+      cssBaseOnStatus = " bg-[--error-bg] text-[--error-text] border-[--error-border]";
+    } else if (row.original.status === "pass") {
+      cssBaseOnStatus = " bg-[--success-bg] text-[--success-text] border-[--success-border]";
+    } else if (row.original.status === "running") {
+      cssBaseOnStatus = " bg-[--info-bg] text-[--info-text] border-[--info-border]";
+    } else if (row.original.status === "paused") {
+      cssBaseOnStatus = " bg-[--warning-bg] text-[--warning-text] border-[--warning-border]";
+    }
+  }
+
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
-      className="relative"
+      className={`relative ${cssBaseOnStatus}`}
       ref={drag}
       {...props}
     >
