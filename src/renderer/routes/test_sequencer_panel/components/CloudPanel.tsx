@@ -297,7 +297,7 @@ export function CloudPanel() {
 
           <div className="pt-2 text-xs text-muted-foreground">
             <p>Description: {` ${description}`} </p>
-            <p>Product Name: {` ${productName}`} </p>
+            <p>Product ID: {` ${productName}`} </p>
           </div>
 
           <hr className="mt-4" />
