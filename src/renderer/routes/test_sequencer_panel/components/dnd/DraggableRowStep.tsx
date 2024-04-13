@@ -4,11 +4,12 @@ import {
   ItemTypes,
   TestSequenceDropResult,
 } from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
-import { TableCell, TableRow } from "@/renderer/components/ui/table";
+import { tableRowVariants, TableCell, TableRow } from "@/renderer/components/ui/table";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
+
 
 export const DraggableRowStep = ({
   row,
@@ -71,23 +72,19 @@ export const DraggableRowStep = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
-  let cssBaseOnStatus = "";
+  let variant = "default" as "aborted" | "pass" | "fail" | "running" | "paused" | "default";
   if (row.original.type === "test") {
-    if (row.original.status === "fail" || row.original.status === "aborted") {
-      cssBaseOnStatus = " bg-[--error-bg] text-[--error-text] border-[--error-border]";
-    } else if (row.original.status === "pass") {
-      cssBaseOnStatus = " bg-[--success-bg] text-[--success-text] border-[--success-border]";
-    } else if (row.original.status === "running") {
-      cssBaseOnStatus = " bg-[--info-bg] text-[--info-text] border-[--info-border]";
-    } else if (row.original.status === "paused") {
-      cssBaseOnStatus = " bg-[--warning-bg] text-[--warning-text] border-[--warning-border]";
+    if (row.original.status !== "pending") {
+      variant = row.original.status as "aborted" | "pass" | "fail" | "running" | "paused";
+      variant = ["aborted", "pass", "fail", "running", "paused"].includes(row.original.status) ? row.original.status : "default";
     }
   }
 
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
-      className={`relative ${cssBaseOnStatus}`}
+      className="relative"
+      variant={variant}
       ref={drag}
       {...props}
     >
