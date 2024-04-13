@@ -63,7 +63,6 @@
     --warning-bg: hsl(49, 100%, 97%);
     --warning-border: hsl(49, 91%, 91%);
     --warning-text: hsl(31, 92%, 45%);
-      
   }
 
   .dark {
@@ -108,7 +107,7 @@
     --color-accent4: 240 95 168;
     --color-accent5: #8c9599;
     --color-accent6: #88fa4e;
-    
+
     --success-bg: hsl(150, 100%, 6%);
     --success-border: hsl(147, 100%, 12%);
     --success-text: hsl(150, 86%, 65%);

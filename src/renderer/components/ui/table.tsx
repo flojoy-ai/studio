@@ -48,7 +48,6 @@ const TableFooter = React.forwardRef<
 ));
 TableFooter.displayName = "TableFooter";
 
-
 const tableRowVariants = cva(
   "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
   {
@@ -58,7 +57,8 @@ const tableRowVariants = cva(
         fail: "bg-[--error-bg] text-[--error-text] border-[--error-border]",
         aborted: "bg-[--error-bg] text-[--error-text] border-[--error-border]",
         pass: "bg-[--success-bg] text-[--success-text] border-[--success-border]",
-        paused: "bg-[--warning-bg] text-[--warning-text] border-[--warning-border]",
+        paused:
+          "bg-[--warning-bg] text-[--warning-text] border-[--warning-border]",
         running: "bg-[--info-bg] text-[--info-text] border-[--info-border]",
         default: "border",
       },
@@ -67,12 +67,12 @@ const tableRowVariants = cva(
       variant: "default",
     },
   },
-  );
+);
 
-export interface TableRowProps 
+export interface TableRowProps
   extends React.HTMLAttributes<HTMLTableRowElement>,
-    VariantProps<typeof tableRowVariants>{
-      ref?: React.Ref<HTMLTableRowElement>;
+    VariantProps<typeof tableRowVariants> {
+  ref?: React.Ref<HTMLTableRowElement>;
 }
 
 const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
@@ -82,7 +82,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       className={cn(className, tableRowVariants({ variant }))}
       {...props}
     />
-  )
+  ),
 );
 TableRow.displayName = "TableRow";
 
