@@ -46,6 +46,7 @@ export function CloudPanel() {
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
   const [partVarId, setPartVarId] = useState("");
+  const [productName, setProductName] = useState("");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
   const { user } = useAuth();
   const { isLocked } = useDisplayedSequenceState();
@@ -212,6 +213,7 @@ export function CloudPanel() {
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
+    setProductName(newValue.productName);
   };
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
@@ -295,6 +297,7 @@ export function CloudPanel() {
 
           <div className="pt-2 text-xs text-muted-foreground">
             <p>Description: {` ${description}`} </p>
+            <p>Product Name: {` ${productName}`} </p>
           </div>
 
           <hr className="mt-4" />
