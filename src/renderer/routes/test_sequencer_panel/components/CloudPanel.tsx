@@ -24,6 +24,7 @@ import {
   getCloudStations,
   getCloudUnits,
   getEnvironmentVariables,
+  installTestProfile,
 } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -37,6 +38,7 @@ import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useAuth } from "@/renderer/context/auth.context";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
+import { useLoadTestProfile } from "@/renderer/hooks/useTestSequencerProject";
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -50,6 +52,9 @@ export function CloudPanel() {
   const { user } = useAuth();
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
+  const handleLoadProfile = useLoadTestProfile();
+  const [ testProfileUrl, setTestProfileUrl ] = useState("");
+  const [ currentHash, setCurrentHash ] = useState("");
   const {
     serialNumber,
     isUploaded,
@@ -187,6 +192,32 @@ export function CloudPanel() {
     enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
   });
 
+  const installTestProfileQuery = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      if (envsQuery.isSuccess && projectsQuery.isSuccess && testProfileUrl !== "") {
+        // dialog to ask user if they want to install test profile
+        const shouldContinue = window.confirm(
+          "Do you want to load the test profile associated with production line?",
+        );
+        if (!shouldContinue) return;
+        const res = await installTestProfile(testProfileUrl);
+        return res.match(
+          (vars) => {
+            setCurrentHash(vars.hash);
+            handleLoadProfile(vars.profile_root);
+          },
+          (e) => {
+            console.error(e);
+            toast.error(`Failed to load test profile: ${e}`);
+          },
+        );
+      }
+      return [];
+    },
+    enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
+  });
+
   useEffect(() => {
     if (projectId !== "") {
       stationsQuery.refetch();
@@ -197,6 +228,10 @@ export function CloudPanel() {
   useEffect(() => {
     unitQuery.refetch();
   }, [partVarId]);
+
+  useEffect(() => {
+    installTestProfileQuery.refetch();
+  }, [testProfileUrl]);
 
   useEffect(() => {
     const sn = serialNumber.toLowerCase();
@@ -212,6 +247,7 @@ export function CloudPanel() {
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
+    setTestProfileUrl("https://github.com/LatentDream/flojoy-test-fixture.git");
   };
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(

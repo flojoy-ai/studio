@@ -102,6 +102,46 @@ export const useImportSequences = () => {
   return handleImport;
 };
 
+export const useLoadTestProfile = () => {
+  const manager = usePrepareStateManager();
+  const handleImport = async (localRootFolder: string) => {
+    const result = await window.api.openAllFilesInFolder(
+      localRootFolder,
+      ["tjoy"],
+    );
+    if (result === undefined) {
+      toast.error(`Failed to find the directory for ${localRootFolder}`);
+      return;
+    }
+    if (!result || result.length === 0) {
+      toast.error("No .tjoy file found in the selected directory");
+      return;
+    }
+    const importSequences = async () => {
+      await Promise.all(
+      result.map(async (res, idx) => {
+        const { filePath, fileContent } = res;
+        const result = await importSequence(
+          filePath,
+          fileContent,
+          manager,
+          idx !== 0,
+        );
+        if (result.isErr()) throw result.error;
+      }),
+      );
+    };
+    const s = result.length > 1 ? "s" : "";
+    toast.promise(importSequences, {
+      loading: `Importing${s} sequence...`,
+      success: () => `Sequence${s} imported`,
+      error: (e) => `${e}`,
+    });
+  };
+
+  return handleImport;
+}
+
 export const useCloseSequence = () => {
   const { isUnsaved } = useDisplayedSequenceState();
   const manager = usePrepareStateManager();

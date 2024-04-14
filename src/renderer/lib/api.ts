@@ -282,3 +282,14 @@ export const getCloudHealth = (url: string | undefined = undefined) => {
     (e) => e as HTTPError,
   );
 };
+
+const TestProfile = z.object({
+  profile_root: z.string(),
+  hash: z.string(),
+});
+export type TestProfile = z.infer<typeof TestProfile>;
+
+export const installTestProfile = (url: string) => {
+  let options: Options = { headers: { url: url }, timeout: 60000 };
+  return get("test_profile/install", TestProfile, options);
+};
