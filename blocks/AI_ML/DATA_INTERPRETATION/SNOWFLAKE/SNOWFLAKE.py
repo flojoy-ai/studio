@@ -1,18 +1,32 @@
-from flojoy import flojoy, String
-import snowflake.connector
-from langchain_anthropic import ChatAnthropic
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-import os
+from typing import TypedDict
+from flojoy import flojoy, String, OrderedPair
+import json
+import ast
+from langchain_community.utilities import SQLDatabase
+from langchain_community.agent_toolkits.sql.base import create_sql_agent
+from langchain_openai import ChatOpenAI
+from langchain_core.tools import tool
+from langchain.pydantic_v1 import BaseModel, Field
+
+MAX_RETRIES_FOR_STRUCTURED_OUTPUT = 3  # Number of retries
 
 
-@flojoy(
-    deps={
-        "snowflake-connector-python": "3.8.1",
-        "langchain": "0.1.16",
-        "langchain-anthropic": "0.1.8",
-    }
-)
+class SnowflakeOutput(TypedDict):
+    bar_plot_data: OrderedPair
+    text_answer: String
+
+
+# @flojoy(
+#     deps={
+#         "sqlalchemy": "1.4.51",  # IMPORTANT: THIS IS THE ONLY VERSION THAT WORKS WITH SNOWFLAKE DB WRAPPER IN LANGCHAIN
+#         "snowflake-sqlalchemy": "1.5.1",  # IMPORTANT: THIS IS THE ONLY VERSION THAT WORKS WITH SNOWFLAKE DB WRAPPER IN LANGCHAIN
+#         "snowflake-connector-python": "3.8.1",
+#         "langchain": "0.1.16",
+#         "langchain-openai": "0.1.3",
+#         "langchain-community": "0.0.32",
+#     }
+# )
+@flojoy
 def SNOWFLAKE(
     user_prompt: String,
     user: str,
@@ -21,8 +35,8 @@ def SNOWFLAKE(
     warehouse: str,
     database: str,
     schema: str,
-    anthropic_api_key: str,
-) -> String:
+    openai_api_key: str,
+) -> SnowflakeOutput:
     """ASK QUESTIONS ABOUT A DATABASE FROM SNOWFLAKE.
 
     Inputs
@@ -42,80 +56,115 @@ def SNOWFLAKE(
         the database name to get the data from
     schema: str
         the database schema containing the relevant tables to get the data from
-    anthropic_api_key: str
-        the Anthropic API key associated with your Anthropic account used to access Claude-3
+    openai_api_key: str
+        the OPENAI API key associated with your OPENAI account used to access
 
     Returns
     -------
-    String
-        the answer to the prompt
+    OrderedPair
+        the data to plot
     """
-    # STEP 1: GET DATA FROM SNOWFLAKE
-    # TODO: Have conn objects globally available sort of like hardware connections?
-    conn = snowflake.connector.connect(
-        user=user,
-        password=password,
-        account=account,
-        warehouse=warehouse,
-        database=database,
-        schema=schema,
+
+    snowflake_url = f"snowflake://{user}:{password}@{account}/{database}/{schema}?warehouse={warehouse}"
+
+    db = SQLDatabase.from_uri(snowflake_url)
+
+    # define the schema for the final output
+    @tool
+    class Response(BaseModel):
+        """Finally, use this tool as response to return to the user."""
+
+        user_requested_plot: bool = Field(
+            "This field indicates whether the user requested something to be plotted in the initial field"
+        )
+        x_axis_query: str = Field(
+            description="This is an SQL code snippet. This query will give the x-axis for the data to plot"
+        )
+        y_axis_query: str = Field(
+            desciption="This is an SQL code snippet. This query will give the y-axis for the data to plot"
+        )
+        answer_to_prompt: str = Field(
+            description="This field contains the answer to the user's initial prompt"
+        )
+
+    # use to validate Response, should match
+    class ResponseValidation(BaseModel):
+        user_requested_plot: bool
+        x_axis_query: str
+        y_axis_query: str
+        answer_to_prompt: str
+
+    tools = [Response]
+
+    llm = ChatOpenAI(
+        api_key=openai_api_key,
+        model="gpt-4-turbo-preview",
+        temperature=0,
     )
 
-    print("Getting data from Snowflake DB", flush=True)
-    cursor = conn.cursor()
-    try:
-        # Fetch all tables in the specified schema
-        cursor.execute("SHOW TABLES")
-        tables = cursor.fetchall()
-    finally:
-        cursor.close()
+    prefix_template = f"""
+    You are a world expert data analyst.
+    DO NOT make any DML statements (INSERT, UPDATE, DELETE, DROP etc.) to the database.
+    Always try to use the provided tools: {tools}
+    """
 
-    rows_str = []
-    for table_data in tables:
-        table_name = table_data[1]  # Depending on the format, might need adjustment
+    format_instructions = """
+    Use the following format:
 
-        cursor = conn.cursor()
+    Question: the input question you must answer
+    Thought: you should always think about what to do
+    Action: the action to take. Use a tool if you deem it necessary. The tools at your disposal are the following: [{tool_names}]
+    Action Input: the input to the action
+    Observation: the result of the action
+    ... (this Thought/Action/Action Input/Observation can repeat N times)
+    Thought: I now know the final answer
+    Final Answer: The JSON string corresponding to the input of the args of the Response tool
+    """
+
+    agent_executor = create_sql_agent(
+        llm,
+        db=db,
+        prefix_template=prefix_template,
+        format_instructions=format_instructions,
+        agent_type="zero-shot-react-description",
+        verbose=True,
+        extra_tools=tools,
+    )
+
+    attempts = 0
+
+    while attempts < MAX_RETRIES_FOR_STRUCTURED_OUTPUT:
         try:
-            query = f"SELECT * FROM {table_name}"
-            cursor.execute(query)
+            answer = agent_executor.invoke({"input": user_prompt})
 
-            # Fetch and print rows
-            rows = cursor.fetchall()
-            for row in rows:
-                rows_str.append(str(row))
+            def remove_json_triple_quote_from(string: str):
+                if "```json" not in string:
+                    return string
+                return string.split("```json")[1].split("```")[0]
 
-        except Exception as e:
-            print(f"Error querying table {table_name}: {e}")
-        finally:
-            cursor.close()
-
-    conn.close()
-    data_str = "\n".join(rows_str)
-
-    # STEP 2: Feed into LLM
-    output_parser = StrOutputParser()
-    llm = ChatAnthropic(
-        api_key=anthropic_api_key, model="claude-3-opus-20240229", temperature=0
-    )
-
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are an expert data analyst.
-
-        Use this data as context:
-        <data>
-        {data}
-        </data>
-
-        Now, answer the following question:
-        <question>
-        {input}
-        </question>
-
-        Begin!
-    """
-    )
-
-    chain = prompt | llm | output_parser
-    print("Invoking LLM...", flush=True)
-    return String(s=chain.invoke({"data": data_str, "input": user_prompt.s}))
+            answer_obj = json.loads(remove_json_triple_quote_from(answer["output"]))
+            response = ResponseValidation.parse_obj(answer_obj)
+            x = ast.literal_eval(db.run(response.x_axis_query))
+            y = ast.literal_eval(db.run(response.y_axis_query))
+            print("__________")
+            print(type(x))
+            print(x)
+            print("__________")
+            print(type(y))
+            print(y)
+            x = list(map(lambda x: x[0], x))
+            y = list(map(lambda y: y[0], y))
+            print("+++++++++")
+            print(x)
+            print("+++++++++")
+            print(y)
+            ordered_pair = OrderedPair(x=x, y=y)
+            answer = String(s=response.answer_to_prompt)
+            return SnowflakeOutput(bar_plot_data=ordered_pair, text_answer=answer)
+        except Exception as e:  # Catch the specific exception you expect
+            attempts += 1
+            print(f"Attempt {attempts} failed with error: {e}")
+            if attempts == MAX_RETRIES_FOR_STRUCTURED_OUTPUT:
+                raise Exception(
+                    "Agent failed to output properly multiple times, is the prompt correct?"
+                )
