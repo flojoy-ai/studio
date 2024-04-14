@@ -192,32 +192,6 @@ export function CloudPanel() {
     enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
   });
 
-  const installTestProfileQuery = useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      if (envsQuery.isSuccess && projectsQuery.isSuccess && testProfileUrl !== "") {
-        // dialog to ask user if they want to install test profile
-        const shouldContinue = window.confirm(
-          "Do you want to load the test profile associated with production line?",
-        );
-        if (!shouldContinue) return;
-        const res = await installTestProfile(testProfileUrl);
-        return res.match(
-          (vars) => {
-            setCurrentHash(vars.hash);
-            handleLoadProfile(vars.profile_root);
-          },
-          (e) => {
-            console.error(e);
-            toast.error(`Failed to load test profile: ${e}`);
-          },
-        );
-      }
-      return [];
-    },
-    enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
-  });
-
   useEffect(() => {
     if (projectId !== "") {
       stationsQuery.refetch();
@@ -230,7 +204,7 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    installTestProfileQuery.refetch();
+    handleLoadProfile(testProfileUrl)
   }, [testProfileUrl]);
 
   useEffect(() => {

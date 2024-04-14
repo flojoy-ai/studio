@@ -14,6 +14,8 @@ import {
   saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toastResultPromise } from "../utils/report-error";
+import { Result, err, ok } from "neverthrow";
+import { installTestProfile } from "../lib/api";
 
 function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
@@ -104,20 +106,33 @@ export const useImportSequences = () => {
 
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
-  const handleImport = async (localRootFolder: string) => {
-    const result = await window.api.openAllFilesInFolder(
-      localRootFolder,
-      ["tjoy"],
-    );
-    if (result === undefined) {
-      toast.error(`Failed to find the directory for ${localRootFolder}`);
+  const handleImport = async (gitRepoUrlHttp: string) => {
+    if (gitRepoUrlHttp === "") {
       return;
     }
-    if (!result || result.length === 0) {
-      toast.error("No .tjoy file found in the selected directory");
-      return;
-    }
-    const importSequences = async () => {
+    async function importSequences(): Promise<Result<void, Error>> {
+      const shouldContinue = window.confirm(
+        "Do you want to load the test profile associated with production line?",
+      );
+      if (!shouldContinue) {
+        return err(Error("User cancelled loading test profile"));
+      }
+      const res = await installTestProfile(gitRepoUrlHttp);
+      if (res.isErr()) {
+        return err(Error(`Failed to load test profile: ${res.error}`));
+      }
+      // todo: set hash in zustand for integrity
+      
+      const result = await window.api.openAllFilesInFolder(
+        res.value.profile_root,
+        ["tjoy"],
+      );
+      if (result === undefined) {
+        return err(Error(`Failed to find the directory ${res.value.profile_root}`));
+      }
+      if (!result || result.length === 0) {
+        return err(Error("No .tjoy file found in the selected directory"));
+      }
       await Promise.all(
       result.map(async (res, idx) => {
         const { filePath, fileContent } = res;
@@ -127,14 +142,15 @@ export const useLoadTestProfile = () => {
           manager,
           idx !== 0,
         );
-        if (result.isErr()) throw result.error;
+        if (result.isErr())
+          return err(result.error);
       }),
       );
+      return ok(undefined);
     };
-    const s = result.length > 1 ? "s" : "";
-    toast.promise(importSequences, {
-      loading: `Importing${s} sequence...`,
-      success: () => `Sequence${s} imported`,
+    toastResultPromise(importSequences(), {
+      loading: `Importing Test Profile...`,
+      success: () => `Test Profile imported`,
       error: (e) => `${e}`,
     });
   };
