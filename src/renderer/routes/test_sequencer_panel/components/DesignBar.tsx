@@ -314,4 +314,3 @@ const mapStatusToDisplay: { [k in StatusType] } = {
     </Status>
   ),
 };
-
