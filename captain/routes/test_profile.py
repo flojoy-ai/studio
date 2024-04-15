@@ -26,10 +26,10 @@ async def install(url: Annotated[str, Header()]):
         logging.info(f"Profile name: {profile_name}")
 
         # Check if Git is install
-        status, _ = subprocess.getstatusoutput(["git", "--version"])
-        if status != 0:
+        cmd = ["git", "--version"]
+        res = subprocess.run(cmd, capture_output=True)
+        if res.returncode != 0:
             raise NotImplementedError("Git is not found on you system")
-        print("Git is installed")
 
         # Find the output folder
         profiles_dir = os.path.join(get_flojoy_dir(), f"test_profiles{os.sep}")
@@ -37,27 +37,30 @@ async def install(url: Annotated[str, Header()]):
         # Create the dir if it doesn't exist
         if not os.path.exists(profiles_dir):
             os.makedirs(profiles_dir)
-            print(f"Created {profiles_dir}")
-        else:
-            print(f"{profiles_dir} already exists")
 
         # Find the profile
         profile_root = os.path.join(profiles_dir, profile_name)
         if not os.path.exists(profile_root):
             # Clone the repo if it doesn't exist
-            status, _ = subprocess.getstatusoutput(["git", "clone", "--depth", "1", url, profile_root])
-            print(f"Cloning {url} - Status: {status}")
-            if status != 0:
-                raise Exception(f"Not able to clone {url} - Error: {status}")
+            cmd = ["git", "clone", "--depth", "1", url, profile_root]
+            res = subprocess.run(cmd, capture_output=True)
+            if res.returncode != 0:
+                stdout = res.stdout.decode("utf-8").strip()
+                stderr = res.stderr.decode("utf-8").strip()
+                logging.error(f"Error while cloning url: {stdout} - {stderr}")
+                raise Exception(f"Not able to clone {url} - Error: {res.returncode}")
         else:
-            print(f"{profile_root} already exists")
+            # todo: check if the repo is up-to-date
+            pass
 
         # Get the commit ID of the local branch
-        branch_name = subprocess.check_output(["git", "-C", profile_root, "rev-parse", "--abbrev-ref", "HEAD"]).strip()
-        local_commit_id = subprocess.check_output(["git", "-C", profile_root, "rev-parse", "HEAD"]).strip().decode()
+        cmd = ["git", "-C", profile_root, "rev-parse", "HEAD"]
+        res = subprocess.run(cmd, capture_output=True)
+        if res.returncode != 0:
+            raise Exception(f"Not able to get the commit ID of the local branch - Error: {res.returncode}")
+        local_commit_id = res.stdout.strip().decode()
 
         # Return the Base Folder & the hash
-        print(f"Test Profile Loaded | dir:{profile_root} - branch: {branch_name} - hash: {local_commit_id}")
         profile_root = profile_root.replace(os.sep, "/")
         return Response(status_code=200, content=json.dumps({"profile_root": profile_root, "hash": local_commit_id}))
     except Exception as e:
