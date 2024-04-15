@@ -51,6 +51,7 @@ import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { RenameModal } from "../modals/RenameModal";
 import { toast } from "sonner";
+import { produce } from "immer";
 
 export function SequenceTable() {
   const { project, isLocked } = useDisplayedSequenceState();
@@ -301,18 +302,11 @@ export function SequenceTable() {
   };
 
   const handleRenameDescription = (newDescription: string) => {
-    setSequences(
-      [...sequences].map((seq, idx) => {
-        if (idx === renameForIdx.current) {
-          return {
-            ...seq,
-            project: { ...seq.project, description: newDescription },
-            testSequenceUnsaved: true,
-          };
-        }
-        return seq;
-      }),
-    );
+    setSequences(produce(sequences, (draft) => {
+      const seq = draft[renameForIdx.current];
+      seq.project.description = newDescription;
+      seq.testSequenceUnsaved = true;
+    }))
     setIsRenameDescModalOpen(false);
   };
 
