@@ -54,12 +54,12 @@ const tableRowVariants = cva(
     variants: {
       variant: {
         selected: "bg-muted",
-        fail: "bg-[--error-bg] text-[--error-text] border-[--error-border]",
-        aborted: "bg-[--error-bg] text-[--error-text] border-[--error-border]",
-        pass: "bg-[--success-bg] text-[--success-text] border-[--success-border]",
+        fail: "bg-error text-error-text border-error-foreground",
+        aborted: "bg-error text-error-text border-error-foreground",
+        pass: "bg-success text-success-text border-success-foreground",
         paused:
-          "bg-[--warning-bg] text-[--warning-text] border-[--warning-border]",
-        running: "bg-[--info-bg] text-[--info-text] border-[--info-border]",
+          "bg-warning text-warning-text border-warning-foreground",
+        running: "bg-info text-info-text border-info-foreground",
         default: "border",
       },
     },
