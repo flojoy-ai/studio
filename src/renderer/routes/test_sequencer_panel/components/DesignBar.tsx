@@ -225,17 +225,11 @@ const getNumberOfTestRunInSeq = (data: TestSequenceElement[]): number => {
 const getNumberOfTestRunInTotal = (
   sequences: TestSequenceContainer[],
 ): number => {
-  return sequences.reduce(
-    (acc, seq) => acc + getNumberOfTestRunInSeq(seq.elements),
-    0,
-  );
+  return _.sum(sequences.map(seq => getNumberOfTestRunInSeq(seq.elements)));
 };
 
 const getNumberOfTestInTotal = (sequences: TestSequenceContainer[]): number => {
-  return sequences.reduce(
-    (acc, seq) => acc + getNumberOfTestInSeq(seq.elements),
-    0,
-  );
+  return _.sum(sequences.map(seq => getNumberOfTestInSeq(seq.elements)));
 };
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
