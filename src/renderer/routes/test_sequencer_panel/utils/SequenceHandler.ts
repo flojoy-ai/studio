@@ -85,7 +85,7 @@ export async function saveSequence(
   }
   // Set the sequence as saved
   stateManager.setSequences(
-    [...stateManager.sequences].map((seq) => {
+    stateManager.sequences.map((seq) => {
       if (seq.project.name === sequence.name) {
         return { ...seq, testSequenceUnsaved: false };
       }
@@ -121,7 +121,7 @@ export async function saveSequences(
       return err(res.error);
     }
     stateManager.setSequences(
-      [...stateManager.sequences].map((seq) => ({
+      stateManager.sequences.map((seq) => ({
         ...seq,
         testSequenceUnsaved: false,
       })),

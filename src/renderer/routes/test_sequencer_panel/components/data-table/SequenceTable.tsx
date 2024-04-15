@@ -273,18 +273,17 @@ export function SequenceTable() {
       toast.error("Sequence name must be unique");
       return;
     }
-    setSequences(
-      [...sequences].map((seq, idx) => {
-        if (idx === renameForIdx.current) {
-          return {
-            ...seq,
-            project: { ...seq.project, name: newName },
-            testSequenceUnsaved: true,
-          };
-        }
-        return seq;
-      }),
-    );
+    if (newName === "") {
+      toast.error("Sequence name cannot be empty");
+      return;
+    }
+    setSequences(produce(sequences, (draft) => {
+      const seq = draft[renameForIdx.current];
+      seq.project.name = newName;
+      seq.testSequenceUnsaved = true;
+    }))
+    setIsRenameDescModalOpen(false);
+
     setIsRenameNameModalOpen(false);
   };
   const [isRenameNameModalOpen, setIsRenameNameModalOpen] = useState(false);
