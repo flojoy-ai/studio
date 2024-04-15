@@ -31,16 +31,6 @@ import {
 } from "@/renderer/components/ui/hover-card";
 import _ from "lodash";
 
-export type Summary = {
-  successRate: number;
-  numberOfTestRunInSeq: number;
-  numberOfTestInSeq: number;
-  numberOfTestRunInTotal: number;
-  numberOfTestInTotal: number;
-  numberOfSequenceRun: number;
-  numberOfSequence: number;
-  status: StatusType;
-};
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
@@ -55,18 +45,17 @@ export function DesignBar() {
   const { isAdmin } = useWithPermission();
   const importSequences = useImportSequences();
 
-  const [summary, setSummary] = useState<Summary>({
-    numberOfTestRunInSeq: 0,
-    numberOfTestInSeq: 0,
-    numberOfTestRunInTotal: 0,
-    numberOfTestInTotal: 0,
-    numberOfSequenceRun: 0,
-    numberOfSequence: 0,
-    successRate: 0,
-    status: "pending",
-  });
-  useMemo(() => {
-    setSummary({
+  const {
+    numberOfTestRunInSeq,
+    numberOfTestInSeq,
+    numberOfTestRunInTotal,
+    numberOfTestInTotal,
+    numberOfSequenceRun,
+    numberOfSequence,
+    successRate,
+    status,
+  } = useMemo(() => {
+    return {
       numberOfTestRunInSeq: getNumberOfTestRunInSeq(elems),
       numberOfTestInSeq: getNumberOfTestInSeq(elems),
       numberOfTestRunInTotal: getNumberOfTestRunInTotal(sequences),
@@ -75,7 +64,7 @@ export function DesignBar() {
       numberOfSequenceRun: getNumberOfSequenceRun(sequences),
       successRate: getSuccessRate(elems),
       status: getGlobalStatus(cycleRuns, sequences, elems),
-    });
+    };
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
@@ -152,17 +141,17 @@ export function DesignBar() {
         {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
             Test{" "}
-            {summary.numberOfTestRunInSeq + "/" + summary.numberOfTestInSeq}
+            {numberOfTestRunInSeq + "/" + numberOfTestInSeq}
           </code>
         ) : (
           <HoverCard>
             <HoverCardTrigger asChild>
               <Button variant="link">
-                <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
+                <code className="inline-flex translate-y-[2px] translate-x-[4px] items-center justify-center text-sm text-muted-foreground">
                   Test{" "}
                   {displayTotal
-                    ? `${summary.numberOfTestRunInTotal} / ${summary.numberOfTestInTotal}`
-                    : `${summary.numberOfTestRunInSeq} / ${summary.numberOfTestInSeq}`}
+                    ? `${numberOfTestRunInTotal}/${numberOfTestInTotal}`
+                    : `${numberOfTestRunInSeq}/${numberOfTestInSeq}`}
                 </code>
               </Button>
             </HoverCardTrigger>
@@ -196,7 +185,7 @@ export function DesignBar() {
 
         <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
           Sequence{" "}
-          {summary.numberOfSequenceRun + "/" + summary.numberOfSequence}
+          {numberOfSequenceRun + "/" + numberOfSequence}
         </code>
 
         <CyclePanel />
@@ -206,7 +195,7 @@ export function DesignBar() {
           id="app-status"
           className="text-md m-1 inline-flex h-8 w-40 items-center justify-center rounded-md border font-semibold text-primary transition-colors"
         >
-          {mapStatusToDisplay[summary.status]}
+          {mapStatusToDisplay[status]}
         </div>
       </div>
       <div className="py-1" />
