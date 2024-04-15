@@ -57,8 +57,7 @@ const tableRowVariants = cva(
         fail: "bg-error text-error-text border-error-foreground",
         aborted: "bg-error text-error-text border-error-foreground",
         pass: "bg-success text-success-text border-success-foreground",
-        paused:
-          "bg-warning text-warning-text border-warning-foreground",
+        paused: "bg-warning text-warning-text border-warning-foreground",
         running: "bg-info text-info-text border-info-foreground",
         default: "border",
       },

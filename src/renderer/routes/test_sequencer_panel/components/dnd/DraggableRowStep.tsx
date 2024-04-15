@@ -5,7 +5,10 @@ import {
   TestSequenceDropResult,
 } from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
 import { TableCell, TableRow } from "@/renderer/components/ui/table";
-import { StatusType, TestSequenceElement } from "@/renderer/types/test-sequencer";
+import {
+  StatusType,
+  TestSequenceElement,
+} from "@/renderer/types/test-sequencer";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
