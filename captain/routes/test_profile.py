@@ -19,30 +19,17 @@ async def install(url: Annotated[str, Header()]):
     - Private repo is not (directly) supported
     TODO:
     - [ ] Verify no change was done (git stash if so)
-    - [ ] Only clone the head commit (no history)
+    - [ ] Option if git is not install on the system
     """
     try:
-        profile_name = url.split("/")[-1].strip(".git")
-        logging.info(f"Profile name: {profile_name}")
-
-        # Check if Git is install
-        cmd = ["git", "--version"]
-        res = subprocess.run(cmd, capture_output=True)
-        if res.returncode != 0:
-            raise NotImplementedError("Git is not found on you system")
-
-        # Find the output folder
-        profiles_dir = os.path.join(get_flojoy_dir(), f"test_profiles{os.sep}")
-
-        # Create the dir if it doesn't exist
-        if not os.path.exists(profiles_dir):
-            os.makedirs(profiles_dir)
+        verify_git_install()
+        profiles_path = get_profiles_dir()
+        profile_path = get_profile_path_from_url(profiles_path, url)
 
         # Find the profile
-        profile_root = os.path.join(profiles_dir, profile_name)
-        if not os.path.exists(profile_root):
+        if not os.path.exists(profile_path):
             # Clone the repo if it doesn't exist
-            cmd = ["git", "clone", "--depth", "1", url, profile_root]
+            cmd = ["git", "clone", "--depth", "1", url, profile_path]
             res = subprocess.run(cmd, capture_output=True)
             if res.returncode != 0:
                 stdout = res.stdout.decode("utf-8").strip()
@@ -53,16 +40,9 @@ async def install(url: Annotated[str, Header()]):
             # todo: check if the repo is up-to-date
             pass
 
-        # Get the commit ID of the local branch
-        cmd = ["git", "-C", profile_root, "rev-parse", "HEAD"]
-        res = subprocess.run(cmd, capture_output=True)
-        if res.returncode != 0:
-            raise Exception(f"Not able to get the commit ID of the local branch - Error: {res.returncode}")
-        local_commit_id = res.stdout.strip().decode()
-
-        # Return the Base Folder & the hash
-        profile_root = profile_root.replace(os.sep, "/")
-        return Response(status_code=200, content=json.dumps({"profile_root": profile_root, "hash": local_commit_id}))
+        commit_hash = get_commit_hash(profile_path)
+        profile_path = profile_path.replace(os.sep, "/")
+        return Response(status_code=200, content=json.dumps({"profile_root": profile_path, "hash": commit_hash}))
     except Exception as e:
         logging.error(f"Exception occured while installing {url}: {e}")
         logging.error(traceback.format_exc())
@@ -70,6 +50,76 @@ async def install(url: Annotated[str, Header()]):
 
 
 @router.post("/test_profile/update/")
-async def get_update():
-    subprocess.run(["git", "pull"])
+async def get_update(url: Annotated[str, Header()]):
+    try:
+        verify_git_install()
+        profiles_path = get_profiles_dir()
+        profile_path = get_profile_path_from_url(profiles_path, url)
+
+        cmd = ["git", "-C", profile_path, "pull"]
+        res = subprocess.run(cmd, capture_output=True)
+        if res.returncode != 0:
+            raise Exception(f"Not able to pull the repo - Error: {res.returncode}")
+
+        commit_hash = get_commit_hash(profile_path)
+        return Response(status_code=200, content=json.dumps({"profile_root": profile_path, "hash": commit_hash}))
+    except Exception as e:
+        logging.error(f"Exception occured while installing {url}: {e}")
+        logging.error(traceback.format_exc())
+        Response(status_code=500, content=json.dumps({"error": f"{e}"}))
+
+
+@router.post("/test_profile/checkout/{commit_hash}/")
+async def checkout(url: Annotated[str, Header()], commit_hash: str):
+    try:
+        verify_git_install()
+        profiles_path = get_profiles_dir()
+        profile_path = get_profile_path_from_url(profiles_path, url)
+        await get_update(url)
+        curr_commit_hash = get_commit_hash(profile_path)
+        if curr_commit_hash != commit_hash:
+            cmd = ["git", "-C", profile_path, "checkout", commit_hash]
+            res = subprocess.run(cmd, capture_output=True)
+            if res.returncode != 0:
+                raise Exception(f"Not able to checkout the commit - Error: {res.returncode}")
+
+        commit_hash = get_commit_hash(profile_path)
+        return Response(status_code=200, content=json.dumps({"profile_root": profile_path, "hash": commit_hash}))
+    except Exception as e:
+        logging.error(f"Exception occured while installing {url}: {e}")
+        logging.error(traceback.format_exc())
+        Response(status_code=500, content=json.dumps({"error": f"{e}"}))
+
+
+# Helper functions ------------------------------------------------------------
+
+
+def get_profile_path_from_url(profiles_path: str, url: str):
+    profile_name = url.split("/")[-1].strip(".git")
+    logging.info(f"Profile name: {profile_name}")
+    profile_root = os.path.join(profiles_path, profile_name)
+    return profile_root
+
+
+def verify_git_install():
+    cmd = ["git", "--version"]
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        raise NotImplementedError("Git is not found on you system")
+
+
+def get_profiles_dir():
+    profiles_dir = os.path.join(get_flojoy_dir(), f"test_profiles{os.sep}")
+    if not os.path.exists(profiles_dir):
+        os.makedirs(profiles_dir)
+    return profiles_dir
+
+
+def get_commit_hash(profile_path: str):
+    # Get the commit hash of the local branch
+    cmd = ["git", "-C", profile_path, "rev-parse", "HEAD"]
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        raise Exception(f"Not able to get the commit ID of the local branch - Error: {res.returncode}")
+    return res.stdout.strip().decode()
 
