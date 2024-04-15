@@ -13,9 +13,11 @@ import {
   closeSequence,
   saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
-import { toastResultPromise } from "../utils/report-error";
+import { toastResultPromise } from "@/renderer/utils/report-error";
 import { Result, err, ok } from "neverthrow";
-import { installTestProfile } from "../lib/api";
+import { installTestProfile } from "@/renderer/lib/api";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
@@ -106,6 +108,7 @@ export const useImportSequences = () => {
 
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
+  const setCommitHash = useSequencerStore(useShallow((state) => state.setCommitHash));
   const handleImport = async (gitRepoUrlHttp: string) => {
     if (gitRepoUrlHttp === "") {
       return;
@@ -121,8 +124,7 @@ export const useLoadTestProfile = () => {
       if (res.isErr()) {
         return err(Error(`Failed to load test profile: ${res.error}`));
       }
-      // todo: set hash in zustand for integrity
-      
+      setCommitHash(res.value.hash);
       const result = await window.api.openAllFilesInFolder(
         res.value.profile_root,
         ["tjoy"],

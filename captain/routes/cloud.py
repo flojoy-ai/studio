@@ -107,7 +107,7 @@ class Project(CloudModel):
     updated_at: Optional[datetime.datetime]
     workspace_id: str
     part_variation_id: str
-    repo_Url: Optional[str]
+    repo_url: Optional[str]
 
 
 class Station(CloudModel):
@@ -203,6 +203,7 @@ async def get_cloud_projects():
                     {
                         "label": p.name,
                         "value": p.id,
+                        "repoUrl": p.repo_url,
                         "part": await get_cloud_part_variation(p.part_variation_id),
                     }
                     for p in projects

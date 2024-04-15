@@ -93,7 +93,6 @@ async def checkout(url: Annotated[str, Header()], commit_hash: str):
 
 # Helper functions ------------------------------------------------------------
 
-
 def get_profile_path_from_url(profiles_path: str, url: str):
     profile_name = url.split("/")[-1].strip(".git")
     logging.info(f"Profile name: {profile_name}")

@@ -35,6 +35,7 @@ type State = {
   stationId: string;
   integrity: boolean;
   isUploaded: boolean;
+  commitHash: string;
   // ~~~~~~~~~~~~~~~~~~
 };
 
@@ -52,6 +53,7 @@ type Actions = {
   setIntegrity: (val: boolean) => void;
   setStationId: (val: string) => void;
   setIsUploaded: (val: boolean) => void;
+  setCommitHash: (val: string) => void;
   // Cycles
   setCycleCount: (val: number) => void;
   setInfinite: (val: boolean) => void;
@@ -123,6 +125,8 @@ export const useSequencerStore = create<State & Actions>()(
     setIntegrity: (val) => set(() => ({ integrity: val })),
     isUploaded: false,
     setIsUploaded: (val) => set(() => ({ isUploaded: val })),
+    commitHash: "",
+    setCommitHash: (val) => set(() => ({ profileHash: val })),
 
     setWebsocketId: (val) =>
       set((state) => {

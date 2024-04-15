@@ -53,7 +53,7 @@ export function CloudPanel() {
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
   const handleLoadProfile = useLoadTestProfile();
-  const [ testProfileUrl, setTestProfileUrl ] = useState("");
+  const [ testProfileUrl, setTestProfileUrl ] = useState<string | null>("");
   const [ currentHash, setCurrentHash ] = useState("");
   const {
     serialNumber,
@@ -204,7 +204,7 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    handleLoadProfile(testProfileUrl)
+    handleLoadProfile(testProfileUrl === null ? "": testProfileUrl);
   }, [testProfileUrl]);
 
   useEffect(() => {
@@ -216,12 +216,12 @@ export function CloudPanel() {
     }
   }, [serialNumber]);
 
-  const handleSetProject = (newValue: Station) => {
+  const handleSetProject = (newValue: Project) => {
     setProjectId(newValue.value);
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
-    setTestProfileUrl("https://github.com/LatentDream/flojoy-test-fixture.git");
+    setTestProfileUrl(newValue.repoUrl);
   };
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(

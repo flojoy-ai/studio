@@ -179,6 +179,7 @@ export type Part = z.infer<typeof Part>;
 const Project = z.object({
   label: z.string(),
   value: z.string(),
+  repoUrl: z.string().nullable(),
   part: Part,
 });
 export type Project = z.infer<typeof Project>;
@@ -189,7 +190,7 @@ const Station = z.object({
   label: z.string(),
   value: z.string(),
 });
-export type Station = z.infer<typeof Project>;
+export type Station = z.infer<typeof Station>;
 export const getCloudStations = (projectId: string) =>
   get(`cloud/stations/${projectId}`, Station.array(), { timeout: 60000 });
 

@@ -243,6 +243,7 @@ export function useSequencerState() {
     serialNumber,
     stationId,
     integrity,
+    commitHash,
     setIsUploaded,
     sequences,
     setSequences,
@@ -267,6 +268,7 @@ export function useSequencerState() {
         serialNumber: state.serialNumber,
         stationId: state.stationId,
         integrity: state.integrity,
+        commitHash: state.commitHash,
         setIsUploaded: state.setIsUploaded,
         sequences: state.sequences,
         setSequences: state.setSequences,
@@ -348,7 +350,7 @@ export function useSequencerState() {
         return;
       }
       const upload = async () => {
-        await postSession(serialNumber, stationId, integrity, aborted, "", [
+        await postSession(serialNumber, stationId, integrity, aborted, commitHash, [
           ...useSequencerStore.getState().cycleRuns,
         ]);
       };
