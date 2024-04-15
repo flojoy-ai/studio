@@ -37,31 +37,10 @@ async def install(url: Annotated[str, Header()]):
                 logging.error(f"Error while cloning url: {stdout} - {stderr}")
                 raise Exception(f"Not able to clone {url} - Error: {res.returncode}")
         else:
-            # todo: check if the repo is up-to-date
-            pass
-
+            update_to_origin_main(profile_path)
+            
         commit_hash = get_commit_hash(profile_path)
         profile_path = profile_path.replace(os.sep, "/")
-        return Response(status_code=200, content=json.dumps({"profile_root": profile_path, "hash": commit_hash}))
-    except Exception as e:
-        logging.error(f"Exception occured while installing {url}: {e}")
-        logging.error(traceback.format_exc())
-        Response(status_code=500, content=json.dumps({"error": f"{e}"}))
-
-
-@router.post("/test_profile/update/")
-async def get_update(url: Annotated[str, Header()]):
-    try:
-        verify_git_install()
-        profiles_path = get_profiles_dir()
-        profile_path = get_profile_path_from_url(profiles_path, url)
-
-        cmd = ["git", "-C", profile_path, "pull"]
-        res = subprocess.run(cmd, capture_output=True)
-        if res.returncode != 0:
-            raise Exception(f"Not able to pull the repo - Error: {res.returncode}")
-
-        commit_hash = get_commit_hash(profile_path)
         return Response(status_code=200, content=json.dumps({"profile_root": profile_path, "hash": commit_hash}))
     except Exception as e:
         logging.error(f"Exception occured while installing {url}: {e}")
@@ -75,9 +54,12 @@ async def checkout(url: Annotated[str, Header()], commit_hash: str):
         verify_git_install()
         profiles_path = get_profiles_dir()
         profile_path = get_profile_path_from_url(profiles_path, url)
-        await get_update(url)
         curr_commit_hash = get_commit_hash(profile_path)
         if curr_commit_hash != commit_hash:
+            cmd = ["git", "-C", profile_path, "fetch", "--all"]
+            res = subprocess.run(cmd, capture_output=True)
+            if res.returncode != 0:
+                raise Exception(f"Not able to fetch the repo - Error: {res.returncode}")
             cmd = ["git", "-C", profile_path, "checkout", commit_hash]
             res = subprocess.run(cmd, capture_output=True)
             if res.returncode != 0:
@@ -92,6 +74,7 @@ async def checkout(url: Annotated[str, Header()], commit_hash: str):
 
 
 # Helper functions ------------------------------------------------------------
+
 
 def get_profile_path_from_url(profiles_path: str, url: str):
     profile_name = url.split("/")[-1].strip(".git")
@@ -115,10 +98,21 @@ def get_profiles_dir():
 
 
 def get_commit_hash(profile_path: str):
-    # Get the commit hash of the local branch
     cmd = ["git", "-C", profile_path, "rev-parse", "HEAD"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
         raise Exception(f"Not able to get the commit ID of the local branch - Error: {res.returncode}")
     return res.stdout.strip().decode()
 
+
+def update_to_origin_main(profile_path: str):
+    cmd = ["git", "-C", profile_path, "status", "--porcelain"]
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        raise Exception(f"Not able to check the status of the repo - Error: {res.returncode}")
+    if res.stdout.strip() != b"":
+        raise Exception(f"Repo is not clean - {res.stdout}")
+    cmd = ["git", "-C", profile_path, "checkout", "origin/main"]
+    res = subprocess.run(cmd, capture_output=True)
+    if res.returncode != 0:
+        raise Exception(f"Not able to checkout the remote origin main - Error: {res.returncode}")
