@@ -16,16 +16,6 @@ class SnowflakeOutput(TypedDict):
     text_answer: String
 
 
-# @flojoy(
-#     deps={
-#         "sqlalchemy": "1.4.51",  # IMPORTANT: THIS IS THE ONLY VERSION THAT WORKS WITH SNOWFLAKE DB WRAPPER IN LANGCHAIN
-#         "snowflake-sqlalchemy": "1.5.1",  # IMPORTANT: THIS IS THE ONLY VERSION THAT WORKS WITH SNOWFLAKE DB WRAPPER IN LANGCHAIN
-#         "snowflake-connector-python": "3.8.1",
-#         "langchain": "0.1.16",
-#         "langchain-openai": "0.1.3",
-#         "langchain-community": "0.0.32",
-#     }
-# )
 @flojoy
 def SNOWFLAKE(
     user_prompt: String,
@@ -146,19 +136,9 @@ def SNOWFLAKE(
             response = ResponseValidation.parse_obj(answer_obj)
             x = ast.literal_eval(db.run(response.x_axis_query))
             y = ast.literal_eval(db.run(response.y_axis_query))
-            print("__________")
-            print(type(x))
-            print(x)
-            print("__________")
-            print(type(y))
-            print(y)
-            x = list(map(lambda x: x[0], x))
-            y = list(map(lambda y: y[0], y))
-            print("+++++++++")
-            print(x)
-            print("+++++++++")
-            print(y)
-            ordered_pair = OrderedPair(x=x, y=y)
+            x_l = list(map(lambda x: x[0], x))
+            y_l = list(map(lambda y: y[0], y))
+            ordered_pair = OrderedPair(x=x_l, y=y_l)
             answer = String(s=response.answer_to_prompt)
             return SnowflakeOutput(bar_plot_data=ordered_pair, text_answer=answer)
         except Exception as e:  # Catch the specific exception you expect
