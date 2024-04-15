@@ -9,12 +9,21 @@ import { cn } from "@/renderer/lib/utils";
 import { Button } from "@/renderer/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 import { useSocketStore } from "@/renderer/stores/socket";
+// eslint-disable-next-line no-restricted-imports
+import packageJson from "../../../../package.json";
+import { useAppStore } from "@/renderer/stores/app";
+import { useShallow } from "zustand/react/shallow";
 
 const StatusBar = (): JSX.Element => {
   const [messages, setMessages] = useState<string[]>([]);
   const serverStatus = useSocketStore((state) => state.serverStatus);
   const [minimize, setMinimize] = useState(true);
   const lastElem = useRef<HTMLDivElement>(null);
+  const { activeTab } = useAppStore(
+    useShallow((state) => ({
+      activeTab: state.activeTab,
+    })),
+  );
 
   useEffect(() => {
     if (lastElem.current?.scrollIntoView) {
@@ -36,14 +45,14 @@ const StatusBar = (): JSX.Element => {
   return (
     <div
       className={cn(
-        "fixed bottom-0 z-30 mt-6 w-full translate-y-[calc(100%-60px)] transition-transform duration-700 ease-in-out",
+        "fixed bottom-0 z-30 w-full translate-y-[calc(100%-40px)] transition-transform duration-700 ease-in-out",
         { "translate-y-0": !minimize },
       )}
     >
       <div
         className={cn("relative flex", {
           "flex-col justify-start overflow-y-scroll ": !minimize,
-          "row items-center justify-between bg-background": minimize,
+          "row h-10 items-center justify-between bg-background": minimize,
         })}
         style={{
           maxHeight: `calc(100vh - ${
@@ -52,30 +61,53 @@ const StatusBar = (): JSX.Element => {
         }}
       >
         {minimize && (
-          <div className="flex min-w-fit items-center gap-2 ps-2">
-            {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
-              serverStatus,
-            ) ? (
-              <Badge>Operational</Badge>
-            ) : (
-              <Badge variant={"destructive"}>Disconnected</Badge>
-            )}
-            <div className="text-sm">
-              {messages[messages.length - 1]?.slice(0, 145)}...
+          <div className="flex w-full min-w-fit items-center gap-2 ps-2">
+            <div>
+              {![ServerStatus.OFFLINE, ServerStatus.CONNECTING].includes(
+                serverStatus,
+              ) ? (
+                <Badge variant="outline">
+                  Operational - {packageJson.version}
+                </Badge>
+              ) : (
+                <Badge variant={"destructive"}>
+                  Disconnected - {packageJson.version}
+                </Badge>
+              )}
             </div>
+            {activeTab !== "Test Sequencer" &&
+            activeTab !== "Device Manager" ? (
+              <>
+                <div
+                  data-cy="app-status"
+                  id="app-status"
+                  className="ml-2 flex text-xs"
+                >
+                  <code>{serverStatus}</code>
+                </div>
+              </>
+            ) : (
+              <>
+                <code className="text-xs">
+                  {messages[messages.length - 1]?.slice(0, 145)}...
+                </code>
+                <div className="grow" />
+              </>
+            )}
+            <div className="grow" />
           </div>
         )}
         <div
           className={cn(
-            "sticky right-0 top-0 z-50 flex h-full w-full justify-end p-3",
+            "sticky right-0 top-0 z-50 flex h-full w-32 justify-end",
             {
               "w-full p-0": !minimize,
             },
           )}
         >
           <Button
-            variant={"outline"}
-            className="w-29 rounded-none  "
+            variant="link"
+            className="w-29 text-xs"
             onClick={() => setMinimize((p) => !p)}
           >
             {minimize ? "Expand log" : "Collapse log"}
@@ -83,11 +115,11 @@ const StatusBar = (): JSX.Element => {
         </div>
         {!minimize && (
           <Button
-            variant={"outline"}
-            className=" fixed bottom-0 right-0 rounded-none"
+            variant="ghost"
+            className="fixed bottom-0 right-0 m-1 text-xs"
             onClick={handleDownloadLogs}
           >
-            <DownloadIcon size={19} className="mr-2" />
+            <DownloadIcon size={16} className="mr-2" />
             Download Full Logs
           </Button>
         )}

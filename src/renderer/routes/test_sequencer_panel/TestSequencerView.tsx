@@ -13,7 +13,7 @@ const TestSequencerView = () => {
   const isLoading = useSequencerStore(useShallow((state) => state.isLoading));
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="px-12">
+      <div className="px-8">
         {!isLoading && <TestSequencerInfo />}
         {isLoading && (
           <div
