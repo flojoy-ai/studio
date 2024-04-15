@@ -277,11 +277,13 @@ export function SequenceTable() {
       toast.error("Sequence name cannot be empty");
       return;
     }
-    setSequences(produce(sequences, (draft) => {
-      const seq = draft[renameForIdx.current];
-      seq.project.name = newName;
-      seq.testSequenceUnsaved = true;
-    }))
+    setSequences(
+      produce(sequences, (draft) => {
+        const seq = draft[renameForIdx.current];
+        seq.project.name = newName;
+        seq.testSequenceUnsaved = true;
+      }),
+    );
     setIsRenameDescModalOpen(false);
 
     setIsRenameNameModalOpen(false);
@@ -301,11 +303,13 @@ export function SequenceTable() {
   };
 
   const handleRenameDescription = (newDescription: string) => {
-    setSequences(produce(sequences, (draft) => {
-      const seq = draft[renameForIdx.current];
-      seq.project.description = newDescription;
-      seq.testSequenceUnsaved = true;
-    }))
+    setSequences(
+      produce(sequences, (draft) => {
+        const seq = draft[renameForIdx.current];
+        seq.project.description = newDescription;
+        seq.testSequenceUnsaved = true;
+      }),
+    );
     setIsRenameDescModalOpen(false);
   };
 

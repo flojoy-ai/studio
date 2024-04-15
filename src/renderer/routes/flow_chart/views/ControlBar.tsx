@@ -24,7 +24,6 @@ import { useShallow } from "zustand/react/shallow";
 import FeedbackModal from "./FeedbackModal";
 import { SaveSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/SaveButton";
 import { ImportSequencesButton } from "@/renderer/routes/test_sequencer_panel/components/control-bar/ImportButton";
-import { Icons } from "@/renderer/assets/icons";
 
 const ControlBar = () => {
   const { activeTab } = useAppStore(
@@ -165,12 +164,17 @@ const ControlBar = () => {
 
           <MenubarMenu>
             <MenubarTrigger onClick={() => setIsFeedbackModalOpen(true)}>
-              <Icons.discord className="h-5 w-5" />
+              Discord
             </MenubarTrigger>
           </MenubarMenu>
+          <MenubarMenu></MenubarMenu>
         </Menubar>
       </div>
-      <ProfileMenu />
+      <Menubar>
+        <MenubarMenu>
+          <ProfileMenu />
+        </MenubarMenu>
+      </Menubar>
       <DarkModeToggle />
     </div>
   );
