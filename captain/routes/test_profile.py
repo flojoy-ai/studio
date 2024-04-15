@@ -45,7 +45,7 @@ async def install(url: Annotated[str, Header()]):
         profile_root = os.path.join(profiles_dir, profile_name)
         if not os.path.exists(profile_root):
             # Clone the repo if it doesn't exist
-            status, _ = subprocess.getstatusoutput(["git", "--depth", "1", "clone", url, profile_root])
+            status, _ = subprocess.getstatusoutput(["git", "clone", "--depth", "1", url, profile_root])
             print(f"Cloning {url} - Status: {status}")
             if status != 0:
                 raise Exception(f"Not able to clone {url} - Error: {status}")
