@@ -29,6 +29,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
+import _ from "lodash";
 
 export type Summary = {
   successRate: number;
@@ -160,12 +161,8 @@ export function DesignBar() {
                 <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
                   Test{" "}
                   {displayTotal
-                    ? summary.numberOfTestRunInTotal +
-                      "/" +
-                      summary.numberOfTestInTotal
-                    : summary.numberOfTestRunInSeq +
-                      "/" +
-                      summary.numberOfTestInSeq}
+                    ? `${summary.numberOfTestRunInTotal} / ${summary.numberOfTestInTotal}`
+                    : `${summary.numberOfTestRunInSeq} / ${summary.numberOfTestInSeq}`}
                 </code>
               </Button>
             </HoverCardTrigger>
@@ -273,6 +270,7 @@ export const getGlobalStatus = (
   interface WithStatus {
     status: string;
   }
+
   const priority = {
     pending: 0,
     pass: 1,
@@ -281,6 +279,7 @@ export const getGlobalStatus = (
     paused: 4,
     running: 5,
   };
+
   // Find highest priority in cycle
   const highestCycle =
     cycleRuns.length > 0
@@ -290,15 +289,20 @@ export const getGlobalStatus = (
             priority[prev] > priority[curr] ? prev : curr,
           )
       : "pending";
+
   if (sequences.length === 0 && data.length === 0) return highestCycle;
+
   // Highest in the view
   const tests = data.filter((el) => el.type === "test") as Test[];
   const iter = sequences.length > 0 ? sequences : tests;
+
   const status = iter
     .map((el: WithStatus) => el.status)
     .reduce((prev, curr) => (priority[prev] > priority[curr] ? prev : curr));
+
   const highestGlobal =
     priority[highestCycle] > priority[status] ? highestCycle : status;
+
   return StatusType.parse(highestGlobal);
 };
 
