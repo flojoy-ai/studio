@@ -1,6 +1,5 @@
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
-import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
 import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
@@ -11,7 +10,6 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { useMemo, useState } from "react";
-import { getOnlyCompletedTests } from "./data-table/utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import {
   DropdownMenu,
@@ -51,7 +49,6 @@ export function DesignBar() {
     numberOfTestInTotal,
     numberOfSequenceRun,
     numberOfSequence,
-    successRate,
     status,
   } = useMemo(() => {
     return {
@@ -61,7 +58,6 @@ export function DesignBar() {
       numberOfTestInTotal: getNumberOfTestInTotal(sequences),
       numberOfSequence: getNumberOfSequence(sequences),
       numberOfSequenceRun: getNumberOfSequenceRun(sequences),
-      successRate: getSuccessRate(elems),
       status: getGlobalStatus(cycleRuns, sequences, elems),
     };
   }, [elems, sequences, cycleRuns]);
@@ -319,10 +315,3 @@ const mapStatusToDisplay: { [k in StatusType] } = {
   ),
 };
 
-const getSuccessRate = (data: TestSequenceElement[]): number => {
-  const tests = getOnlyCompletedTests(data);
-  if (tests.length == 0) return 0;
-  return (
-    (filter(tests, (elem) => elem.status == "pass").length / tests.length) * 100
-  );
-};
