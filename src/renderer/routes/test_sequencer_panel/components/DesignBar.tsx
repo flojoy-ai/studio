@@ -31,7 +31,6 @@ import {
 } from "@/renderer/components/ui/hover-card";
 import _ from "lodash";
 
-
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
     useSequencerModalStore();
@@ -140,14 +139,13 @@ export function DesignBar() {
 
         {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-            Test{" "}
-            {numberOfTestRunInSeq + "/" + numberOfTestInSeq}
+            Test {numberOfTestRunInSeq + "/" + numberOfTestInSeq}
           </code>
         ) : (
           <HoverCard>
             <HoverCardTrigger asChild>
               <Button variant="link">
-                <code className="inline-flex translate-y-[2px] translate-x-[4px] items-center justify-center text-sm text-muted-foreground">
+                <code className="inline-flex translate-x-[4px] translate-y-[2px] items-center justify-center text-sm text-muted-foreground">
                   Test{" "}
                   {displayTotal
                     ? `${numberOfTestRunInTotal}/${numberOfTestInTotal}`
@@ -184,8 +182,7 @@ export function DesignBar() {
         )}
 
         <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-          Sequence{" "}
-          {numberOfSequenceRun + "/" + numberOfSequence}
+          Sequence {numberOfSequenceRun + "/" + numberOfSequence}
         </code>
 
         <CyclePanel />
@@ -225,11 +222,11 @@ const getNumberOfTestRunInSeq = (data: TestSequenceElement[]): number => {
 const getNumberOfTestRunInTotal = (
   sequences: TestSequenceContainer[],
 ): number => {
-  return _.sum(sequences.map(seq => getNumberOfTestRunInSeq(seq.elements)));
+  return _.sum(sequences.map((seq) => getNumberOfTestRunInSeq(seq.elements)));
 };
 
 const getNumberOfTestInTotal = (sequences: TestSequenceContainer[]): number => {
-  return _.sum(sequences.map(seq => getNumberOfTestInSeq(seq.elements)));
+  return _.sum(sequences.map((seq) => getNumberOfTestInSeq(seq.elements)));
 };
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
