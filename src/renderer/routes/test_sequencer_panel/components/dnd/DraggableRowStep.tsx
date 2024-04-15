@@ -5,7 +5,7 @@ import {
   TestSequenceDropResult,
 } from "@/renderer/routes/test_sequencer_panel/models/drag_and_drop";
 import { TableCell, TableRow } from "@/renderer/components/ui/table";
-import { TestSequenceElement } from "@/renderer/types/test-sequencer";
+import { StatusType, TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { Row, flexRender } from "@tanstack/react-table";
 import { parseInt } from "lodash";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
@@ -71,26 +71,11 @@ export const DraggableRowStep = ({
     useConfigureDropRef(parseInt(row.id));
   const isActiveAbove = isOverAbove && canDropAbove;
 
-  let variant = "default" as
-    | "aborted"
-    | "pass"
-    | "fail"
-    | "running"
-    | "paused"
-    | "default";
+  type Variant = Exclude<StatusType, "pending"> | "default";
+  let variant: Variant = "default";
   if (row.original.type === "test") {
     if (row.original.status !== "pending") {
-      variant = row.original.status as
-        | "aborted"
-        | "pass"
-        | "fail"
-        | "running"
-        | "paused";
-      variant = ["aborted", "pass", "fail", "running", "paused"].includes(
-        row.original.status,
-      )
-        ? row.original.status
-        : "default";
+      variant = row.original.status;
     }
   }
 
