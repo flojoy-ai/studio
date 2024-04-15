@@ -231,7 +231,7 @@ const ControlPanelView = () => {
           zIndex: 10,
         }}
       >
-        <div className="felx inline-flex items-center gap-2 px-4 pt-1">
+        <div className="inline-flex items-center gap-2 px-4 pt-1">
           <Input
             className={
               "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
