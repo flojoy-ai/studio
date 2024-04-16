@@ -104,6 +104,9 @@ export function createNewTest(
   exportToCloud?: boolean,
   id?: string,
   groupId?: string,
+  minValue?: number,
+  maxValue?: number,
+  unit?: string,
 ): Test {
   const newTest: Test = {
     type: "test",
@@ -119,6 +122,9 @@ export function createNewTest(
     isSavedToCloud: false,
     exportToCloud: exportToCloud === undefined ? true : exportToCloud,
     createdAt: new Date().toISOString(),
+    minValue: minValue,
+    maxValue: maxValue,
+    unit: unit,
   };
   return newTest;
 }

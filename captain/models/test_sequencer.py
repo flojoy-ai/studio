@@ -61,6 +61,10 @@ class Test(BaseModel):
     completion_time: Optional[float] = Field(None, alias="completionTime")
     is_saved_to_cloud: bool = Field(..., alias="isSavedToCloud")
     export_to_cloud: bool = Field(..., alias="exportToCloud")
+    min_value: Optional[float] = Field(None, alias="minValue")
+    max_value: Optional[float] = Field(None, alias="maxValue")
+    measured_value: Optional[float] = Field(None, alias="measuredValue")
+    unit: Optional[str] = Field(None, alias="unit")
 
 
 class Role(StrEnum):

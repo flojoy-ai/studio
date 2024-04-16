@@ -180,6 +180,7 @@ const Project = z.object({
   label: z.string(),
   value: z.string(),
   part: Part,
+  productName: z.string(),
 });
 export type Project = z.infer<typeof Project>;
 export const getCloudProjects = () =>

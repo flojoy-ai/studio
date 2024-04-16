@@ -53,6 +53,19 @@ test.describe("Block context menu", () => {
       path: "test-results/before-right-click-block.jpeg",
     });
 
+    // CI problem if not center due to multi-layered context menu
+    await window.locator("button[title='zoom out']").click();
+    await window.locator("button[title='zoom out']").click();
+    await window.locator("button[title='zoom out']").click();
+    await window.locator("button[title='fit view']").click();
+    //
+    // Take a screenshot
+    await window.screenshot({
+      fullPage: true,
+      path: "test-results/before-right-click-block-After-Zoom.jpeg",
+    });
+
+
     // Click on Edit block button from context menu
     await window.getByTestId(Selectors.contextEditBlockBtn).click();
 

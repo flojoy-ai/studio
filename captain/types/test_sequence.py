@@ -25,9 +25,18 @@ class TestSequenceMessage(dict):
     created_at: str
     is_saved_to_cloud: bool
     error: Optional[str]
+    value: Optional[float]
 
     def __init__(
-        self, state, target_id, status, time_taken, created_at, is_saved_to_cloud, error
+        self,
+        state,
+        target_id,
+        status,
+        time_taken,
+        created_at,
+        is_saved_to_cloud,
+        error,
+        value,
     ):
         self["state"] = state
         self["target_id"] = target_id
@@ -36,6 +45,7 @@ class TestSequenceMessage(dict):
         self["created_at"] = created_at
         self["is_saved_to_cloud"] = is_saved_to_cloud
         self["error"] = error
+        self["value"] = value
 
     def __setitem__(self, __key: Any, __value: Any) -> None:
         super().__setattr__(__key, __value)
