@@ -240,6 +240,8 @@ export function useDisplayedSequenceState() {
 
 export function useSequencerState() {
   const {
+    elements,
+    setElements,
     isLocked,
     setIsLocked,
     tree,
@@ -265,6 +267,8 @@ export function useSequencerState() {
   } = useSequencerStore(
     useShallow((state) => {
       return {
+        elements: state.elements,
+        setElements: state.setElements,
         isLocked: state.isLocked,
         setIsLocked: state.setIsLocked,
         tree: state.testSequenceStepTree,
@@ -408,6 +412,13 @@ export function useSequencerState() {
   function abortSequencer(sender: SendJsonMessage) {
     toast.warning("Stopping sequencer after this test.");
     sender(testSequenceStopRequest(tree));
+    // Paused test and never not yet run
+    setElements([...elements].map((el) => { 
+      if (el.type === "test" && el.status === "paused") {
+        return { ...el, status: "pending" };
+      }
+      return el;
+    }));
     setIsLocked(false);
   }
 
