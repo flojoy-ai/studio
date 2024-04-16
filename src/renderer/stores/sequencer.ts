@@ -425,7 +425,6 @@ export const useSequencerStore = create<State & Actions>()(
         state.commitHash = "";
       });
     },
-
   })),
 );
 

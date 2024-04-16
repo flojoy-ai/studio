@@ -121,7 +121,7 @@ export const useLoadTestProfile = () => {
     async function importSequences(): Promise<Result<void, Error>> {
       if (isAdmin()) {
         const shouldContinue = window.confirm(
-          "Do you want to load the sequences associated with test profile? All unsaved changes will be lost."
+          "Do you want to load the sequences associated with test profile? All unsaved changes will be lost.",
         );
         if (!shouldContinue) {
           return err(Error("User cancelled loading test profile"));

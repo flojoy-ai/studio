@@ -70,56 +70,56 @@ export function DesignBar() {
       <div className="flex">
         {isAdmin() && (
           <>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Button
-                className="gap-2"
-                variant="ghost"
-                data-testid="new-dropdown"
-              >
-                <Plus size={20} className="stroke-muted-foreground" />
-                New
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="ml-12">
-              <DropdownMenuItem
-                onClick={() => {
-                  setIsImportTestModalOpen(true);
-                }}
-                data-testid="import-test-button"
-              >
-                <FlaskConical
-                  size={16}
-                  className="mr-2 stroke-muted-foreground"
-                />
-                New Test
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  setIsCreateProjectModalOpen(true);
-                }}
-              >
-                <Route size={16} className="mr-2 stroke-muted-foreground" />
-                New Sequence
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => {
-                  importSequences();
-                }}
-              >
-                <Import size={16} className="mr-2 stroke-muted-foreground" />
-                Import Sequence
-              </DropdownMenuItem>
-              <DropdownMenuItem disabled={true}>
-                <LayoutGrid
-                  size={16}
-                  className="mr-2 stroke-muted-foreground"
-                />
-                Sequence Gallery
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className="grow" />
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button
+                  className="gap-2"
+                  variant="ghost"
+                  data-testid="new-dropdown"
+                >
+                  <Plus size={20} className="stroke-muted-foreground" />
+                  New
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="ml-12">
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsImportTestModalOpen(true);
+                  }}
+                  data-testid="import-test-button"
+                >
+                  <FlaskConical
+                    size={16}
+                    className="mr-2 stroke-muted-foreground"
+                  />
+                  New Test
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    setIsCreateProjectModalOpen(true);
+                  }}
+                >
+                  <Route size={16} className="mr-2 stroke-muted-foreground" />
+                  New Sequence
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    importSequences();
+                  }}
+                >
+                  <Import size={16} className="mr-2 stroke-muted-foreground" />
+                  Import Sequence
+                </DropdownMenuItem>
+                <DropdownMenuItem disabled={true}>
+                  <LayoutGrid
+                    size={16}
+                    className="mr-2 stroke-muted-foreground"
+                  />
+                  Sequence Gallery
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <div className="grow" />
           </>
         )}
         {/* Comming soon
@@ -133,7 +133,6 @@ export function DesignBar() {
           Load Test Profile From Cloud
         </Button>
         */}
-
 
         {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
@@ -185,9 +184,7 @@ export function DesignBar() {
 
         <CyclePanel />
 
-        { !isAdmin() && (
-          <div className="grow" />
-        )}
+        {!isAdmin() && <div className="grow" />}
 
         <div
           data-cy="app-status"

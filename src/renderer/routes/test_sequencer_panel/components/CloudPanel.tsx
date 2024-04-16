@@ -389,35 +389,35 @@ export function CloudPanel() {
             </p>
           </div>
           <div className="py-2" />
-            <div className="bt-2 flex items-center">
-              {isAdmin() && (
-                <>
-                  <Checkbox
-                    checked={uploadAfterRun}
-                    onCheckedChange={setUploadAfterRun}
-                  />
-                  <p className="ml-2 text-sm text-muted-foreground">
-                    Automatically upload
-                  </p>
-                </>
-              )}
-              <div className="grow" />
-              <Button
-                variant="outline"
-                disabled={isLocked || isUploaded}
-                className="h-6 text-xs text-muted-foreground"
-                onClick={() => {
-                  const status = getGlobalStatus(
-                    useSequencerStore.getState().cycleRuns,
-                    useSequencerStore.getState().sequences,
-                    useSequencerStore.getState().elements,
-                  );
-                  handleUpload(status === "aborted", true);
-                }}
-              >
-                {isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
-              </Button>
-            </div>
+          <div className="bt-2 flex items-center">
+            {isAdmin() && (
+              <>
+                <Checkbox
+                  checked={uploadAfterRun}
+                  onCheckedChange={setUploadAfterRun}
+                />
+                <p className="ml-2 text-sm text-muted-foreground">
+                  Automatically upload
+                </p>
+              </>
+            )}
+            <div className="grow" />
+            <Button
+              variant="outline"
+              disabled={isLocked || isUploaded}
+              className="h-6 text-xs text-muted-foreground"
+              onClick={() => {
+                const status = getGlobalStatus(
+                  useSequencerStore.getState().cycleRuns,
+                  useSequencerStore.getState().sequences,
+                  useSequencerStore.getState().elements,
+                );
+                handleUpload(status === "aborted", true);
+              }}
+            >
+              {isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
+            </Button>
+          </div>
         </div>
       )}
     </div>

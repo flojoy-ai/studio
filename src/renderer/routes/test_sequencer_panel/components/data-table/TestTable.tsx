@@ -604,7 +604,9 @@ export function TestTable() {
                     if (isAdmin()) {
                       setIsImportTestModalOpen(true);
                     } else {
-                      toast.info("Connect to Flojoy Cloud and select a Test Profile");
+                      toast.info(
+                        "Connect to Flojoy Cloud and select a Test Profile",
+                      );
                     }
                   }}
                 >
