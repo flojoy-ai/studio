@@ -171,5 +171,6 @@
       "src/vite-env.d.ts"
     ],
     "all": true
-  }
+  },
+  "packageManager": "pnpm@9.0.1"
 }
