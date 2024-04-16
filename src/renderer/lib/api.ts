@@ -180,7 +180,7 @@ const Project = z.object({
   label: z.string(),
   value: z.string(),
   repoUrl: z
-    .string()    
+    .string()
     .nullish()
     .transform((value) => value ?? ""),
   part: Part,
