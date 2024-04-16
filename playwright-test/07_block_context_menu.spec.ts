@@ -35,8 +35,8 @@ test.describe("Block context menu", () => {
       timeout: 20000,
     });
 
-    // Right click on `SINE` block
-    await window.locator("h2", { hasText: "SINE" }).click({
+    // Right click on `RAND` block
+    await window.locator("h2", { hasText: "RAND" }).click({
       button: "right",
     });
 
@@ -56,12 +56,6 @@ test.describe("Block context menu", () => {
     // CI problem if not center due to multi-layered context menu
     await window.locator("button[title='fit view']").click();
 
-    // Take a screenshot
-    await window.screenshot({
-      fullPage: true,
-      path: "test-results/before-right-click-block-After-Zoom.jpeg",
-    });
-
     // Click on Edit block button from context menu
     await window.getByTestId(Selectors.contextEditBlockBtn).click();
 
@@ -70,16 +64,16 @@ test.describe("Block context menu", () => {
       `[data-testid="${Selectors.blockEditParam}"]`,
     );
 
-    // Expect 5 parameters for SINE block
-    expect(params).toHaveLength(5);
+    // Expect 5 parameters for RAND block
+    expect(params).toHaveLength(4);
 
     // Close the block edit menu
     await window.getByTestId(Selectors.blockEditMenuCloseBtn).click();
   });
 
   test("Should open block info modal", async () => {
-    // Right click on `SINE` block
-    await window.locator("h2", { hasText: "SINE" }).click({
+    // Right click on `RAND` block
+    await window.locator("h2", { hasText: "RAND" }).click({
       button: "right",
     });
 
@@ -102,16 +96,16 @@ test.describe("Block context menu", () => {
   });
 
   test("Should delete a block", async () => {
-    // Right click on `SINE` block
-    await window.locator("h2", { hasText: "SINE" }).click({
+    // Right click on `RAND` block
+    await window.locator("h2", { hasText: "RAND" }).click({
       button: "right",
     });
 
     // Click on Delete block button from context menu
     await window.getByTestId(Selectors.contextDeleteBlockBtn).click();
 
-    // Expect SINE block to disappear from DOM
-    await expect(window.locator("h2", { hasText: "SINE" })).toBeHidden();
+    // Expect RAND block to disappear from DOM
+    await expect(window.locator("h2", { hasText: "RAND" })).toBeHidden();
   });
 
   test("Should duplicate a block", async () => {
