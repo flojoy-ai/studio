@@ -2,6 +2,7 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
 import {
@@ -549,29 +550,9 @@ export function TestTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
-                    <ContextMenuItem
-                      onClick={() => onRemoveTest([parseInt(row.id)])}
-                    >
-                      {row.original.type === "test"
-                        ? "Remove Test"
-                        : "Remove Conditional"}
-                    </ContextMenuItem>
                     {row.original.type === "test" && (
                       <>
-                        <ContextMenuItem
-                          onClick={() => {
-                            openRenameTestModal(row.original.id);
-                          }}
-                        >
-                          Rename Test
-                        </ContextMenuItem>
-                        <ContextMenuItem
-                          onClick={() => {
-                            onClickWriteMinMax(parseInt(row.id));
-                          }}
-                        >
-                          Edit Expected Value
-                        </ContextMenuItem>
+                        <ContextMenuSeparator />
                         <ContextMenuItem
                           onClick={() => {
                             setOpenPyTestFileModal(true);
@@ -579,6 +560,14 @@ export function TestTable() {
                           }}
                         >
                           Consult Code
+                        </ContextMenuItem>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => {
+                            openRenameTestModal(row.original.id);
+                          }}
+                        >
+                          Rename Test
                         </ContextMenuItem>
                         <ContextMenuItem
                           onClick={() => {
@@ -589,8 +578,23 @@ export function TestTable() {
                             ? "Disable export to Cloud"
                             : "Enable export to Cloud"}
                         </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            onClickWriteMinMax(parseInt(row.id));
+                          }}
+                        >
+                          Edit Expected Value
+                        </ContextMenuItem>
                       </>
                     )}
+                    <ContextMenuSeparator />
+                    <ContextMenuItem
+                      onClick={() => onRemoveTest([parseInt(row.id)])}
+                    >
+                      {row.original.type === "test"
+                        ? "Remove Test"
+                        : "Remove Conditional"}
+                    </ContextMenuItem>
                   </ContextMenuContent>
                 </ContextMenu>
               ))
