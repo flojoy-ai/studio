@@ -35,6 +35,7 @@ type State = {
   stationId: string;
   integrity: boolean;
   isUploaded: boolean;
+  commitHash: string;
   // ~~~~~~~~~~~~~~~~~~
 };
 
@@ -52,6 +53,7 @@ type Actions = {
   setIntegrity: (val: boolean) => void;
   setStationId: (val: string) => void;
   setIsUploaded: (val: boolean) => void;
+  setCommitHash: (val: string) => void;
   // Cycles
   setCycleCount: (val: number) => void;
   setInfinite: (val: boolean) => void;
@@ -70,6 +72,8 @@ type Actions = {
   runNextRunnableSequence: (sender: SendJsonMessage) => void;
   runRunnableSequencesFromCurrentOne: (sender: SendJsonMessage) => void;
   updateSequenceStatus: (val: StatusType) => void;
+  // Global
+  clearState: () => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -123,6 +127,8 @@ export const useSequencerStore = create<State & Actions>()(
     setIntegrity: (val) => set(() => ({ integrity: val })),
     isUploaded: false,
     setIsUploaded: (val) => set(() => ({ isUploaded: val })),
+    commitHash: "",
+    setCommitHash: (val) => set(() => ({ commitHash: val })),
 
     setWebsocketId: (val) =>
       set((state) => {
@@ -286,7 +292,7 @@ export const useSequencerStore = create<State & Actions>()(
           if (state.sequences.length !== 0) {
             state.displaySequence(state.sequences[0].project.name);
           } else {
-            clearSequencerState(state);
+            clearInnerSequencesState(state);
           }
         }
       });
@@ -407,6 +413,18 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.ptrCycle = -1;
         state.cycleRuns = [];
       }),
+
+    clearState: () => {
+      set((state) => {
+        clearInnerSequencesState(state);
+        state.sequences = [];
+        state.serialNumber = "";
+        state.stationId = "";
+        state.integrity = false;
+        state.isUploaded = false;
+        state.commitHash = "";
+      });
+    },
   })),
 );
 
@@ -438,7 +456,7 @@ function loadSequenceState(idx: number, stateSetter: State & Actions): void {
     stateSetter.sequences[idx].testSequenceUnsaved;
 }
 
-function clearSequencerState(stateSetter: State & Actions): void {
+function clearInnerSequencesState(stateSetter: State & Actions): void {
   stateSetter.testSequenceDisplayed = null;
   stateSetter.testSequenceStepTree = {
     type: "root",

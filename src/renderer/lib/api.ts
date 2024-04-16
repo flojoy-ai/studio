@@ -179,6 +179,10 @@ export type Part = z.infer<typeof Part>;
 const Project = z.object({
   label: z.string(),
   value: z.string(),
+  repoUrl: z
+    .string()
+    .nullish()
+    .transform((value) => value ?? ""),
   part: Part,
   productName: z.string(),
 });
@@ -190,7 +194,7 @@ const Station = z.object({
   label: z.string(),
   value: z.string(),
 });
-export type Station = z.infer<typeof Project>;
+export type Station = z.infer<typeof Station>;
 export const getCloudStations = (projectId: string) =>
   get(`cloud/stations/${projectId}`, Station.array(), { timeout: 60000 });
 
@@ -228,7 +232,7 @@ export const postSession = (
             cycleNumber: cycleNumber,
             name: elem.testName,
             pass_: elem.status === "pass",
-            completionTime: elem.completionTime!,
+            completionTime: elem.completionTime ?? 0,
             createdAt: elem.createdAt!,
           });
         }
@@ -282,4 +286,15 @@ export const getCloudHealth = (url: string | undefined = undefined) => {
     captain.get("cloud/health", options),
     (e) => e as HTTPError,
   );
+};
+
+const TestProfile = z.object({
+  profile_root: z.string(),
+  hash: z.string(),
+});
+export type TestProfile = z.infer<typeof TestProfile>;
+
+export const installTestProfile = (url: string) => {
+  const options: Options = { headers: { url: url }, timeout: 60000 };
+  return get("test_profile/install", TestProfile, options);
 };

@@ -45,11 +45,10 @@ import { useRef, useState } from "react";
 import { DraggableRowSequence } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowSequence";
 import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
-import { RenameModal } from "../modals/RenameModal";
+import { RenameModal } from "@/renderer/routes/test_sequencer_panel/components/modals/RenameModal";
 import { toast } from "sonner";
 import { produce } from "immer";
 
@@ -60,7 +59,6 @@ export function SequenceTable() {
     useShallow((state) => state.removeSequence),
   );
   const { setIsCreateProjectModalOpen } = useSequencerModalStore();
-  const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [
@@ -446,7 +444,9 @@ export function SequenceTable() {
                     if (isAdmin()) {
                       setIsCreateProjectModalOpen(true);
                     } else {
-                      importSequences();
+                      toast.info(
+                        "Connect to Flojoy Cloud and select a Test Profile",
+                      );
                     }
                   }}
                 >

@@ -188,42 +188,33 @@ export const openFilesPicker = (
 
 export const openAllFilesInFolderPicker = (
   _,
+  folderPath: string,
   allowedExtensions: string[] = ["json"],
-  title: string = "Select Folder",
-): Promise<{ filePath: string; fileContent: string }[] | undefined> => {
-  // Return mutiple files or all file with the allowed extensions if a folder is selected
-  return dialog
-    .showOpenDialog(global.mainWindow, {
-      title: title,
-      properties: ["openDirectory"],
-    })
-    .then((selectedPaths) => {
-      if (
-        selectedPaths.filePaths.length === 1 &&
-        fs.lstatSync(selectedPaths.filePaths[0]).isDirectory()
-      ) {
-        // If a folder is selected, found all file with the allowed extensions from that folder
-        const folerPath = selectedPaths.filePaths[0];
-        const paths: string[] = [];
-        fs.readdirSync(folerPath, { withFileTypes: true }).forEach((dirent) => {
-          if (dirent.isFile()) {
-            const nameAndExt = dirent.name.split(".");
-            const ext = nameAndExt[nameAndExt.length - 1];
-            if (allowedExtensions.includes(ext)) {
-              paths.push(join(folerPath, dirent.name));
-            }
-          }
-        });
-        const files = paths.map((path) => {
-          return {
-            filePath: path.split(sep).join(posix.sep),
-            fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
-          };
-        });
-        return files;
+): { filePath: string; fileContent: string }[] | undefined => {
+  // Return multiple files or all files with the allowed extensions if a folder is selected
+  if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
+    return undefined;
+  }
+  // If a folder is selected, find all files with the allowed extensions from that folder
+  const paths: string[] = [];
+  fs.readdirSync(folderPath, { withFileTypes: true }).forEach((dirent) => {
+    if (dirent.isFile()) {
+      const nameAndExt = dirent.name.split(".");
+      const ext = nameAndExt[nameAndExt.length - 1];
+      if (allowedExtensions.includes(ext)) {
+        paths.push(join(folderPath, dirent.name));
       }
-      return undefined;
-    });
+    }
+  });
+  // Read the content of the files
+  const files = paths.map((path) => {
+    return {
+      filePath: path.split(sep).join(posix.sep),
+      fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
+    };
+  });
+
+  return files;
 };
 
 export const cleanup = async () => {

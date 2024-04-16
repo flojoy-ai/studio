@@ -27,6 +27,7 @@ import {
   testSequenceResumeRequest,
   testSequenceStopRequest,
 } from "../routes/test_sequencer_panel/models/models";
+import { produce } from "immer";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -240,6 +241,9 @@ export function useDisplayedSequenceState() {
 
 export function useSequencerState() {
   const {
+    clearState,
+    elements,
+    setElements,
     isLocked,
     setIsLocked,
     tree,
@@ -249,6 +253,7 @@ export function useSequencerState() {
     serialNumber,
     stationId,
     integrity,
+    commitHash,
     setIsUploaded,
     sequences,
     setSequences,
@@ -264,6 +269,9 @@ export function useSequencerState() {
   } = useSequencerStore(
     useShallow((state) => {
       return {
+        clearState: state.clearState,
+        elements: state.elements,
+        setElements: state.setElements,
         isLocked: state.isLocked,
         setIsLocked: state.setIsLocked,
         tree: state.testSequenceStepTree,
@@ -273,6 +281,7 @@ export function useSequencerState() {
         serialNumber: state.serialNumber,
         stationId: state.stationId,
         integrity: state.integrity,
+        commitHash: state.commitHash,
         setIsUploaded: state.setIsUploaded,
         sequences: state.sequences,
         setSequences: state.setSequences,
@@ -354,9 +363,14 @@ export function useSequencerState() {
         return;
       }
       const upload = async () => {
-        await postSession(serialNumber, stationId, integrity, aborted, "", [
-          ...useSequencerStore.getState().cycleRuns,
-        ]);
+        await postSession(
+          serialNumber,
+          stationId,
+          integrity,
+          aborted,
+          commitHash,
+          [...useSequencerStore.getState().cycleRuns],
+        );
       };
       toast.promise(upload, {
         loading: "Uploading result...",
@@ -372,12 +386,22 @@ export function useSequencerState() {
   }
 
   function isValidCloudExport(): boolean {
+    if (uploadAfterRun) {
+      if (serialNumber === "") {
+        toast.error("Please fill in the serial number.");
+        return false;
+      }
+      if (stationId === "") {
+        toast.error("Please select a station.");
+        return false;
+      }
+    }
     return true;
   }
 
   function runSequencer(sender: SendJsonMessage): void {
-    if (uploadAfterRun && !isValidCloudExport) {
-      toast.error("Please fill in the required fields to upload to cloud.");
+    if (!isValidCloudExport()) {
+      return;
     }
     setIsUploaded(false);
     if (sequences.length === 0) {
@@ -401,6 +425,16 @@ export function useSequencerState() {
   function abortSequencer(sender: SendJsonMessage) {
     toast.warning("Stopping sequencer after this test.");
     sender(testSequenceStopRequest(tree));
+    // Paused test and never not yet run
+    setElements(
+      produce(elements, (draft) => {
+        for (const el of draft) {
+          if (el.type === "test" && el.status === "paused") {
+            el.status = "pending";
+          }
+        }
+      }),
+    );
     setIsLocked(false);
   }
 
@@ -420,6 +454,14 @@ export function useSequencerState() {
     }
   }
 
+  function clearSequencer() {
+    if (isLocked) {
+      toast.error("Cannot clear sequencer while running.");
+      return;
+    }
+    clearState();
+  }
+
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
@@ -434,5 +476,6 @@ export function useSequencerState() {
     addNewSequence: addNewSeq,
     removeSequence,
     handleUpload: handleUpload,
+    clearSequencer,
   };
 }

@@ -13,7 +13,11 @@ import {
   closeSequence,
   saveSequences,
 } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
-import { toastResultPromise } from "../utils/report-error";
+import { toastResultPromise } from "@/renderer/utils/report-error";
+import { Result, err, ok } from "neverthrow";
+import { installTestProfile } from "@/renderer/lib/api";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
@@ -78,9 +82,13 @@ export function useCreateSequence() {
 }
 
 export const useImportSequences = () => {
-  // TODO - When technicien in user, open from cloud project list
   const manager = usePrepareStateManager();
+  const { isAdmin } = useWithPermission();
   const handleImport = async () => {
+    if (!isAdmin()) {
+      toast.info("Connect to Flojoy Cloud and select a Test Profile");
+      return;
+    }
     const result = await window.api.openFilesPicker(
       ["tjoy"],
       "Select your .tjoy file",
@@ -107,6 +115,80 @@ export const useImportSequences = () => {
       error: (e) => `${e}`,
     });
   };
+  return handleImport;
+};
+
+export const useLoadTestProfile = () => {
+  const manager = usePrepareStateManager();
+  const { isAdmin } = useWithPermission();
+  const clearState = useSequencerStore(useShallow((state) => state.clearState));
+  const setCommitHash = useSequencerStore(
+    useShallow((state) => state.setCommitHash),
+  );
+  const handleImport = async (gitRepoUrlHttp: string) => {
+    async function importSequences(): Promise<Result<void, Error>> {
+      // Confirmation if admin
+      if (isAdmin()) {
+        const shouldContinue = window.confirm(
+          "Do you want to load the sequences associated with test profile? All unsaved changes will be lost.",
+        );
+        if (!shouldContinue) {
+          return err(Error("User cancelled loading test profile"));
+        }
+      }
+
+      clearState();
+
+      // Check
+      if (gitRepoUrlHttp === "") {
+        return err(Error("No sequences associated with the test profile"));
+      }
+
+      // Load test profile
+      const res = await installTestProfile(gitRepoUrlHttp);
+      if (res.isErr()) {
+        return err(Error(`Failed to load test profile: ${res.error}`));
+      }
+      setCommitHash(res.value.hash);
+
+      // Find .tjoy files from the profile
+      const result = await window.api.openAllFilesInFolder(
+        res.value.profile_root,
+        ["tjoy"],
+      );
+      if (result === undefined) {
+        return err(
+          Error(`Failed to find the directory ${res.value.profile_root}`),
+        );
+      }
+      if (!result || result.length === 0) {
+        return err(Error("No .tjoy file found in the selected directory"));
+      }
+
+      // Import them in the sequencer
+      await Promise.all(
+        result.map(async (res, idx) => {
+          const { filePath, fileContent } = res;
+          const result = await importSequence(
+            filePath,
+            fileContent,
+            manager,
+            idx !== 0,
+          );
+          if (result.isErr()) return err(result.error);
+        }),
+      );
+
+      return ok(undefined);
+    }
+
+    toastResultPromise(importSequences(), {
+      loading: `Importing Test Profile...`,
+      success: () => `Test Profile imported`,
+      error: (e) => `${e}`,
+    });
+  };
+
   return handleImport;
 };
 

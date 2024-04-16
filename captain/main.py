@@ -6,7 +6,7 @@ from captain.routes import (
     devices,
     flowchart,
     key,
-    update,
+    test_profile,
     ws,
     log,
     test_sequence,
@@ -42,7 +42,7 @@ app.include_router(ws.router)
 app.include_router(flowchart.router)
 app.include_router(log.router)
 app.include_router(key.router)
-app.include_router(update.router)
+app.include_router(test_profile.router)
 app.include_router(blocks.router)
 app.include_router(devices.router)
 app.include_router(test_sequence.router)

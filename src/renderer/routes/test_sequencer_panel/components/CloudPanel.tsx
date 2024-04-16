@@ -18,7 +18,6 @@ import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import {
   Project,
-  Station,
   Unit,
   getCloudProjects,
   getCloudStations,
@@ -36,6 +35,7 @@ import { toast } from "sonner";
 import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
+import { useLoadTestProfile } from "@/renderer/hooks/useTestSequencerProject";
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -49,6 +49,8 @@ export function CloudPanel() {
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
+  const handleLoadProfile = useLoadTestProfile();
+  const [testProfileUrl, setTestProfileUrl] = useState<string | null>(null);
   const {
     serialNumber,
     isUploaded,
@@ -156,7 +158,7 @@ export function CloudPanel() {
             },
             (e) => {
               console.error(e);
-              toast.error("Failed to fetch production lines");
+              toast.error("Failed to fetch test profiles");
               return [];
             },
           );
@@ -198,6 +200,12 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
+    if (testProfileUrl !== null) {
+      handleLoadProfile(testProfileUrl);
+    }
+  }, [testProfileUrl]);
+
+  useEffect(() => {
     const sn = serialNumber.toLowerCase();
     if (sn in units) {
       if (units[sn].lotNumber !== null) {
@@ -206,11 +214,12 @@ export function CloudPanel() {
     }
   }, [serialNumber]);
 
-  const handleSetProject = (newValue: Station) => {
+  const handleSetProject = (newValue: Project) => {
     setProjectId(newValue.value);
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
+    setTestProfileUrl(newValue.repoUrl);
     setProductName(newValue.productName);
   };
 
@@ -305,7 +314,7 @@ export function CloudPanel() {
           </h2>
 
           <div className="pb-1 text-xs text-muted-foreground">
-            <p>Production Line</p>
+            <p>Test Profile</p>
           </div>
 
           <Select
@@ -316,12 +325,12 @@ export function CloudPanel() {
             disabled={isLocked}
           >
             <SelectTrigger>
-              <SelectValue placeholder={"Select your production line..."} />
+              <SelectValue placeholder={"Select your Test Profile..."} />
             </SelectTrigger>
             <SelectContent className="max-h-72">
               {projectsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
-                  <strong>No production line found</strong>
+                  <strong>No Test Profile found</strong>
                   <Button
                     onClick={() => projectsQuery.refetch()}
                     variant={"ghost"}
@@ -356,7 +365,7 @@ export function CloudPanel() {
                   ) : (
                     <p>
                       {" "}
-                      Select a production line to load the available stations{" "}
+                      Select a test profile to load the available stations{" "}
                     </p>
                   )}
                 </div>
@@ -380,33 +389,35 @@ export function CloudPanel() {
             </p>
           </div>
           <div className="py-2" />
-          {isAdmin() && (
-            <div className="bt-2 flex items-center">
-              <Checkbox
-                checked={uploadAfterRun}
-                onCheckedChange={setUploadAfterRun}
-              />
-              <p className="ml-2 text-sm text-muted-foreground">
-                Automatically upload
-              </p>
-              <div className="grow" />
-              <Button
-                variant="outline"
-                disabled={isLocked || isUploaded}
-                className="h-6 text-xs text-muted-foreground"
-                onClick={() => {
-                  const status = getGlobalStatus(
-                    useSequencerStore.getState().cycleRuns,
-                    useSequencerStore.getState().sequences,
-                    useSequencerStore.getState().elements,
-                  );
-                  handleUpload(status === "aborted", true);
-                }}
-              >
-                {isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
-              </Button>
-            </div>
-          )}
+          <div className="bt-2 flex items-center">
+            {isAdmin() && (
+              <>
+                <Checkbox
+                  checked={uploadAfterRun}
+                  onCheckedChange={setUploadAfterRun}
+                />
+                <p className="ml-2 text-sm text-muted-foreground">
+                  Automatically upload
+                </p>
+              </>
+            )}
+            <div className="grow" />
+            <Button
+              variant="outline"
+              disabled={isLocked || isUploaded}
+              className="h-6 text-xs text-muted-foreground"
+              onClick={() => {
+                const status = getGlobalStatus(
+                  useSequencerStore.getState().cycleRuns,
+                  useSequencerStore.getState().sequences,
+                  useSequencerStore.getState().elements,
+                );
+                handleUpload(status === "aborted", true);
+              }}
+            >
+              {isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
+            </Button>
+          </div>
         </div>
       )}
     </div>

@@ -136,17 +136,18 @@ class Unit(CloudModel):
     part_variation_id: str = Field(..., alias="partVariationId")
 
 
-class Measurement(CloudModel):
+class Measurement(BaseModel):
     test_id: str = Field(..., alias="testId")
     sequence_name: str = Field(..., alias="sequenceName")
     cycle_number: int = Field(..., alias="cycleNumber")
     name: str
     pass_: Optional[bool]
     completion_time: float = Field(..., alias="completionTime")
+    created_at: str = Field(..., alias="createdAt")
 
 
-class Session(CloudModel):
-    serial_number: str
+class Session(BaseModel):
+    serial_number: str = Field(..., alias="serialNumber")
     station_id: str = Field(..., alias="stationId")
     integrity: bool
     aborted: bool
@@ -218,6 +219,7 @@ async def get_cloud_projects():
                     "label": p.name,
                     "value": p.id,
                     "part": part_var.model_dump(by_alias=True),
+                    "repoUrl": p.repo_url,
                     "productName": part.product_name,
                 }
             )
@@ -273,6 +275,7 @@ async def post_cloud_session(_: Response, body: Session):
         logging.info("Posting session")
         url = get_flojoy_cloud_url() + "session/"
         payload = body.model_dump(by_alias=True)
+        payload["createdAt"] = utcnow_str()
         for i, m in enumerate(payload["measurements"]):
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
@@ -318,7 +321,7 @@ async def get_cloud_health(url: Annotated[str | None, Header()]):
         if url is None:
             url = get_flojoy_cloud_url()
         url = url + "health/"
-        response = requests.get(url, headers=headers_builder())
+        response = requests.get(url)
         if response.status_code == 200:
             return Response(status_code=200)
         else:
