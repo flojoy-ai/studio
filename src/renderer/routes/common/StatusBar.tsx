@@ -88,10 +88,9 @@ const StatusBar = (): JSX.Element => {
               </>
             ) : (
               <>
-                <code className="text-xs">
-                  {messages[messages.length - 1]?.slice(0, 145)}...
+                <code className="text-xs w-5/6">
+                  {messages[messages.length - 1]?.slice(0, 112)}...
                 </code>
-                <div className="grow" />
               </>
             )}
             <div className="grow" />

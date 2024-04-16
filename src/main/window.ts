@@ -46,7 +46,7 @@ export async function createWindow() {
       preload,
       sandbox: false,
     },
-    minHeight: 720,
+    minHeight: 860,
     minWidth: 1280,
     show: false,
   });
