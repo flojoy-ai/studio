@@ -186,7 +186,6 @@ export const openFilesPicker = (
     });
 };
 
-
 export const openAllFilesInFolderPicker = (
   _,
   folderPath: string,
@@ -217,7 +216,6 @@ export const openAllFilesInFolderPicker = (
   // Log that folder doesn't exist or is not a directory
   return undefined;
 };
-
 
 export const cleanup = async () => {
   const captainProcess = global.captainProcess as ChildProcess;

@@ -50,7 +50,7 @@ export function CloudPanel() {
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
   const handleLoadProfile = useLoadTestProfile();
-  const [ testProfileUrl, setTestProfileUrl ] = useState<string | null>("");
+  const [testProfileUrl, setTestProfileUrl] = useState<string | null>("");
   const {
     serialNumber,
     isUploaded,
@@ -200,7 +200,7 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    handleLoadProfile(testProfileUrl === null ? "": testProfileUrl);
+    handleLoadProfile(testProfileUrl === null ? "" : testProfileUrl);
   }, [testProfileUrl]);
 
   useEffect(() => {

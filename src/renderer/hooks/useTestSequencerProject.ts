@@ -108,7 +108,9 @@ export const useImportSequences = () => {
 
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
-  const setCommitHash = useSequencerStore(useShallow((state) => state.setCommitHash));
+  const setCommitHash = useSequencerStore(
+    useShallow((state) => state.setCommitHash),
+  );
   const handleImport = async (gitRepoUrlHttp: string) => {
     if (gitRepoUrlHttp === "") {
       return;
@@ -130,26 +132,27 @@ export const useLoadTestProfile = () => {
         ["tjoy"],
       );
       if (result === undefined) {
-        return err(Error(`Failed to find the directory ${res.value.profile_root}`));
+        return err(
+          Error(`Failed to find the directory ${res.value.profile_root}`),
+        );
       }
       if (!result || result.length === 0) {
         return err(Error("No .tjoy file found in the selected directory"));
       }
       await Promise.all(
-      result.map(async (res, idx) => {
-        const { filePath, fileContent } = res;
-        const result = await importSequence(
-          filePath,
-          fileContent,
-          manager,
-          idx !== 0,
-        );
-        if (result.isErr())
-          return err(result.error);
-      }),
+        result.map(async (res, idx) => {
+          const { filePath, fileContent } = res;
+          const result = await importSequence(
+            filePath,
+            fileContent,
+            manager,
+            idx !== 0,
+          );
+          if (result.isErr()) return err(result.error);
+        }),
       );
       return ok(undefined);
-    };
+    }
     toastResultPromise(importSequences(), {
       loading: `Importing Test Profile...`,
       success: () => `Test Profile imported`,
@@ -158,7 +161,7 @@ export const useLoadTestProfile = () => {
   };
 
   return handleImport;
-}
+};
 
 export const useCloseSequence = () => {
   const { isUnsaved } = useDisplayedSequenceState();
