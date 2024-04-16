@@ -45,7 +45,6 @@ import { useRef, useState } from "react";
 import { DraggableRowSequence } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowSequence";
 import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
@@ -60,7 +59,6 @@ export function SequenceTable() {
     useShallow((state) => state.removeSequence),
   );
   const { setIsCreateProjectModalOpen } = useSequencerModalStore();
-  const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
 
   const columns: ColumnDef<TestSequenceContainer>[] = [

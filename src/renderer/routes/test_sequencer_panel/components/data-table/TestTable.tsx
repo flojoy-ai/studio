@@ -55,16 +55,14 @@ import { DraggableRowStep } from "@/renderer/routes/test_sequencer_panel/compone
 import PythonTestFileModal from "@/renderer/routes/test_sequencer_panel/components/modals/PythonTestFileModal";
 import { mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
-import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
-import { WriteMinMaxModal } from "../modals/WriteMinMaxModal";
+import { WriteMinMaxModal } from "@/renderer/routes/test_sequencer_panel/components/modals/WriteMinMaxModal";
 import { toast } from "sonner";
 
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
   const { openRenameTestModal, setIsImportTestModalOpen } =
     useSequencerModalStore();
-  const importSequences = useImportSequences();
   const { isAdmin } = useWithPermission();
   const [addIfStatement] = useState(false);
   const indentLevels = getIndentLevels(elems);

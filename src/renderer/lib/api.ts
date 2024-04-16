@@ -295,6 +295,6 @@ const TestProfile = z.object({
 export type TestProfile = z.infer<typeof TestProfile>;
 
 export const installTestProfile = (url: string) => {
-  let options: Options = { headers: { url: url }, timeout: 60000 };
+  const options: Options = { headers: { url: url }, timeout: 60000 };
   return get("test_profile/install", TestProfile, options);
 };
