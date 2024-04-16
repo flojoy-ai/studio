@@ -154,7 +154,9 @@ const ProfileBox = ({
           </div>
         </div>
 
-        <p className="text-sm">{user.name}</p>
+        <p className="w-full overflow-hidden text-ellipsis text-center text-sm">
+          {user.name}
+        </p>
       </div>
       <ConfirmPrompt
         open={openConfirmPrompt}
