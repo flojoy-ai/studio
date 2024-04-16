@@ -46,21 +46,21 @@ test.describe("Block context menu", () => {
     ).toBeVisible();
   });
 
-  // test("Should open block edit menu upon clicking Edit block", async () => {
-  //   // Click on Edit block button from context menu
-  //   await window.getByTestId(Selectors.contextEditBlockBtn).click();
-  //
-  //   // Select all param div
-  //   const params = await window.$$(
-  //     `[data-testid="${Selectors.blockEditParam}"]`,
-  //   );
-  //
-  //   // Expect 5 parameters for SINE block
-  //   expect(params).toHaveLength(5);
-  //
-  //   // Close the block edit menu
-  //   await window.getByTestId(Selectors.blockEditMenuCloseBtn).click();
-  // });
+  test("Should open block edit menu upon clicking Edit block", async () => {
+    // Click on Edit block button from context menu
+    await window.getByTestId(Selectors.contextEditBlockBtn).click();
+
+    // Select all param div
+    const params = await window.$$(
+      `[data-testid="${Selectors.blockEditParam}"]`,
+    );
+
+    // Expect 5 parameters for SINE block
+    expect(params).toHaveLength(5);
+
+    // Close the block edit menu
+    await window.getByTestId(Selectors.blockEditMenuCloseBtn).click();
+  });
 
   test("Should open block info modal", async () => {
     // Right click on `SINE` block
