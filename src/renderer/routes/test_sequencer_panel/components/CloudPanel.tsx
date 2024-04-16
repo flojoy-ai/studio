@@ -35,7 +35,6 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { toast } from "sonner";
 import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
-import { useAuth } from "@/renderer/context/auth.context";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
 
 export function CloudPanel() {
@@ -46,8 +45,8 @@ export function CloudPanel() {
   const [projectId, setProjectId] = useState("");
   const [partNumber, setPartNumber] = useState("");
   const [partVarId, setPartVarId] = useState("");
+  const [productName, setProductName] = useState("N/A");
   const [serialNumbers, setSerialNumbers] = useState<string[]>([]);
-  const { user } = useAuth();
   const { isLocked } = useDisplayedSequenceState();
   const { sequences, handleUpload } = useSequencerState();
   const {
@@ -212,6 +211,7 @@ export function CloudPanel() {
     setDescription(newValue.part.description);
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
+    setProductName(newValue.productName);
   };
 
   const { isEnvVarModalOpen, setIsEnvVarModalOpen } = useAppStore(
@@ -288,13 +288,14 @@ export function CloudPanel() {
             <p>Part Number</p>
           </div>
           <Input
-            placeholder="Select a station"
+            placeholder="Select a station first"
             value={partNumber}
             disabled={true}
           />
 
           <div className="pt-2 text-xs text-muted-foreground">
             <p>Description: {` ${description}`} </p>
+            <p>Product ID: {` ${productName}`} </p>
           </div>
 
           <hr className="mt-4" />
@@ -368,10 +369,8 @@ export function CloudPanel() {
             </SelectContent>
           </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
-            <p>Station: ID-12345678 </p>
-            <p>Operator: {user ? user.name.substring(0, 20) : "Unknow"} </p>
             <p>Sequencer: {"TS-" + packageJson.version} </p>
-            <p>
+            <p className="ml-6">
               Integrity:{" "}
               {getIntegrity(sequences) ? (
                 <Badge className="h-4 bg-green-500">Pass</Badge>
