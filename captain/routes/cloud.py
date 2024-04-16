@@ -143,6 +143,7 @@ class Measurement(BaseModel):
     name: str
     pass_: Optional[bool]
     completion_time: float = Field(..., alias="completionTime")
+    created_at: str = Field(..., alias="createdAt")
 
 
 class Session(BaseModel):
@@ -283,6 +284,7 @@ async def post_cloud_session(_: Response, body: Session):
         logging.info("Posting session")
         url = get_flojoy_cloud_url() + "session/"
         payload = body.model_dump(by_alias=True)
+        payload["createdAt"] = utcnow_str()
         for i, m in enumerate(payload["measurements"]):
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
