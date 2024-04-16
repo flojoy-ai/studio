@@ -18,13 +18,11 @@ import { useAppStore } from "@/renderer/stores/app";
 import { useShallow } from "zustand/react/shallow";
 import {
   Project,
-  Station,
   Unit,
   getCloudProjects,
   getCloudStations,
   getCloudUnits,
   getEnvironmentVariables,
-  installTestProfile,
 } from "@/renderer/lib/api";
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -54,7 +52,6 @@ export function CloudPanel() {
   const { sequences, handleUpload } = useSequencerState();
   const handleLoadProfile = useLoadTestProfile();
   const [ testProfileUrl, setTestProfileUrl ] = useState<string | null>("");
-  const [ currentHash, setCurrentHash ] = useState("");
   const {
     serialNumber,
     isUploaded,
@@ -162,7 +159,7 @@ export function CloudPanel() {
             },
             (e) => {
               console.error(e);
-              toast.error("Failed to fetch production lines");
+              toast.error("Failed to fetch test profiles");
               return [];
             },
           );
@@ -314,7 +311,7 @@ export function CloudPanel() {
           </h2>
 
           <div className="pb-1 text-xs text-muted-foreground">
-            <p>Production Line</p>
+            <p>Test Profile</p>
           </div>
 
           <Select
@@ -325,12 +322,12 @@ export function CloudPanel() {
             disabled={isLocked}
           >
             <SelectTrigger>
-              <SelectValue placeholder={"Select your production line..."} />
+              <SelectValue placeholder={"Select your Test Profile..."} />
             </SelectTrigger>
             <SelectContent className="max-h-72">
               {projectsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
-                  <strong>No production line found</strong>
+                  <strong>No Test Profile found</strong>
                   <Button
                     onClick={() => projectsQuery.refetch()}
                     variant={"ghost"}
@@ -365,7 +362,7 @@ export function CloudPanel() {
                   ) : (
                     <p>
                       {" "}
-                      Select a production line to load the available stations{" "}
+                      Select a test profile to load the available stations{" "}
                     </p>
                   )}
                 </div>
