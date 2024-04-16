@@ -72,6 +72,8 @@ type Actions = {
   runNextRunnableSequence: (sender: SendJsonMessage) => void;
   runRunnableSequencesFromCurrentOne: (sender: SendJsonMessage) => void;
   updateSequenceStatus: (val: StatusType) => void;
+  // Global
+  clearState: () => void;
 };
 
 export const useSequencerStore = create<State & Actions>()(
@@ -126,7 +128,7 @@ export const useSequencerStore = create<State & Actions>()(
     isUploaded: false,
     setIsUploaded: (val) => set(() => ({ isUploaded: val })),
     commitHash: "",
-    setCommitHash: (val) => set(() => ({ profileHash: val })),
+    setCommitHash: (val) => set(() => ({ commitHash: val })),
 
     setWebsocketId: (val) =>
       set((state) => {
@@ -411,6 +413,26 @@ export const useSequencerStore = create<State & Actions>()(
         state.cycleConfig.ptrCycle = -1;
         state.cycleRuns = [];
       }),
+
+    clearState: () => {
+      set((state) => {
+        clearSequencerState(state);
+        state.sequences = [];
+        state.cycleRuns = [];
+        state.cycleConfig = {
+          cycleCount: 1,
+          infinite: true,
+          ptrCycle: -1,
+        };
+        state.serialNumber = "";
+        state.stationId = "";
+        state.integrity = false;
+        state.isUploaded = false;
+        state.commitHash = "";
+        state.elements = [];
+      });
+    },
+
   })),
 );
 

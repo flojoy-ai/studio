@@ -109,6 +109,7 @@ export const useImportSequences = () => {
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();
+  const clearState = useSequencerStore(useShallow((state) => state.clearState));
   const setCommitHash = useSequencerStore(
     useShallow((state) => state.setCommitHash),
   );
@@ -119,12 +120,13 @@ export const useLoadTestProfile = () => {
     async function importSequences(): Promise<Result<void, Error>> {
       if (isAdmin()) {
         const shouldContinue = window.confirm(
-          "Do you want to load the sequences associated with test profile?",
+          "Do you want to load the sequences associated with test profile? All unsaved changes will be lost."
         );
         if (!shouldContinue) {
           return err(Error("User cancelled loading test profile"));
         }
       }
+      clearState();
       const res = await installTestProfile(gitRepoUrlHttp);
       if (res.isErr()) {
         return err(Error(`Failed to load test profile: ${res.error}`));
