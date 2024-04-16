@@ -47,6 +47,12 @@ test.describe("Block context menu", () => {
   });
 
   test("Should open block edit menu upon clicking Edit block", async () => {
+    // Take a screenshot
+    await window.screenshot({
+      fullPage: true,
+      path: "test-results/before-right-click-block.jpeg",
+    });
+
     // Click on Edit block button from context menu
     await window.getByTestId(Selectors.contextEditBlockBtn).click();
 
