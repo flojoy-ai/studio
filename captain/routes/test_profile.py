@@ -54,7 +54,7 @@ async def install(url: Annotated[str, Header()]):
 @router.post("/test_profile/checkout/{commit_hash}/")
 async def checkout(url: Annotated[str, Header()], commit_hash: str):
     try:
-        logging.info(f"Swtiching to the commit: {commit_hash} for the profile: {url}")
+        logging.info(f"Switching to the commit: {commit_hash} for the profile: {url}")
         verify_git_install()
         profiles_path = get_profiles_dir()
         profile_path = get_profile_path_from_url(profiles_path, url)
