@@ -330,7 +330,7 @@ async def get_cloud_health(url: Annotated[str | None, Header()]):
         if url is None:
             url = get_flojoy_cloud_url()
         url = url + "health/"
-        response = requests.get(url, headers=headers_builder())
+        response = requests.get(url)
         if response.status_code == 200:
             return Response(status_code=200)
         else:
