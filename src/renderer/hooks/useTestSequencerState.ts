@@ -374,7 +374,8 @@ export function useSequencerState() {
       toast.error("Please fill in the required fields to upload to cloud.");
     }
     setIsUploaded(false);
-    if (project === null) {
+    if (sequences.length === 0) {
+      // No sequence ? Run the loaded test step.
       setIsLocked(true);
       runRunnableSequencesFromCurrentOne(sender);
     } else {
