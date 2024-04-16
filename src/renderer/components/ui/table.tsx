@@ -1,6 +1,6 @@
 import * as React from "react";
-
 import { cn } from "@/renderer/lib/utils";
+import { VariantProps, cva } from "class-variance-authority";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -48,19 +48,41 @@ const TableFooter = React.forwardRef<
 ));
 TableFooter.displayName = "TableFooter";
 
-const TableRow = React.forwardRef<
-  HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
-  <tr
-    ref={ref}
-    className={cn(
-      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-      className,
-    )}
-    {...props}
-  />
-));
+const tableRowVariants = cva(
+  "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+  {
+    variants: {
+      variant: {
+        selected: "bg-muted",
+        fail: "bg-error text-error-text border-error-foreground",
+        aborted: "bg-error text-error-text border-error-foreground",
+        pass: "bg-success text-success-text border-success-foreground",
+        paused: "bg-warning text-warning-text border-warning-foreground",
+        running: "bg-info text-info-text border-info-foreground",
+        default: "border",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+export interface TableRowProps
+  extends React.HTMLAttributes<HTMLTableRowElement>,
+    VariantProps<typeof tableRowVariants> {
+  ref?: React.Ref<HTMLTableRowElement>;
+}
+
+const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
+  ({ className, variant, ...props }, ref) => (
+    <tr
+      ref={ref}
+      className={cn(className, tableRowVariants({ variant }))}
+      {...props}
+    />
+  ),
+);
 TableRow.displayName = "TableRow";
 
 const TableHead = React.forwardRef<
@@ -116,6 +138,7 @@ export {
   TableFooter,
   TableHead,
   TableRow,
+  tableRowVariants,
   TableCell,
   TableCaption,
 };

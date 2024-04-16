@@ -2,6 +2,7 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
 import {
@@ -40,7 +41,7 @@ import {
 import { parseInt, map } from "lodash";
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "lucide-react";
 import LockableButton from "@/renderer/routes/test_sequencer_panel/components/lockable/LockedButtons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { DraggableRowSequence } from "@/renderer/routes/test_sequencer_panel/components/dnd/DraggableRowSequence";
 import { getCompletionTime, getSuccessRate, mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -48,6 +49,9 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
+import { RenameModal } from "../modals/RenameModal";
+import { toast } from "sonner";
+import { produce } from "immer";
 
 export function SequenceTable() {
   const { project, isLocked } = useDisplayedSequenceState();
@@ -102,26 +106,28 @@ export function SequenceTable() {
 
     {
       accessorKey: "run",
-      header: "Run",
+      header: () => <div className="pl-4 text-center">Run</div>,
       cell: ({ row }) => {
         return (
-          <Checkbox
-            disabled={isLocked}
-            className="relative z-20"
-            checked={row.original.runable}
-            onCheckedChange={() => onToggleSequence([row.index])}
-            aria-label="Select row"
-          />
+          <div className="flex justify-center">
+            <Checkbox
+              disabled={isLocked}
+              className="relative z-20"
+              checked={row.original.runable}
+              onCheckedChange={() => onToggleSequence([row.index])}
+              aria-label="Select row"
+            />
+          </div>
         );
       },
     },
 
     {
       accessorKey: "status",
-      header: "Status",
+      header: () => <div className="text-center">Status</div>,
       cell: ({ row }) => {
         return (
-          <div>
+          <div className="flex justify-center">
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](null)
               : mapStatusToDisplay[row.original.status]}
@@ -132,10 +138,10 @@ export function SequenceTable() {
 
     {
       accessorKey: "success_rate",
-      header: "Success Rate",
+      header: () => <div className="pl-4 text-center">Success Rate</div>,
       cell: ({ row }) => {
         return (
-          <div>
+          <div className="flex justify-center">
             <p className="text-primary">
               {getSuccessRate(row.original.elements).toFixed(2)}%
             </p>
@@ -146,11 +152,11 @@ export function SequenceTable() {
 
     {
       accessorKey: "completion_time",
-      header: "Completion Time",
+      header: () => <div className="pl-4 text-center">Completion Time</div>,
       cell: ({ row }) => {
         const time = getCompletionTime(row.original.elements);
         return (
-          <div>
+          <div className="flex justify-center">
             <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
         );
@@ -255,8 +261,78 @@ export function SequenceTable() {
     );
   };
 
+  const onRenameSequence = (idx: number) => {
+    const sequence = sequences[idx];
+    renameForIdx.current = idx;
+    setRenameTarget(sequence.project.name);
+    setInitialName(sequence.project.name);
+    setIsRenameNameModalOpen(true);
+  };
+
+  const handleRenameSequence = (newName: string) => {
+    // make sure the new name is unique
+    if (sequences.some((seq) => seq.project.name === newName)) {
+      toast.error("Sequence name must be unique");
+      return;
+    }
+    if (newName === "") {
+      toast.error("Sequence name cannot be empty");
+      return;
+    }
+    setSequences(
+      produce(sequences, (draft) => {
+        const seq = draft[renameForIdx.current];
+        seq.project.name = newName;
+        seq.testSequenceUnsaved = true;
+      }),
+    );
+    setIsRenameDescModalOpen(false);
+
+    setIsRenameNameModalOpen(false);
+  };
+  const [isRenameNameModalOpen, setIsRenameNameModalOpen] = useState(false);
+  const [isRenameDescModalOpen, setIsRenameDescModalOpen] = useState(false);
+  const [renameTarget, setRenameTarget] = useState("");
+  const [initialName, setInitialName] = useState("");
+  const renameForIdx = useRef(-1);
+
+  const onRenameDescription = (idx: number) => {
+    const sequence = sequences[idx];
+    renameForIdx.current = idx;
+    setRenameTarget(sequence.project.name);
+    setInitialName(sequence.project.description);
+    setIsRenameDescModalOpen(true);
+  };
+
+  const handleRenameDescription = (newDescription: string) => {
+    setSequences(
+      produce(sequences, (draft) => {
+        const seq = draft[renameForIdx.current];
+        seq.project.description = newDescription;
+        seq.testSequenceUnsaved = true;
+      }),
+    );
+    setIsRenameDescModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col">
+      <RenameModal
+        title="Rename sequence"
+        isModalOpen={isRenameNameModalOpen}
+        setModalOpen={setIsRenameNameModalOpen}
+        initialName={initialName}
+        handleSubmit={handleRenameSequence}
+        target={renameTarget}
+      />
+      <RenameModal
+        title="Edit description"
+        isModalOpen={isRenameDescModalOpen}
+        setModalOpen={setIsRenameDescModalOpen}
+        initialName={initialName}
+        handleSubmit={handleRenameDescription}
+        target={renameTarget}
+      />
       <div className="m-1 flex items-center py-0">
         {isAdmin() ? (
           <LockableButton
@@ -336,6 +412,21 @@ export function SequenceTable() {
                     />
                   </ContextMenuTrigger>
                   <ContextMenuContent>
+                    <ContextMenuItem
+                      onClick={() => {
+                        onRenameSequence(row.index);
+                      }}
+                    >
+                      Rename sequence
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                      onClick={() => {
+                        onRenameDescription(row.index);
+                      }}
+                    >
+                      Edit description
+                    </ContextMenuItem>
+                    <ContextMenuSeparator />
                     <ContextMenuItem
                       onClick={() => {
                         onRemoveSequence([row.index]);

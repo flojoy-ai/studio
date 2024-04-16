@@ -2,6 +2,7 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
+  ContextMenuSeparator,
   ContextMenuTrigger,
 } from "@/renderer/components/ui/context-menu";
 import {
@@ -56,6 +57,7 @@ import { mapStatusToDisplay } from "./utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
+import { WriteMinMaxModal } from "../modals/WriteMinMaxModal";
 
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
@@ -132,30 +134,91 @@ export function TestTable() {
     // },
 
     {
+      id: "Test Type",
       accessorFn: (elem) => {
         return elem.type === "test" ? "type" : null;
       },
-      header: "Test Type",
+      header: () => <div className="pl-4 text-center">Type</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>{row.original.testType}</div>
+          <div className="flex justify-center">{row.original.testType}</div>
         ) : null;
       },
     },
 
     {
+      id: "Min",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "min" : null;
+      },
+      header: () => <div className="pl-4 text-center">Min</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" &&
+          row.original.minValue !== undefined ? (
+          <div className="flex justify-center">
+            <code className="text-muted-foreground">
+              {row.original.minValue}
+              {row.original.unit}
+            </code>
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      id: "Max",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "max" : null;
+      },
+      header: () => <div className="pl-4 text-center">Max</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" &&
+          row.original.maxValue !== undefined ? (
+          <div className="flex justify-center">
+            <code className=" text-muted-foreground">
+              {row.original.maxValue}
+              {row.original.unit}
+            </code>
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      id: "Measured",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "measured_value" : null;
+      },
+      header: () => <div className="pl-4 text-center">Measured</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" &&
+          row.original.measuredValue !== undefined ? (
+          <div className="flex justify-center">
+            <code>
+              {row.original.measuredValue}
+              {row.original.unit}
+            </code>
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      id: "Export",
       accessorFn: (elem) => {
         return elem.type === "test" ? "isSavedToCloud" : null;
       },
-      header: "Export to Cloud",
+      header: () => <div className="pl-4 text-center">Export</div>,
       cell: ({ row }) => {
         if (row.original.type === "test") {
           return (
-            <Checkbox
-              className="relative z-10 my-2"
-              checked={row.original.exportToCloud}
-              onCheckedChange={() => toggleExportToCloud(row.original.id)}
-            />
+            <div className="flex justify-center">
+              <Checkbox
+                className="relative z-10 my-2"
+                checked={row.original.exportToCloud}
+                onCheckedChange={() => toggleExportToCloud(row.original.id)}
+              />
+            </div>
           );
         }
         return null;
@@ -163,13 +226,14 @@ export function TestTable() {
     },
 
     {
+      id: "Status",
       accessorFn: (elem) => {
         return elem.type === "test" ? "status" : null;
       },
-      header: "Status",
+      header: () => <div className="pl-4 text-center">Status</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div className="my-2">
+          <div className="my-2 flex justify-center">
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](row.original.error)
               : mapStatusToDisplay[row.original.status]}
@@ -179,15 +243,17 @@ export function TestTable() {
     },
 
     {
+      id: "Completion Time",
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
       },
-      header: "Completion Time",
+      header: () => <div className="pl-4 text-center">Time</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div>
-            {row.original.completionTime &&
-              row.original.completionTime.toFixed(2)}
+          <div className="flex justify-center">
+            {row.original.completionTime
+              ? `${row.original.completionTime.toFixed(2)}s`
+              : "0.00s"}
           </div>
         ) : null;
       },
@@ -282,6 +348,9 @@ export function TestTable() {
     useState(false);
   const writeConditionalForIdx = useRef(-1);
 
+  const [showWriteMinMaxModal, setShowWriteMinMaxModal] = useState(false);
+  const writeMinMaxForIdx = useRef(-1);
+
   const handleWriteConditionalModal = (input: string) => {
     setElems((data) => {
       const new_data = [...data];
@@ -318,6 +387,29 @@ export function TestTable() {
     setShowWriteConditionalModal(true);
   };
 
+  const onClickWriteMinMax = (idx: number) => {
+    writeMinMaxForIdx.current = idx;
+    setShowWriteMinMaxModal(true);
+  };
+
+  const onSubmitWriteMinMax = (
+    minValue: number,
+    maxValue: number,
+    unit: string,
+  ) => {
+    setElems((data) => {
+      const new_data = [...data];
+      const test = new_data[writeMinMaxForIdx.current] as Test;
+      new_data[writeMinMaxForIdx.current] = {
+        ...test,
+        minValue: isNaN(minValue) ? undefined : minValue,
+        maxValue: isNaN(maxValue) ? undefined : maxValue,
+        unit,
+      };
+      return new_data;
+    });
+  };
+
   const getSpecificContextMenuItems = (row: Row<TestSequenceElement>) => {
     switch (row.original.type) {
       case "test":
@@ -348,6 +440,11 @@ export function TestTable() {
         setConditionalModalOpen={setShowWriteConditionalModal}
         handleWriteConditionalModalOpen={setShowWriteConditionalModal}
         handleWrite={handleWriteConditionalModal}
+      />
+      <WriteMinMaxModal
+        isModalOpen={showWriteMinMaxModal}
+        setModalOpen={setShowWriteMinMaxModal}
+        handleWrite={onSubmitWriteMinMax}
       />
       {openPyTestFileModal && (
         <PythonTestFileModal
@@ -454,14 +551,43 @@ export function TestTable() {
                       Add Conditional
                     </ContextMenuItem>
                     {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          openRenameTestModal(row.original.id);
-                        }}
-                      >
-                        Rename Test
-                      </ContextMenuItem>
+                      <>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => {
+                            setOpenPyTestFileModal(true);
+                            setTestToDisplay(row.original as Test);
+                          }}
+                        >
+                          Consult Code
+                        </ContextMenuItem>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          onClick={() => {
+                            openRenameTestModal(row.original.id);
+                          }}
+                        >
+                          Rename Test
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            toggleExportToCloud(row.original.id);
+                          }}
+                        >
+                          {row.original.exportToCloud
+                            ? "Disable export to Cloud"
+                            : "Enable export to Cloud"}
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            onClickWriteMinMax(parseInt(row.id));
+                          }}
+                        >
+                          Edit Expected Value
+                        </ContextMenuItem>
+                      </>
                     )}
+                    <ContextMenuSeparator />
                     <ContextMenuItem
                       onClick={() => onRemoveTest([parseInt(row.id)])}
                     >
@@ -469,27 +595,6 @@ export function TestTable() {
                         ? "Remove Test"
                         : "Remove Conditional"}
                     </ContextMenuItem>
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          setOpenPyTestFileModal(true);
-                          setTestToDisplay(row.original as Test);
-                        }}
-                      >
-                        Consult Code
-                      </ContextMenuItem>
-                    )}
-                    {row.original.type === "test" && (
-                      <ContextMenuItem
-                        onClick={() => {
-                          toggleExportToCloud(row.original.id);
-                        }}
-                      >
-                        {row.original.exportToCloud
-                          ? "Disable export to Cloud"
-                          : "Enable export to Cloud"}
-                      </ContextMenuItem>
-                    )}
                   </ContextMenuContent>
                 </ContextMenu>
               ))

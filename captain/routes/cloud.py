@@ -4,8 +4,7 @@ import requests
 from fastapi import APIRouter, Header, Response
 from flojoy.env_var import get_env_var, get_flojoy_cloud_url
 from flojoy_cloud import test_sequencer
-from pydantic import BaseModel, ConfigDict
-from pydantic.alias_generators import to_camel
+from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 import datetime
 from typing import Literal
@@ -56,8 +55,8 @@ async def get_cloud_part_variation(part_variation_id: str):
     response = requests.get(url, headers=headers_builder())
     res = response.json()
     res["partVariationId"] = part_variation_id
-    part_variation = PartVariation(**res)
-    return part_variation.model_dump()
+    logging.info("Part variation retrieved: %s", res)
+    return PartVariation(**res)
 
 
 class SecretNotFound(Exception):
@@ -93,59 +92,66 @@ def headers_builder(with_workspace_id=True) -> dict:
     return headers
 
 
-class CamelModel(BaseModel):
-    model_config = ConfigDict(alias_generator=to_camel, protected_namespaces=())
-
-
-class CloudModel(CamelModel):
+class CloudModel(BaseModel):
     id: str
-    created_at: datetime.datetime
+    created_at: str = Field(..., alias="createdAt")
+    workspace_id: str = Field(..., alias="workspaceId")
 
 
 class Project(CloudModel):
     name: str
-    updated_at: Optional[datetime.datetime]
-    workspace_id: str
-    part_variation_id: str
-    repo_Url: Optional[str]
+    updated_at: Optional[datetime.datetime] = Field(..., alias="updatedAt")
+    part_variation_id: str = Field(..., alias="partVariationId")
+    repo_url: Optional[str] = Field(..., alias="repoUrl")
 
 
-class Station(CloudModel):
+class Part(CloudModel):
     name: str
-
-
-class PartVariation(BaseModel):
-    partId: str
-    partVariationId: str
-    partNumber: str
+    product_name: str = Field(..., alias="productName")
     description: str
 
 
-class Unit(BaseModel):
-    serialNumber: str
-    lotNumber: Optional[str]
+class Product(CloudModel):
+    name: str
+    description: str
+
+
+class Station(BaseModel):
+    id: str
+    created_at: str = Field(..., alias="createdAt")
+    name: str
+
+
+class PartVariation(CloudModel):
+    part_id: str = Field(..., alias="partId")
+    part_variation_id: str = Field(..., alias="partVariationId")
+    part_number: str = Field(..., alias="partNumber")
+    description: str
+
+
+class Unit(CloudModel):
+    serial_number: str = Field(..., alias="serialNumber")
+    lot_number: Optional[str] = Field(..., alias="lotNumber")
     parent: Optional[str]
-    partVariationId: str
-    workspaceId: str
+    part_variation_id: str = Field(..., alias="partVariationId")
 
 
-class Measurement(BaseModel):
-    testId: str
-    sequenceName: str
-    cycleNumber: int
+class Measurement(CloudModel):
+    test_id: str = Field(..., alias="testId")
+    sequence_name: str = Field(..., alias="sequenceName")
+    cycle_number: int = Field(..., alias="cycleNumber")
     name: str
     pass_: Optional[bool]
-    completionTime: float
-    createdAt: str
+    completion_time: float = Field(..., alias="completionTime")
 
 
-class Session(BaseModel):
-    serialNumber: str
-    stationId: str
+class Session(CloudModel):
+    serial_number: str
+    station_id: str = Field(..., alias="stationId")
     integrity: bool
     aborted: bool
     notes: str
-    commitHash: str
+    commit_hash: str = Field(..., alias="commitHash")
     measurements: list[Measurement]
 
 
@@ -178,6 +184,14 @@ def get_measurement(m: Measurement) -> MeasurementData:
     return data
 
 
+async def get_part(part_id: str) -> Part:
+    logging.info("Querying part")
+    url = get_flojoy_cloud_url() + "part/" + part_id
+    response = requests.get(url, headers=headers_builder())
+    logging.info("Part retrieved: %s", response.json())
+    return Part(**response.json())
+
+
 # Routes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -195,19 +209,24 @@ async def get_cloud_projects():
         response = requests.get(url, headers=headers_builder())
         if response.status_code != 200:
             return Response(status_code=response.status_code, content=json.dumps([]))
+        logging.info("Projects retrieved: %s", response.json())
         projects = [Project(**project_data) for project_data in response.json()]
+        logging.info("Projects: %s", projects)
+        projects_res = []
+        for p in projects:
+            part_var = await get_cloud_part_variation(p.part_variation_id)
+            part = await get_part(part_var.part_id)
+            projects_res.append(
+                {
+                    "label": p.name,
+                    "value": p.id,
+                    "part": part_var.model_dump(by_alias=True),
+                    "productName": part.product_name,
+                }
+            )
         return Response(
             status_code=200,
-            content=json.dumps(
-                [
-                    {
-                        "label": p.name,
-                        "value": p.id,
-                        "part": await get_cloud_part_variation(p.part_variation_id),
-                    }
-                    for p in projects
-                ]
-            ),
+            content=json.dumps(projects_res),
         )
     except Exception as e:
         return error_response_builder(e)
@@ -226,7 +245,9 @@ async def get_cloud_stations(project_id: str):
         if response.status_code != 200:
             logging.error(f"Error getting stations from Flojoy Cloud: {response.text}")
             return Response(status_code=response.status_code, content=json.dumps([]))
+        logging.info("Stations retrieved: %s", response.json())
         stations = [Station(**s) for s in response.json()]
+        logging.info("Stations: %s", stations)
         if not stations:
             return Response(status_code=404, content=json.dumps([]))
         return Response(
@@ -249,7 +270,7 @@ async def get_cloud_variant_unit(part_var_id: str):
         units = [Unit(**u) for u in response.json()]
         if not units:
             return Response(status_code=404, content=json.dumps([]))
-        dict_model = [unit.model_dump() for unit in units]
+        dict_model = [unit.model_dump(by_alias=True) for unit in units]
         return Response(status_code=200, content=json.dumps(dict_model))
     except Exception as e:
         return error_response_builder(e)
@@ -260,7 +281,7 @@ async def post_cloud_session(_: Response, body: Session):
     try:
         logging.info("Posting session")
         url = get_flojoy_cloud_url() + "session/"
-        payload = body.model_dump()
+        payload = body.model_dump(by_alias=True)
         for i, m in enumerate(payload["measurements"]):
             m["data"] = make_payload(get_measurement(body.measurements[i]))
             m["pass"] = m.pop("pass_")
