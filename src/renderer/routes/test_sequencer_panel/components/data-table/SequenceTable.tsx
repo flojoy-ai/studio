@@ -102,26 +102,28 @@ export function SequenceTable() {
 
     {
       accessorKey: "run",
-      header: "Run",
+      header: () => <div className="pl-4 text-center">Run</div>,
       cell: ({ row }) => {
         return (
-          <Checkbox
-            disabled={isLocked}
-            className="relative z-20"
-            checked={row.original.runable}
-            onCheckedChange={() => onToggleSequence([row.index])}
-            aria-label="Select row"
-          />
+          <div className="flex justify-center">
+            <Checkbox
+              disabled={isLocked}
+              className="relative z-20"
+              checked={row.original.runable}
+              onCheckedChange={() => onToggleSequence([row.index])}
+              aria-label="Select row"
+            />
+          </div>
         );
       },
     },
 
     {
       accessorKey: "status",
-      header: "Status",
+      header: () => <div className="text-center">Status</div>,
       cell: ({ row }) => {
         return (
-          <div>
+          <div className="flex justify-center">
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](null)
               : mapStatusToDisplay[row.original.status]}
@@ -132,10 +134,10 @@ export function SequenceTable() {
 
     {
       accessorKey: "success_rate",
-      header: "Success Rate",
+      header: () => <div className="pl-4 text-center">Success Rate</div>,
       cell: ({ row }) => {
         return (
-          <div>
+          <div className="flex justify-center">
             <p className="text-primary">
               {getSuccessRate(row.original.elements).toFixed(2)}%
             </p>
@@ -146,11 +148,11 @@ export function SequenceTable() {
 
     {
       accessorKey: "completion_time",
-      header: "Completion Time",
+      header: () => <div className="pl-4 text-center">Completion Time</div>,
       cell: ({ row }) => {
         const time = getCompletionTime(row.original.elements);
         return (
-          <div>
+          <div className="flex justify-center">
             <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
         );
