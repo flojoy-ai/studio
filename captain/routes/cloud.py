@@ -136,7 +136,7 @@ class Unit(CloudModel):
     part_variation_id: str = Field(..., alias="partVariationId")
 
 
-class Measurement(CloudModel):
+class Measurement(BaseModel):
     test_id: str = Field(..., alias="testId")
     sequence_name: str = Field(..., alias="sequenceName")
     cycle_number: int = Field(..., alias="cycleNumber")
@@ -145,8 +145,8 @@ class Measurement(CloudModel):
     completion_time: float = Field(..., alias="completionTime")
 
 
-class Session(CloudModel):
-    serial_number: str
+class Session(BaseModel):
+    serial_number: str = Field(..., alias="serialNumber")
     station_id: str = Field(..., alias="stationId")
     integrity: bool
     aborted: bool

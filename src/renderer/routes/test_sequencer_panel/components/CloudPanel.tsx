@@ -387,15 +387,18 @@ export function CloudPanel() {
             </p>
           </div>
           <div className="py-2" />
-          {isAdmin() && (
             <div className="bt-2 flex items-center">
-              <Checkbox
-                checked={uploadAfterRun}
-                onCheckedChange={setUploadAfterRun}
-              />
-              <p className="ml-2 text-sm text-muted-foreground">
-                Automatically upload
-              </p>
+              {isAdmin() && (
+                <>
+                  <Checkbox
+                    checked={uploadAfterRun}
+                    onCheckedChange={setUploadAfterRun}
+                  />
+                  <p className="ml-2 text-sm text-muted-foreground">
+                    Automatically upload
+                  </p>
+                </>
+              )}
               <div className="grow" />
               <Button
                 variant="outline"
@@ -413,7 +416,6 @@ export function CloudPanel() {
                 {isUploaded ? "Upload Done" : "Upload to Flojoy Cloud"}
               </Button>
             </div>
-          )}
         </div>
       )}
     </div>

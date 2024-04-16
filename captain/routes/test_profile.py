@@ -4,7 +4,7 @@ import subprocess
 from typing import Annotated
 from fastapi import APIRouter, Header, Response
 import os
-from flojoy_cloud.client import json
+import json
 from captain.utils.blocks_path import get_flojoy_dir
 
 
