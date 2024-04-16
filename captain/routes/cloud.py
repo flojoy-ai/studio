@@ -177,9 +177,9 @@ def make_payload(data: MeasurementData):
 
 
 def get_measurement(m: Measurement) -> MeasurementData:
-    data = test_sequencer._get_most_recent_data(m.testId)
+    data = test_sequencer._get_most_recent_data(m.test_id)
     if not isinstance(data, MeasurementData):
-        logging.info(f"{m.testId}: Unexpected data type for test data: {type(data)}")
+        logging.info(f"{m.test_id}: Unexpected data type for test data: {type(data)}")
         data = m.pass_
     return data
 
