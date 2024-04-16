@@ -56,9 +56,7 @@ test.describe("Block context menu", () => {
     // CI problem if not center due to multi-layered context menu
     await window.locator("button[title='zoom out']").click();
     await window.locator("button[title='zoom out']").click();
-    await window.locator("button[title='zoom out']").click();
-    await window.locator("button[title='fit view']").click();
-    //
+    
     // Take a screenshot
     await window.screenshot({
       fullPage: true,
