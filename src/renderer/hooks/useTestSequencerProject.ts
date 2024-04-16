@@ -21,8 +21,16 @@ import { useShallow } from "zustand/react/shallow";
 
 function usePrepareStateManager(): StateManager {
   const { elems, project } = useDisplayedSequenceState();
-  const { addNewSequence, removeSequence, sequences } = useSequencerState();
-  return { elems, project, addNewSequence, removeSequence, sequences };
+  const { addNewSequence, removeSequence, sequences, setSequences } =
+    useSequencerState();
+  return {
+    elems,
+    project,
+    addNewSequence,
+    removeSequence,
+    sequences,
+    setSequences,
+  };
 }
 
 export function useSaveSequence() {

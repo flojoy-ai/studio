@@ -72,6 +72,8 @@ const TestSequencerView = () => {
             </div>
           </div>
         </div>
+
+        <div className="py-2"></div>
       </div>
     </LockedContextProvider>
   );

@@ -28,6 +28,7 @@ export type StateManager = {
   removeSequence: (name: string) => void;
   project: TestSequencerProject | null;
   sequences: TestSequenceContainer[];
+  setSequences: (sequences: TestSequenceContainer[]) => void;
 };
 
 export async function createSequence(
@@ -82,6 +83,15 @@ export async function saveSequence(
   if (isSync.isErr()) {
     return isSync;
   }
+  // Set the sequence as saved
+  stateManager.setSequences(
+    stateManager.sequences.map((seq) => {
+      if (seq.project.name === sequence.name) {
+        return { ...seq, testSequenceUnsaved: false };
+      }
+      return seq;
+    }),
+  );
   return ok(undefined);
 }
 
@@ -110,6 +120,12 @@ export async function saveSequences(
     if (res.isErr()) {
       return err(res.error);
     }
+    stateManager.setSequences(
+      stateManager.sequences.map((seq) => ({
+        ...seq,
+        testSequenceUnsaved: false,
+      })),
+    );
   });
   return ok(undefined);
 }
