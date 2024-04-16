@@ -232,7 +232,7 @@ export const postSession = (
             cycleNumber: cycleNumber,
             name: elem.testName,
             pass_: elem.status === "pass",
-            completionTime: elem.completionTime ? elem.completionTime : 0,
+            completionTime: elem.completionTime ?? 0,
             createdAt: elem.createdAt!,
           });
         }
