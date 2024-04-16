@@ -40,11 +40,15 @@ async def install(url: Annotated[str, Header()]):
             update_to_origin_main(profile_path)
 
         commit_hash = get_commit_hash(profile_path)
+
+        # Always use / in the path for compatibility
         profile_path = profile_path.replace(os.sep, "/")
+
         return Response(
             status_code=200,
             content=json.dumps({"profile_root": profile_path, "hash": commit_hash}),
         )
+
     except Exception as e:
         logging.error(f"Exception occured while installing {url}: {e}")
         logging.error(traceback.format_exc())
@@ -55,15 +59,20 @@ async def install(url: Annotated[str, Header()]):
 async def checkout(url: Annotated[str, Header()], commit_hash: str):
     try:
         logging.info(f"Switching to the commit: {commit_hash} for the profile: {url}")
+
         verify_git_install()
         profiles_path = get_profiles_dir()
         profile_path = get_profile_path_from_url(profiles_path, url)
         curr_commit_hash = get_commit_hash(profile_path)
+
         if curr_commit_hash != commit_hash:
+            # Fetch the lastest change
             cmd = ["git", "-C", profile_path, "fetch", "--all"]
             res = subprocess.run(cmd, capture_output=True)
             if res.returncode != 0:
                 raise Exception(f"Not able to fetch the repo - Error: {res.returncode}")
+
+            # Switch to the specific commit
             cmd = ["git", "-C", profile_path, "checkout", commit_hash]
             res = subprocess.run(cmd, capture_output=True)
             if res.returncode != 0:
@@ -72,10 +81,12 @@ async def checkout(url: Annotated[str, Header()], commit_hash: str):
                 )
 
         commit_hash = get_commit_hash(profile_path)
+
         return Response(
             status_code=200,
             content=json.dumps({"profile_root": profile_path, "hash": commit_hash}),
         )
+
     except Exception as e:
         logging.error(f"Exception occured while installing {url}: {e}")
         logging.error(traceback.format_exc())
@@ -86,6 +97,7 @@ async def checkout(url: Annotated[str, Header()], commit_hash: str):
 
 
 def get_profile_path_from_url(profiles_path: str, url: str):
+    """ Get the profile directory name from the url """
     profile_name = url.split("/")[-1].strip(".git")
     logging.info(f"Profile name: {profile_name}")
     profile_root = os.path.join(profiles_path, profile_name)
@@ -93,6 +105,7 @@ def get_profile_path_from_url(profiles_path: str, url: str):
 
 
 def verify_git_install():
+    """ Verify if git is installed on the system """
     cmd = ["git", "--version"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
@@ -107,6 +120,7 @@ def get_profiles_dir():
 
 
 def get_commit_hash(profile_path: str):
+    """ Get the commit hash of the current env. """
     cmd = ["git", "-C", profile_path, "rev-parse", "HEAD"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
@@ -117,7 +131,10 @@ def get_commit_hash(profile_path: str):
 
 
 def update_to_origin_main(profile_path: str):
+    """ Update the local repo to the lastest version """
     logging.info("Updating the repo to the origin main")
+    
+    # Verify the repo is clean (no changes so the user doesn't lose any work)
     cmd = ["git", "-C", profile_path, "status", "--porcelain"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
@@ -126,10 +143,14 @@ def update_to_origin_main(profile_path: str):
         )
     if res.stdout.strip() != b"":
         raise Exception(f"Repo is not clean - {res.stdout}")
+
+    # Get the lastest change
     cmd = ["git", "-C", profile_path, "fetch", "--all"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:
         raise Exception(f"Not able to fetch the repo - Error: {res.returncode}")
+
+    # Switch to the lastest change
     cmd = ["git", "-C", profile_path, "checkout", "origin/main"]
     res = subprocess.run(cmd, capture_output=True)
     if res.returncode != 0:

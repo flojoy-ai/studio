@@ -192,29 +192,29 @@ export const openAllFilesInFolderPicker = (
   allowedExtensions: string[] = ["json"],
 ): { filePath: string; fileContent: string }[] | undefined => {
   // Return multiple files or all files with the allowed extensions if a folder is selected
-  if (fs.existsSync(folderPath) && fs.lstatSync(folderPath).isDirectory()) {
-    // If a folder is selected, find all files with the allowed extensions from that folder
-    const paths: string[] = [];
-    fs.readdirSync(folderPath, { withFileTypes: true }).forEach((dirent) => {
-      if (dirent.isFile()) {
-        const nameAndExt = dirent.name.split(".");
-        const ext = nameAndExt[nameAndExt.length - 1];
-        if (allowedExtensions.includes(ext)) {
-          paths.push(join(folderPath, dirent.name));
-        }
-      }
-    });
-    const files = paths.map((path) => {
-      return {
-        filePath: path.split(sep).join(posix.sep),
-        fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
-      };
-    });
-    // Log the number of files found
-    return files;
+  if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
+    return undefined;
   }
-  // Log that folder doesn't exist or is not a directory
-  return undefined;
+  // If a folder is selected, find all files with the allowed extensions from that folder
+  const paths: string[] = [];
+  fs.readdirSync(folderPath, { withFileTypes: true }).forEach((dirent) => {
+    if (dirent.isFile()) {
+      const nameAndExt = dirent.name.split(".");
+      const ext = nameAndExt[nameAndExt.length - 1];
+      if (allowedExtensions.includes(ext)) {
+        paths.push(join(folderPath, dirent.name));
+      }
+    }
+  });
+  // Read the content of the files
+  const files = paths.map((path) => {
+    return {
+      filePath: path.split(sep).join(posix.sep),
+      fileContent: fs.readFileSync(path, { encoding: "utf-8" }),
+    };
+  });
+
+  return files;
 };
 
 export const cleanup = async () => {

@@ -127,6 +127,7 @@ export const useLoadTestProfile = () => {
   );
   const handleImport = async (gitRepoUrlHttp: string) => {
     async function importSequences(): Promise<Result<void, Error>> {
+      // Confirmation if admin
       if (isAdmin()) {
         const shouldContinue = window.confirm(
           "Do you want to load the sequences associated with test profile? All unsaved changes will be lost.",
@@ -135,15 +136,22 @@ export const useLoadTestProfile = () => {
           return err(Error("User cancelled loading test profile"));
         }
       }
+
       clearState();
+
+      // Check
       if (gitRepoUrlHttp === "") {
         return err(Error("No sequences associated with the test profile"));
       }
+
+      // Load test profile
       const res = await installTestProfile(gitRepoUrlHttp);
       if (res.isErr()) {
         return err(Error(`Failed to load test profile: ${res.error}`));
       }
       setCommitHash(res.value.hash);
+
+      // Find .tjoy files from the profile
       const result = await window.api.openAllFilesInFolder(
         res.value.profile_root,
         ["tjoy"],
@@ -156,6 +164,8 @@ export const useLoadTestProfile = () => {
       if (!result || result.length === 0) {
         return err(Error("No .tjoy file found in the selected directory"));
       }
+
+      // Import them in the sequencer
       await Promise.all(
         result.map(async (res, idx) => {
           const { filePath, fileContent } = res;
@@ -168,13 +178,16 @@ export const useLoadTestProfile = () => {
           if (result.isErr()) return err(result.error);
         }),
       );
+
       return ok(undefined);
     }
+
     toastResultPromise(importSequences(), {
       loading: `Importing Test Profile...`,
       success: () => `Test Profile imported`,
       error: (e) => `${e}`,
     });
+
   };
 
   return handleImport;

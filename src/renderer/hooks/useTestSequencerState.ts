@@ -27,6 +27,7 @@ import {
   testSequenceResumeRequest,
   testSequenceStopRequest,
 } from "../routes/test_sequencer_panel/models/models";
+import { produce } from "immer";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -425,14 +426,13 @@ export function useSequencerState() {
     toast.warning("Stopping sequencer after this test.");
     sender(testSequenceStopRequest(tree));
     // Paused test and never not yet run
-    setElements(
-      [...elements].map((el) => {
+    setElements(produce(elements, (draft) => {
+      for (const el of draft) {
         if (el.type === "test" && el.status === "paused") {
-          return { ...el, status: "pending" };
+          el.status = "pending";
         }
-        return el;
-      }),
-    );
+      }
+    }));
     setIsLocked(false);
   }
 
@@ -456,9 +456,8 @@ export function useSequencerState() {
     if (isLocked) {
       toast.error("Cannot clear sequencer while running.");
       return;
-    } else {
-      clearState();
     }
+    clearState();
   }
 
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
