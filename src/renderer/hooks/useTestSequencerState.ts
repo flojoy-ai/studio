@@ -240,6 +240,7 @@ export function useDisplayedSequenceState() {
 
 export function useSequencerState() {
   const {
+    clearState,
     elements,
     setElements,
     isLocked,
@@ -267,6 +268,7 @@ export function useSequencerState() {
   } = useSequencerStore(
     useShallow((state) => {
       return {
+        clearState: state.clearState,
         elements: state.elements,
         setElements: state.setElements,
         isLocked: state.isLocked,
@@ -438,6 +440,15 @@ export function useSequencerState() {
     }
   }
 
+  function clearSequencer() {
+    if (isLocked) {
+      toast.error("Cannot clear sequencer while running.");
+      return;
+    } else {
+      clearState();
+    }
+  }
+
   const setSequencesWithPermissions = withPermissionCheck(setSequences);
 
   return {
@@ -452,5 +463,6 @@ export function useSequencerState() {
     addNewSequence: addNewSeq,
     removeSequence,
     handleUpload: handleUpload,
+    clearSequencer,
   };
 }
