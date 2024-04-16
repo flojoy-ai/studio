@@ -385,12 +385,22 @@ export function useSequencerState() {
   }
 
   function isValidCloudExport(): boolean {
+    if (uploadAfterRun) {
+      if (serialNumber === "") {
+        toast.error("Please fill in the serial number.");
+        return false;
+      }
+      if (stationId === "") {
+        toast.error("Please select a station.");
+        return false;
+      }
+    }
     return true;
   }
 
   function runSequencer(sender: SendJsonMessage): void {
-    if (uploadAfterRun && !isValidCloudExport) {
-      toast.error("Please fill in the required fields to upload to cloud.");
+    if (!isValidCloudExport()) {
+      return;
     }
     setIsUploaded(false);
     if (sequences.length === 0) {
