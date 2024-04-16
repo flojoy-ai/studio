@@ -53,6 +53,26 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        error: {
+          DEFAULT: "hsl(var(--error))",
+          text: "hsl(var(--error-text))",
+          foregrond: "hsl(var(--error-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          text: "hsl(var(--warning-text))",
+          foregrond: "hsl(var(--warning-foreground))",
+        },
+        info: {
+          DEFAULT: "hsl(var(--info))",
+          text: "hsl(var(--info-text))",
+          foreground: "hsl(var(--info-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          text: "hsl(var(--success-text))",
+          foreground: "hsl(var(--success-foreground))",
+        },
 
         modal: "rgb(var(--color-modal) / <alpha-value>)",
         accent1: {

@@ -181,6 +181,7 @@ const Project = z.object({
   value: z.string(),
   repoUrl: z.string().nullable(),
   part: Part,
+  productName: z.string(),
 });
 export type Project = z.infer<typeof Project>;
 export const getCloudProjects = () =>

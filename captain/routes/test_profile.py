@@ -18,7 +18,7 @@ async def install(url: Annotated[str, Header()]):
     - Currently done for Github. (infer that the repo doesn't contain space)
     - Private repo is not (directly) supported
     TODO:
-    - [ ] Option if git is not install on the system
+    - [ ] Backup if git is not install on the system
     """
     try:
         logging.info(f"Installing the profile from the url: {url}")

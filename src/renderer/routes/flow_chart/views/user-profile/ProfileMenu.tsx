@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback } from "@/renderer/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,10 +9,10 @@ import {
 import { KeyIcon, UserPlus2 } from "lucide-react";
 import { Fragment, useState } from "react";
 import { PasswordModal } from "./PasswordModal";
-import { getAlphabetAvatar } from "@/renderer/utils/text-wrap";
 import { CreateUserProfile } from "@/renderer/components/common/CreateProfileModal";
 import { useAuth } from "@/renderer/context/auth.context";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/renderer/components/ui/badge";
 
 const ProfileMenu = () => {
   const { user, setUser } = useAuth();
@@ -27,14 +26,15 @@ const ProfileMenu = () => {
   return (
     <Fragment>
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar>
-            <AvatarFallback>
-              {getAlphabetAvatar(user.name ?? "")}
-            </AvatarFallback>
-          </Avatar>
+        <DropdownMenuTrigger className="flex items-center gap-2 px-2">
+          {user.name.slice(0, 10)}
+          {user.role === "Admin" ? (
+            <Badge> Admin </Badge>
+          ) : (
+            <Badge> Viewer </Badge>
+          )}
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className="mt-2">
           <DropdownMenuLabel>{user.role}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {user.role === "Admin" && (

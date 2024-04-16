@@ -269,7 +269,6 @@ const FlowChartTab = () => {
   );
 
   const addBlockReady = manifest !== undefined;
-  const serverStatus = useSocketStore((state) => state.serverStatus);
 
   const { setProjectName, projectName, hasUnsavedChanges } = useProjectStore(
     useShallow((state) => ({
@@ -293,9 +292,32 @@ const FlowChartTab = () => {
         >
           <FlowControlButtons />
         </div>
-        <div className="mx-8 border-b" style={{ height: ACTIONS_HEIGHT }}>
+        <div
+          style={{
+            height: ACTIONS_HEIGHT,
+            position: "absolute",
+            top: `calc(${LAYOUT_TOP_HEIGHT + ACTIONS_HEIGHT}px + 20px)`,
+            left: "12px",
+            zIndex: 10,
+          }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 pt-1">
+            <Input
+              className={
+                "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
+              }
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="Untitled project"
+            />
+            {hasUnsavedChanges && (
+              <div className=" h-2 w-2 rounded-full bg-foreground/50" />
+            )}
+          </div>
+        </div>
+        <div className="border-b" style={{ height: ACTIONS_HEIGHT }}>
           <div className="py-1" />
-          <div className="flex">
+          <div className="mx-8 flex">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -365,27 +387,6 @@ const FlowChartTab = () => {
               </>
             )}
             <div className="grow" />
-            <div className="felx inline-flex items-center gap-2 px-4 pt-1">
-              {hasUnsavedChanges && (
-                <div className=" h-2 w-2 rounded-full bg-foreground/50" />
-              )}
-              <Input
-                className={
-                  "h-6 w-28 overflow-hidden overflow-ellipsis whitespace-nowrap border-muted/60 text-sm focus:border-muted-foreground focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 sm:w-48"
-                }
-                value={projectName}
-                onChange={(e) => setProjectName(e.target.value)}
-                placeholder="Untitled project"
-              />
-            </div>
-            <div />
-            <div
-              data-cy="app-status"
-              id="app-status"
-              className="mr-5 flex items-center justify-center text-sm"
-            >
-              <code>{serverStatus}</code>
-            </div>
 
             <Link to="/control" data-cy="control-btn">
               <Button
@@ -477,7 +478,7 @@ const FlowChartTab = () => {
             />
             <Controls
               fitViewOptions={{ padding: 0.8 }}
-              className="!bottom-1 !shadow-control"
+              className="!bottom-1 ml-20 !shadow-control"
             />
             {menu && (
               <BlockContextMenu

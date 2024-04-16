@@ -1,6 +1,5 @@
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
-import { filter } from "lodash";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
 import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
@@ -11,7 +10,6 @@ import {
   TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import { useMemo, useState } from "react";
-import { getOnlyCompletedTests } from "./data-table/utils";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
 import {
   DropdownMenu,
@@ -24,15 +22,12 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { CyclePanel } from "./CyclePanel";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
-
-export type Summary = {
-  successRate: number;
-  numberOfTestRun: number;
-  numberOfTest: number;
-  numberOfSequenceRun: number;
-  numberOfSequence: number;
-  status: StatusType;
-};
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/renderer/components/ui/hover-card";
+import _ from "lodash";
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
@@ -47,24 +42,27 @@ export function DesignBar() {
   const { isAdmin } = useWithPermission();
   const importSequences = useImportSequences();
 
-  const [summary, setSummary] = useState<Summary>({
-    numberOfTestRun: 0,
-    numberOfTest: 0,
-    numberOfSequenceRun: 0,
-    numberOfSequence: 0,
-    successRate: 0,
-    status: "pending",
-  });
-  useMemo(() => {
-    setSummary({
-      numberOfTestRun: getNumberOfTestRun(elems),
-      numberOfTest: getNumberOfTest(elems),
+  const {
+    numberOfTestRunInSeq,
+    numberOfTestInSeq,
+    numberOfTestRunInTotal,
+    numberOfTestInTotal,
+    numberOfSequenceRun,
+    numberOfSequence,
+    status,
+  } = useMemo(() => {
+    return {
+      numberOfTestRunInSeq: getNumberOfTestRunInSeq(elems),
+      numberOfTestInSeq: getNumberOfTestInSeq(elems),
+      numberOfTestRunInTotal: getNumberOfTestRunInTotal(sequences),
+      numberOfTestInTotal: getNumberOfTestInTotal(sequences),
       numberOfSequence: getNumberOfSequence(sequences),
       numberOfSequenceRun: getNumberOfSequenceRun(sequences),
-      successRate: getSuccessRate(elems),
       status: getGlobalStatus(cycleRuns, sequences, elems),
-    });
+    };
   }, [elems, sequences, cycleRuns]);
+
+  const [displayTotal, setDisplayTotal] = useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
@@ -135,14 +133,52 @@ export function DesignBar() {
 
         <div className="grow" />
 
+        {sequences.length <= 1 ? (
+          <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
+            Test {numberOfTestRunInSeq + "/" + numberOfTestInSeq}
+          </code>
+        ) : (
+          <HoverCard>
+            <HoverCardTrigger asChild>
+              <Button variant="link">
+                <code className="inline-flex translate-x-[4px] translate-y-[2px] items-center justify-center text-sm text-muted-foreground">
+                  Test{" "}
+                  {displayTotal
+                    ? `${numberOfTestRunInTotal}/${numberOfTestInTotal}`
+                    : `${numberOfTestRunInSeq}/${numberOfTestInSeq}`}
+                </code>
+              </Button>
+            </HoverCardTrigger>
+            <HoverCardContent className="mt-2 w-48">
+              <div>
+                <h2 className="text-center text-lg font-bold text-accent1">
+                  Display by
+                </h2>
+                <div className="mt-3 flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    onClick={() => setDisplayTotal(!displayTotal)}
+                    className="h-6"
+                    disabled={!displayTotal}
+                  >
+                    <p className="text-xs">Sequence</p>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => setDisplayTotal(!displayTotal)}
+                    className="h-6"
+                    disabled={displayTotal}
+                  >
+                    <p className="text-xs">Cycle</p>
+                  </Button>
+                </div>
+              </div>
+            </HoverCardContent>
+          </HoverCard>
+        )}
+
         <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-          {" "}
-          Test {summary.numberOfTestRun + "/" + summary.numberOfTest}
-        </code>
-        <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
-          {" "}
-          Sequence{" "}
-          {summary.numberOfSequenceRun + "/" + summary.numberOfSequence}
+          Sequence {numberOfSequenceRun + "/" + numberOfSequence}
         </code>
 
         <CyclePanel />
@@ -152,7 +188,7 @@ export function DesignBar() {
           id="app-status"
           className="text-md m-1 inline-flex h-8 w-40 items-center justify-center rounded-md border font-semibold text-primary transition-colors"
         >
-          {mapStatusToDisplay[summary.status]}
+          {mapStatusToDisplay[status]}
         </div>
       </div>
       <div className="py-1" />
@@ -165,11 +201,11 @@ export function countWhere<T>(arr: T[], predicate: (t: T) => boolean): number {
   return arr.reduce((acc, t) => (predicate(t) ? acc + 1 : acc), 0);
 }
 
-const getNumberOfTest = (data: TestSequenceElement[]): number => {
+const getNumberOfTestInSeq = (data: TestSequenceElement[]): number => {
   return countWhere(data, (elem) => elem.type === "test");
 };
 
-const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
+const getNumberOfTestRunInSeq = (data: TestSequenceElement[]): number => {
   return countWhere(
     data,
     (elem) =>
@@ -177,6 +213,16 @@ const getNumberOfTestRun = (data: TestSequenceElement[]): number => {
       elem.status != "pending" &&
       elem.status != "running",
   );
+};
+
+const getNumberOfTestRunInTotal = (
+  sequences: TestSequenceContainer[],
+): number => {
+  return _.sum(sequences.map((seq) => getNumberOfTestRunInSeq(seq.elements)));
+};
+
+const getNumberOfTestInTotal = (sequences: TestSequenceContainer[]): number => {
+  return _.sum(sequences.map((seq) => getNumberOfTestInSeq(seq.elements)));
 };
 
 const getNumberOfSequence = (data: TestSequenceContainer[]): number => {
@@ -200,6 +246,7 @@ export const getGlobalStatus = (
   interface WithStatus {
     status: string;
   }
+
   const priority = {
     pending: 0,
     pass: 1,
@@ -208,6 +255,7 @@ export const getGlobalStatus = (
     paused: 4,
     running: 5,
   };
+
   // Find highest priority in cycle
   const highestCycle =
     cycleRuns.length > 0
@@ -217,15 +265,20 @@ export const getGlobalStatus = (
             priority[prev] > priority[curr] ? prev : curr,
           )
       : "pending";
+
   if (sequences.length === 0 && data.length === 0) return highestCycle;
+
   // Highest in the view
   const tests = data.filter((el) => el.type === "test") as Test[];
   const iter = sequences.length > 0 ? sequences : tests;
+
   const status = iter
     .map((el: WithStatus) => el.status)
     .reduce((prev, curr) => (priority[prev] > priority[curr] ? prev : curr));
+
   const highestGlobal =
     priority[highestCycle] > priority[status] ? highestCycle : status;
+
   return StatusType.parse(highestGlobal);
 };
 
@@ -260,12 +313,4 @@ const mapStatusToDisplay: { [k in StatusType] } = {
       <code data-testid="global-status-badge">FAIL</code>
     </Status>
   ),
-};
-
-const getSuccessRate = (data: TestSequenceElement[]): number => {
-  const tests = getOnlyCompletedTests(data);
-  if (tests.length == 0) return 0;
-  return (
-    (filter(tests, (elem) => elem.status == "pass").length / tests.length) * 100
-  );
 };

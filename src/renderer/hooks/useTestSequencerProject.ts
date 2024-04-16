@@ -115,7 +115,7 @@ export const useLoadTestProfile = () => {
     }
     async function importSequences(): Promise<Result<void, Error>> {
       const shouldContinue = window.confirm(
-        "Do you want to load the test profile associated with production line?",
+        "Do you want to load the test profile associated with test profile?",
       );
       if (!shouldContinue) {
         return err(Error("User cancelled loading test profile"));

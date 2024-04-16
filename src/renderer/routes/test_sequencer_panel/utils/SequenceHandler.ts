@@ -263,6 +263,9 @@ async function createExportableSequenceElementsFromTestSequencerElements(
           elem.exportToCloud,
           elem.id,
           elem.groupId,
+          elem.minValue,
+          elem.maxValue,
+          elem.unit,
         )
       : {
           ...elem,
@@ -286,6 +289,9 @@ async function createTestSequencerElementsFromSequenceElements(
           elem.exportToCloud,
           elem.id,
           elem.groupId,
+          elem.minValue,
+          elem.maxValue,
+          elem.unit,
         )
       : {
           ...elem,

@@ -8,8 +8,6 @@ import ControlPanelTab from "./routes/control_panel/control-panel-view";
 import { useTheme } from "@/renderer/providers/theme-provider";
 import { Layout } from "./routes/common/Layout";
 import { Index } from "./routes/index";
-// eslint-disable-next-line no-restricted-imports
-import packageJson from "../../package.json";
 import EditorView from "./routes/editor/EditorView";
 import AuthPage from "./routes/auth/Auth";
 import { Toaster } from "sonner";
@@ -29,8 +27,8 @@ const App = () => {
     <div>
       <Toaster theme={resolvedTheme} richColors closeButton />
       <SocketReceiver />
-      <div className="titlebar flex h-12 items-center justify-center bg-background font-bold">
-        Flojoy Studio ({packageJson.version})
+      <div className="titlebar flex h-8 items-center justify-center bg-background font-bold">
+        Flojoy Studio
       </div>
       <Routes>
         <Route path="/" element={<Index />} />
