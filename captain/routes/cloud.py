@@ -188,7 +188,6 @@ async def get_part(part_id: str) -> Part:
     logging.info("Querying part")
     url = get_flojoy_cloud_url() + "part/" + part_id
     response = requests.get(url, headers=headers_builder())
-    logging.info("Part retrieved: %s", response.json())
     return Part(**response.json())
 
 
@@ -209,9 +208,7 @@ async def get_cloud_projects():
         response = requests.get(url, headers=headers_builder())
         if response.status_code != 200:
             return Response(status_code=response.status_code, content=json.dumps([]))
-        logging.info("Projects retrieved: %s", response.json())
         projects = [Project(**project_data) for project_data in response.json()]
-        logging.info("Projects: %s", projects)
         projects_res = []
         for p in projects:
             part_var = await get_cloud_part_variation(p.part_variation_id)
@@ -245,11 +242,7 @@ async def get_cloud_stations(project_id: str):
         if response.status_code != 200:
             logging.error(f"Error getting stations from Flojoy Cloud: {response.text}")
             return Response(status_code=response.status_code, content=json.dumps([]))
-        logging.info("Stations retrieved: %s", response.json())
         stations = [Station(**s) for s in response.json()]
-        logging.info("Stations: %s", stations)
-        if not stations:
-            return Response(status_code=404, content=json.dumps([]))
         return Response(
             status_code=200,
             content=json.dumps([{"label": p.name, "value": p.id} for p in stations]),
@@ -268,8 +261,6 @@ async def get_cloud_variant_unit(part_var_id: str):
             logging.error(f"Error getting stations from Flojoy Cloud: {response.text}")
             return Response(status_code=response.status_code, content=json.dumps([]))
         units = [Unit(**u) for u in response.json()]
-        if not units:
-            return Response(status_code=404, content=json.dumps([]))
         dict_model = [unit.model_dump(by_alias=True) for unit in units]
         return Response(status_code=200, content=json.dumps(dict_model))
     except Exception as e:
