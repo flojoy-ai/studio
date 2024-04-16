@@ -69,6 +69,7 @@ export function DesignBar() {
       <div className="py-1" />
       <div className="flex">
         {isAdmin() && (
+          <>
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button
@@ -118,6 +119,8 @@ export function DesignBar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <div className="grow" />
+          </>
         )}
         {/* Comming soon
         <Button
@@ -131,7 +134,6 @@ export function DesignBar() {
         </Button>
         */}
 
-        <div className="grow" />
 
         {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
@@ -182,6 +184,10 @@ export function DesignBar() {
         </code>
 
         <CyclePanel />
+
+        { !isAdmin() && (
+          <div className="grow" />
+        )}
 
         <div
           data-cy="app-status"

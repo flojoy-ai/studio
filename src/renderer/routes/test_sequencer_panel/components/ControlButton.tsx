@@ -35,7 +35,7 @@ export function ControlButton() {
 
   return (
     <div>
-      <div className="mr-6 mt-6">
+      <div className="mr-3 mt-6">
         {backendGlobalState !== "test_set_start" ? (
           <LockableButton
             variant="dotted"
