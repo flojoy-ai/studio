@@ -292,7 +292,7 @@ export const useSequencerStore = create<State & Actions>()(
           if (state.sequences.length !== 0) {
             state.displaySequence(state.sequences[0].project.name);
           } else {
-            clearSequencerState(state);
+            clearInnerSequencesState(state);
           }
         }
       });
@@ -416,20 +416,13 @@ export const useSequencerStore = create<State & Actions>()(
 
     clearState: () => {
       set((state) => {
-        clearSequencerState(state);
+        clearInnerSequencesState(state);
         state.sequences = [];
-        state.cycleRuns = [];
-        state.cycleConfig = {
-          cycleCount: 1,
-          infinite: true,
-          ptrCycle: -1,
-        };
         state.serialNumber = "";
         state.stationId = "";
         state.integrity = false;
         state.isUploaded = false;
         state.commitHash = "";
-        state.elements = [];
       });
     },
 
@@ -464,7 +457,7 @@ function loadSequenceState(idx: number, stateSetter: State & Actions): void {
     stateSetter.sequences[idx].testSequenceUnsaved;
 }
 
-function clearSequencerState(stateSetter: State & Actions): void {
+function clearInnerSequencesState(stateSetter: State & Actions): void {
   stateSetter.testSequenceDisplayed = null;
   stateSetter.testSequenceStepTree = {
     type: "root",

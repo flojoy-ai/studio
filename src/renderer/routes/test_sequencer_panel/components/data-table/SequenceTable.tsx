@@ -48,6 +48,7 @@ import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
+import { toast } from "sonner";
 
 export function SequenceTable() {
   const { project, isLocked } = useDisplayedSequenceState();
@@ -357,7 +358,7 @@ export function SequenceTable() {
                     if (isAdmin()) {
                       setIsCreateProjectModalOpen(true);
                     } else {
-                      importSequences();
+                      toast.info("Connect to Flojoy Cloud and select a Test Profile");
                     }
                   }}
                 >

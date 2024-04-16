@@ -74,9 +74,13 @@ export function useCreateSequence() {
 }
 
 export const useImportSequences = () => {
-  // TODO - When technicien in user, open from cloud project list
   const manager = usePrepareStateManager();
+  const { isAdmin } = useWithPermission();
   const handleImport = async () => {
+    if (!isAdmin()) {
+      toast.info("Connect to Flojoy Cloud and select a Test Profile");
+      return;
+    }
     const result = await window.api.openFilesPicker(
       ["tjoy"],
       "Select your .tjoy file",
@@ -114,9 +118,6 @@ export const useLoadTestProfile = () => {
     useShallow((state) => state.setCommitHash),
   );
   const handleImport = async (gitRepoUrlHttp: string) => {
-    if (gitRepoUrlHttp === "") {
-      return;
-    }
     async function importSequences(): Promise<Result<void, Error>> {
       if (isAdmin()) {
         const shouldContinue = window.confirm(
@@ -127,6 +128,9 @@ export const useLoadTestProfile = () => {
         }
       }
       clearState();
+      if (gitRepoUrlHttp === "") {
+        return err(Error("No sequences associated with the test profile"));
+      }
       const res = await installTestProfile(gitRepoUrlHttp);
       if (res.isErr()) {
         return err(Error(`Failed to load test profile: ${res.error}`));

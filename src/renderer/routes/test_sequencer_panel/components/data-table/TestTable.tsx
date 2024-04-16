@@ -57,6 +57,7 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useImportSequences } from "@/renderer/hooks/useTestSequencerProject";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { WriteMinMaxModal } from "../modals/WriteMinMaxModal";
+import { toast } from "sonner";
 
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
@@ -603,7 +604,7 @@ export function TestTable() {
                     if (isAdmin()) {
                       setIsImportTestModalOpen(true);
                     } else {
-                      importSequences();
+                      toast.info("Connect to Flojoy Cloud and select a Test Profile");
                     }
                   }}
                 >

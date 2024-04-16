@@ -179,7 +179,7 @@ export type Part = z.infer<typeof Part>;
 const Project = z.object({
   label: z.string(),
   value: z.string(),
-  repoUrl: z.string().nullable(),
+  repoUrl: z.string().nullable().transform((value) => value ?? ""),
   part: Part,
   productName: z.string(),
 });
