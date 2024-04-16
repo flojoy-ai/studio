@@ -426,13 +426,15 @@ export function useSequencerState() {
     toast.warning("Stopping sequencer after this test.");
     sender(testSequenceStopRequest(tree));
     // Paused test and never not yet run
-    setElements(produce(elements, (draft) => {
-      for (const el of draft) {
-        if (el.type === "test" && el.status === "paused") {
-          el.status = "pending";
+    setElements(
+      produce(elements, (draft) => {
+        for (const el of draft) {
+          if (el.type === "test" && el.status === "paused") {
+            el.status = "pending";
+          }
         }
-      }
-    }));
+      }),
+    );
     setIsLocked(false);
   }
 
