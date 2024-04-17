@@ -122,10 +122,14 @@ export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();
   const clearState = useSequencerStore(useShallow((state) => state.clearState));
+  const setCycleCount = useSequencerStore(
+    useShallow((state) => state.setCycleCount),
+  );
+
   const setCommitHash = useSequencerStore(
     useShallow((state) => state.setCommitHash),
   );
-  const handleImport = async (gitRepoUrlHttp: string) => {
+  const handleImport = async (gitRepoUrlHttp: string, numberCycles: number) => {
     async function importSequences(): Promise<Result<void, Error>> {
       // Confirmation if admin
       if (isAdmin()) {
@@ -143,6 +147,9 @@ export const useLoadTestProfile = () => {
       if (gitRepoUrlHttp === "") {
         return err(Error("No sequences associated with the test profile"));
       }
+
+      // Set number of cycles
+      setCycleCount(numberCycles);
 
       // Load test profile
       const res = await installTestProfile(gitRepoUrlHttp);

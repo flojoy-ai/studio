@@ -185,6 +185,7 @@ const Project = z.object({
     .transform((value) => value ?? ""),
   part: Part,
   productName: z.string(),
+  numCycles: z.number(),
 });
 export type Project = z.infer<typeof Project>;
 export const getCloudProjects = () =>
