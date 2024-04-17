@@ -78,6 +78,7 @@ export const DraggableRowSequence = ({
   return (
     <TableRow
       style={{ opacity: isDragging ? 0.2 : 1 }}
+      variant={row.original.status === "running" ? "running" : "default"}
       className={"relative" + (isSelected ? " bg-primary-foreground" : "")}
       onClick={() => handleDisplaySequence(row.index)}
       ref={drag}
