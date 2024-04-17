@@ -145,12 +145,11 @@ export async function useDiscoverPytestElements() {
   async function getTests(
     path: string,
   ): Promise<Result<TestSequenceElement[], Error>> {
-    let data: TestDiscoverContainer;
     const res = await discoverPytest(path, false);
     if (res.isErr()) {
       return err(res.error);
     }
-    data = res.value;
+    const data = res.value;
     if (data.error) {
       return err(Error(data.error));
     }

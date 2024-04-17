@@ -5,7 +5,7 @@ import {
   createNewTest,
   useDisplayedSequenceState,
 } from "@/renderer/hooks/useTestSequencerState";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export const CreatePlaceholderTestModal = ({
