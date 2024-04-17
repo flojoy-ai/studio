@@ -198,6 +198,12 @@ export function CloudPanel() {
     enabled: projectsQuery.isSuccess, // Enable only when projectsQuery is successful
   });
 
+  const loadProfile = () => {
+    if (testProfileUrl !== null && numberCycles !== null) {
+      handleLoadProfile(testProfileUrl, numberCycles);
+    }
+  }
+
   useEffect(() => {
     if (projectId !== "") {
       stationsQuery.refetch();
@@ -210,9 +216,7 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    if (testProfileUrl !== null && numberCycles !== null) {
-      handleLoadProfile(testProfileUrl, numberCycles);
-    }
+    loadProfile();
   }, [testProfileUrl]);
 
   useEffect(() => {
@@ -395,7 +399,7 @@ export function CloudPanel() {
               {getIntegrity(sequences, cycleConfig) ? (
                 <Badge className="h-4 bg-green-500">Pass</Badge>
               ) : (
-                <Badge className="h-4 bg-red-500">Fail</Badge>
+                <Badge className="h-4 bg-red-500 cursor-pointer" onClick={() => loadProfile()}>Fail</Badge>
               )}
             </p>
           </div>
