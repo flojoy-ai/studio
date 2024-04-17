@@ -48,7 +48,7 @@ export function CyclePanel() {
       setCycleCount(Number(event.target.value));
     }
     setValue(Number(event.target.value));
-  }
+  };
 
   return (
     <HoverCard>
