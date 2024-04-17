@@ -1,4 +1,4 @@
-export const allRoles = ["Admin", "Viewer"] as const;
+export const allRoles = ["Admin", "Operator"] as const;
 export type Role = (typeof allRoles)[number];
 
 export type User = {

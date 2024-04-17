@@ -59,7 +59,7 @@ export function CreateUserProfile({
     defaultValues: {
       name: "",
       password: "",
-      role: "Viewer",
+      role: "Operator",
     },
   });
 
