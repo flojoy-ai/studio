@@ -282,7 +282,6 @@ async def post_cloud_session(_: Response, body: Session):
             m["pass"] = m.pop("pass_")
             m["durationMs"] = int(m.pop("completionTime") * 1000)
             del m["unit"]
-        logging.info("Posting session: %s", payload)
         response = requests.post(url, json=payload, headers=headers_builder())
         if response.status_code == 200:
             return Response(status_code=200, content=json.dumps(response.json()))
