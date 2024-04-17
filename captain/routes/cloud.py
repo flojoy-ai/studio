@@ -103,6 +103,7 @@ class Project(CloudModel):
     updated_at: Optional[datetime.datetime] = Field(..., alias="updatedAt")
     part_variation_id: str = Field(..., alias="partVariationId")
     repo_url: Optional[str] = Field(..., alias="repoUrl")
+    num_cycles: int = Field(..., alias="numCycles")
 
 
 class Part(CloudModel):
@@ -221,6 +222,7 @@ async def get_cloud_projects():
                     "value": p.id,
                     "part": part_var.model_dump(by_alias=True),
                     "repoUrl": p.repo_url,
+                    "numCycles": p.num_cycles,
                     "productName": part.product_name,
                 }
             )
