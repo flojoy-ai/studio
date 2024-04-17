@@ -600,13 +600,9 @@ export function TestTable() {
                       <>
                         <ContextMenuSeparator />
                         <ContextMenuItem
-                          onClick={() => {
-                            setOpenLinkedTestModal(true);
-                            testRef.current = parseInt(row.id);
-                            setTestToDisplay(row.original as Test);
-                          }}
+                          disabled={true}
                         >
-                          Link to Code
+                          Not Linked to any code
                         </ContextMenuItem>
                       </>
                     )}
@@ -635,6 +631,15 @@ export function TestTable() {
                           }}
                         >
                           Edit Expected Value
+                        </ContextMenuItem>
+                        <ContextMenuItem
+                          onClick={() => {
+                            setOpenLinkedTestModal(true);
+                            testRef.current = parseInt(row.id);
+                            setTestToDisplay(row.original as Test);
+                          }}
+                        >
+                            Change executable
                         </ContextMenuItem>
                       </>
                     )}
