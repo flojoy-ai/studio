@@ -19,6 +19,7 @@ class TestTypes(StrEnum):
     python = "python"
     flojoy = "flojoy"
     matlab = "matlab"
+    placeholder = "placeholder"
 
 
 class StatusTypes(StrEnum):

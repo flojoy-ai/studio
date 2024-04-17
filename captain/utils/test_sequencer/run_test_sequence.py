@@ -165,6 +165,27 @@ def _run_pytest(node: TestNode) -> Extract:
     )
 
 
+@_with_stream_test_result
+def _run_placeholder(node: TestNode) -> Extract:
+    """
+    @params file_path: path to the file
+    @returns:
+        bool: result of the test
+        float: time taken to execute the test
+        str: error message if any
+    """
+    return (
+        lambda _: None,
+        TestResult(
+            node,
+            False,
+            0,
+            "Placeholder test not implemented",
+            utcnow_str(),
+        ),
+    )
+
+
 def _eval_condition(
     result_dict: dict[str, TestResult], condition: str, identifiers: set[str]
 ):
@@ -244,6 +265,7 @@ map_to_handler_run = (
             {
                 TestTypes.python: (None, _run_python),
                 TestTypes.pytest: (None, _run_pytest),
+                TestTypes.placeholder: (None, _run_placeholder)
             },
         ),
         "conditional": (

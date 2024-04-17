@@ -17,7 +17,7 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
-import { Err, Ok, Result } from "neverthrow";
+import { Err, Ok, Result, err, ok } from "neverthrow";
 import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toast } from "sonner";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
@@ -172,7 +172,7 @@ export function useDisplayedSequenceState() {
     p:
       | TestSequenceElement[]
       | ((elems: TestSequenceElement[]) => TestSequenceElement[]),
-  ) {
+  ): Result<void, Error> {
     let candidateElems: TestSequenceElement[];
 
     // handle overloads
@@ -189,7 +189,7 @@ export function useDisplayedSequenceState() {
     );
     if (!res) {
       console.error("Validation failed");
-      return;
+      return err(new Error("Validation failed"));
     }
 
     // PASS
@@ -198,13 +198,14 @@ export function useDisplayedSequenceState() {
 
     // creates tree to send to backend
     setTree(createTestSequenceTree(candidateElems));
+    return ok(undefined);
   }
 
   const setElemsWithPermissions = withPermissionCheck(setElems);
 
   async function AddNewElems(
     newElems: TestSequenceElement[],
-  ): Promise<Result<null, Error>> {
+  ): Promise<Result<void, Error>> {
     // Validate with project
     if (project !== null) {
       const result = await verifyElementCompatibleWithSequence(
@@ -216,8 +217,8 @@ export function useDisplayedSequenceState() {
       }
     }
     // Add new elements
-    setElems((elems) => [...elems, ...newElems]);
-    return new Ok(null);
+    const result = setElems((elems) => [...elems, ...newElems]);
+    return result;
   }
 
   const addNewElemsWithPermissions = withPermissionCheck(AddNewElems);

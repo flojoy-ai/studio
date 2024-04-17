@@ -28,6 +28,7 @@ import {
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
 import _ from "lodash";
+import { CreatePlaceholderTestModal } from "./modals/CreatePlaceholderTestModal";
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
@@ -63,9 +64,15 @@ export function DesignBar() {
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
+  const [isCreatePlaceholderTestModalOpen, setIsCreatePlaceholderTestModalOpen] =
+    useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
+      <CreatePlaceholderTestModal
+        isModalOpen={isCreatePlaceholderTestModalOpen}
+        setModalOpen={setIsCreatePlaceholderTestModalOpen}
+      />
       <div className="py-1" />
       <div className="flex">
         {isAdmin() && (
@@ -96,6 +103,18 @@ export function DesignBar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
+                    setIsCreatePlaceholderTestModalOpen(true);
+                  }}
+                  data-testid="placeholder-test-button"
+                >
+                  <FlaskConical
+                    size={16}
+                    className="mr-2 stroke-muted-foreground"
+                  />
+                  New Placeholder
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
                     setIsCreateProjectModalOpen(true);
                   }}
                 >
@@ -122,17 +141,6 @@ export function DesignBar() {
             <div className="grow" />
           </>
         )}
-        {/* Comming soon
-        <Button
-          data-testid="add-text-button"
-          className="gap-2"
-          variant="ghost"
-          disabled={true}
-        >
-          <HardDriveDownload size={20} className="stroke-muted-foreground" />
-          Load Test Profile From Cloud
-        </Button>
-        */}
 
         {sequences.length <= 1 ? (
           <code className="inline-flex items-center justify-center p-3 text-sm text-muted-foreground">
