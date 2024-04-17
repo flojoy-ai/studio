@@ -27,7 +27,7 @@ import {
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
-import { TestSequenceContainer } from "@/renderer/types/test-sequencer";
+import { CycleConfig, TestSequenceContainer } from "@/renderer/types/test-sequencer";
 import { Badge } from "@/renderer/components/ui/badge";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -51,6 +51,7 @@ export function CloudPanel() {
   const { sequences, handleUpload } = useSequencerState();
   const handleLoadProfile = useLoadTestProfile();
   const [testProfileUrl, setTestProfileUrl] = useState<string | null>(null);
+  const [numberCycles, setNumberCycles] = useState<number | null>(null);
   const {
     serialNumber,
     isUploaded,
@@ -59,6 +60,7 @@ export function CloudPanel() {
     setStationId,
     uploadAfterRun,
     setUploadAfterRun,
+    cycleConfig,
   } = useSequencerStore(
     useShallow((state) => ({
       serialNumber: state.serialNumber,
@@ -68,6 +70,7 @@ export function CloudPanel() {
       setStationId: state.setStationId,
       uploadAfterRun: state.uploadAfterRun,
       setUploadAfterRun: state.setUploadAfterRun,
+      cycleConfig: state.cycleConfig,
     })),
   );
 
@@ -87,11 +90,12 @@ export function CloudPanel() {
     setUploadAfterRun(!isAdmin());
   }, [isAdmin]);
 
-  const getIntegrity = (sequences: TestSequenceContainer[]): boolean => {
+  const getIntegrity = (sequences: TestSequenceContainer[], cycleConf: CycleConfig ): boolean => {
     let integrity = true;
     sequences.forEach((seq) => {
       integrity = integrity && seq.runable;
     });
+    integrity = integrity && cycleConf.cycleCount === numberCycles;
     setIntegrity(integrity);
     return integrity;
   };
@@ -200,8 +204,8 @@ export function CloudPanel() {
   }, [partVarId]);
 
   useEffect(() => {
-    if (testProfileUrl !== null) {
-      handleLoadProfile(testProfileUrl);
+    if (testProfileUrl !== null && numberCycles !== null) {
+      handleLoadProfile(testProfileUrl, numberCycles);
     }
   }, [testProfileUrl]);
 
@@ -220,6 +224,7 @@ export function CloudPanel() {
     setPartNumber(newValue.part.partNumber);
     setPartVarId(newValue.part.partVariationId);
     setTestProfileUrl(newValue.repoUrl);
+    setNumberCycles(newValue.numCycles);
     setProductName(newValue.productName);
   };
 
@@ -381,7 +386,7 @@ export function CloudPanel() {
             <p>Sequencer: {"TS-" + packageJson.version} </p>
             <p className="ml-6">
               Integrity:{" "}
-              {getIntegrity(sequences) ? (
+              {getIntegrity(sequences, cycleConfig) ? (
                 <Badge className="h-4 bg-green-500">Pass</Badge>
               ) : (
                 <Badge className="h-4 bg-red-500">Fail</Badge>

@@ -333,6 +333,7 @@ export const useSequencerStore = create<State & Actions>()(
     },
 
     // Cycles state management ===================================
+
     setCycleCount: (val: number) => {
       if (val < 1) {
         set((state) => {
@@ -347,10 +348,12 @@ export const useSequencerStore = create<State & Actions>()(
       }
     },
 
-    setInfinite: (val: boolean) =>
+    setInfinite: (val: boolean) => {
       set((state) => {
         state.cycleConfig.infinite = val;
-      }),
+        state.cycleConfig.cycleCount = val ? -1 : 1;
+      })
+    },
     saveCycle: () => {
       if (
         get().cycleRuns.length > get().cycleConfig.cycleCount &&
