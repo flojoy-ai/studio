@@ -61,7 +61,7 @@ export const mapStatusToDisplay: { [k in StatusType] } = {
 };
 
 function renderErrorMessage(text: string): JSX.Element {
-  let lines = text.split("\n");
+  const lines = text.split("\n");
   return (
     <div className="mt-2 h-[256px] overflow-scroll whitespace-pre rounded-md bg-secondary p-2">
       {lines.map((line, index) => (
