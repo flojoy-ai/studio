@@ -31,7 +31,7 @@ const ProfileMenu = () => {
           {user.role === "Admin" ? (
             <Badge> Admin </Badge>
           ) : (
-            <Badge> Viewer </Badge>
+            <Badge> Operator </Badge>
           )}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2">
