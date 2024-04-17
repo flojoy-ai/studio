@@ -1,4 +1,4 @@
-import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer, TestSequenceElement } from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
   useDisplayedSequenceState,
@@ -26,7 +26,7 @@ function parseDiscoverContainer(
   });
 }
 
-export const useTestImport = () => {
+export const useDiscoverAndImportTests = () => {
   const { addNewElems } = useDisplayedSequenceState();
   const { openErrorModal } = useSequencerModalStore();
 
@@ -125,3 +125,64 @@ export const useTestImport = () => {
 
   return openFilePicker;
 };
+
+
+export async function useDiscoverPytestElements() {
+
+  const handleUserDepInstall = useCallback(async (depName: string) => {
+    const promise = () => window.api.poetryInstallDepUserGroup(depName);
+    toast.promise(promise, {
+      loading: `Installing ${depName}...`,
+      success: () => {
+        return `${depName} has been added.`;
+      },
+      error:
+        "Could not install the library. Please consult the Dependency Manager in the settings.",
+    });
+  }, []);
+
+  async function getTests(
+    path: string, 
+  ): Promise<Result<TestSequenceElement[], Error>> {
+    let data: TestDiscoverContainer;
+    const res = await discoverPytest(path, false);
+    if (res.isErr()) {
+      return err(res.error);
+    }
+    data = res.value;
+    if (data.error) {
+      return err(Error(data.error));
+    }
+    for (const lib of data.missingLibraries) {
+      toast.error(`Missing Python Library: ${lib}`, {
+        action: {
+          label: "Install",
+          onClick: () => {
+            handleUserDepInstall(lib);
+          },
+        },
+      });
+      return err(Error("Please retry after installing the missing libraries."));
+    }
+    const newElems = parseDiscoverContainer(data, { importAsOneRef: false, importType: "pytest" } );
+    if (newElems.length === 0) {
+      return err(Error("No tests were found in the specified file."));
+    }
+    return ok(newElems);
+  }
+
+  const openFilePicker = (): Promise<Result<TestSequenceElement[], Error>> => {
+    return window.api.openTestPicker()
+      .then(result => {
+        if (!result) 
+          return err(Error("No file selected."));
+        toast.info("Importing tests...");
+        const { filePath } = result;
+        return getTests(filePath);
+      });
+  }
+
+  return openFilePicker;
+
+};
+

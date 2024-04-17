@@ -36,7 +36,6 @@ export const CreatePlaceholderTestModal = ({
         unit
       )]
     );
-    console.log(res);
     if (res.isErr()) {
       return;
     }
