@@ -122,7 +122,9 @@ export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();
   const clearState = useSequencerStore(useShallow((state) => state.clearState));
-  const setCycleCount = useSequencerStore(useShallow((state) => state.setCycleCount));
+  const setCycleCount = useSequencerStore(
+    useShallow((state) => state.setCycleCount),
+  );
 
   const setCommitHash = useSequencerStore(
     useShallow((state) => state.setCommitHash),

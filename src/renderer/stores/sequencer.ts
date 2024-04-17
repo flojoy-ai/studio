@@ -352,7 +352,7 @@ export const useSequencerStore = create<State & Actions>()(
       set((state) => {
         state.cycleConfig.infinite = val;
         state.cycleConfig.cycleCount = val ? -1 : 1;
-      })
+      });
     },
     saveCycle: () => {
       if (

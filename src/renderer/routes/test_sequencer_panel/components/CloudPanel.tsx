@@ -27,7 +27,10 @@ import {
 import { toastQueryError } from "@/renderer/utils/report-error";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Spinner } from "@/renderer/components/ui/spinner";
-import { CycleConfig, TestSequenceContainer } from "@/renderer/types/test-sequencer";
+import {
+  CycleConfig,
+  TestSequenceContainer,
+} from "@/renderer/types/test-sequencer";
 import { Badge } from "@/renderer/components/ui/badge";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import useWithPermission from "@/renderer/hooks/useWithPermission";
@@ -90,7 +93,10 @@ export function CloudPanel() {
     setUploadAfterRun(!isAdmin());
   }, [isAdmin]);
 
-  const getIntegrity = (sequences: TestSequenceContainer[], cycleConf: CycleConfig ): boolean => {
+  const getIntegrity = (
+    sequences: TestSequenceContainer[],
+    cycleConf: CycleConfig,
+  ): boolean => {
     let integrity = true;
     sequences.forEach((seq) => {
       integrity = integrity && seq.runable;
