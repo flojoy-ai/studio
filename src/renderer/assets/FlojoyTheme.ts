@@ -9,7 +9,6 @@ export const flojoySyntaxTheme: SyntaxTheme = {
     display: "block",
     padding: "20px",
     overflowX: "auto",
-    color: "rgb(var(--foreground))",
     background: "rgb(var(--color-modal))",
   },
   "hljs-comment": {
@@ -57,7 +56,7 @@ export const flojoySyntaxTheme: SyntaxTheme = {
     color: "rgb(var(--color-accent2))",
   },
   "hljs-title": {
-    color: "rgb(var(--color-accent3))",
+    color: "rgb(var(--color-accent2))",
   },
   "hljs-tag": {
     color: "#000080",
