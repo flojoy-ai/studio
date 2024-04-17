@@ -1,4 +1,7 @@
-import { TestDiscoverContainer, TestSequenceElement } from "@/renderer/types/test-sequencer";
+import {
+  TestDiscoverContainer,
+  TestSequenceElement,
+} from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
   useDisplayedSequenceState,
@@ -126,9 +129,7 @@ export const useDiscoverAndImportTests = () => {
   return openFilePicker;
 };
 
-
 export async function useDiscoverPytestElements() {
-
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
     toast.promise(promise, {
@@ -142,7 +143,7 @@ export async function useDiscoverPytestElements() {
   }, []);
 
   async function getTests(
-    path: string, 
+    path: string,
   ): Promise<Result<TestSequenceElement[], Error>> {
     let data: TestDiscoverContainer;
     const res = await discoverPytest(path, false);
@@ -164,7 +165,10 @@ export async function useDiscoverPytestElements() {
       });
       return err(Error("Please retry after installing the missing libraries."));
     }
-    const newElems = parseDiscoverContainer(data, { importAsOneRef: false, importType: "pytest" } );
+    const newElems = parseDiscoverContainer(data, {
+      importAsOneRef: false,
+      importType: "pytest",
+    });
     if (newElems.length === 0) {
       return err(Error("No tests were found in the specified file."));
     }
@@ -172,17 +176,13 @@ export async function useDiscoverPytestElements() {
   }
 
   const openFilePicker = (): Promise<Result<TestSequenceElement[], Error>> => {
-    return window.api.openTestPicker()
-      .then(result => {
-        if (!result) 
-          return err(Error("No file selected."));
-        toast.info("Importing tests...");
-        const { filePath } = result;
-        return getTests(filePath);
-      });
-  }
+    return window.api.openTestPicker().then((result) => {
+      if (!result) return err(Error("No file selected."));
+      toast.info("Importing tests...");
+      const { filePath } = result;
+      return getTests(filePath);
+    });
+  };
 
   return openFilePicker;
-
-};
-
+}

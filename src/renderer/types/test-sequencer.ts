@@ -4,7 +4,13 @@ export type LockedContextType = {
   isLocked: boolean;
 };
 
-export const TestType = z.enum(["pytest", "python", "flojoy", "matlab", "placeholder"]);
+export const TestType = z.enum([
+  "pytest",
+  "python",
+  "flojoy",
+  "matlab",
+  "placeholder",
+]);
 export type TestType = z.infer<typeof TestType>;
 
 export const ResultType = z.enum(["pass", "fail", "aborted"]);

@@ -63,7 +63,6 @@ import { ImportType } from "../modals/ImportTestModal";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 
-
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
   const { openRenameTestModal, setIsImportTestModalOpen } =
@@ -440,7 +439,6 @@ export function TestTable() {
     });
   };
 
-
   // Change linked test ------------
 
   const [openLinkedTestModal, setOpenLinkedTestModal] = useState(false);
@@ -457,7 +455,7 @@ export function TestTable() {
       };
       return new_data;
     });
-  }
+  };
 
   // Context Menu ------------------
 
@@ -570,9 +568,9 @@ export function TestTable() {
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
                     </TableHead>
                   );
                 })}
@@ -614,29 +612,29 @@ export function TestTable() {
                     >
                       Add Conditional
                     </ContextMenuItem>
-                    {row.original.type === "test" && row.original.testType !== "placeholder" && (
-                      <>
-                        <ContextMenuSeparator />
-                        <ContextMenuItem
-                          onClick={() => {
-                            setOpenPyTestFileModal(true);
-                            setTestToDisplay(row.original as Test);
-                          }}
-                        >
-                          Consult Code
-                        </ContextMenuItem>
-                      </>
-                    )}
-                    {row.original.type === "test" && row.original.testType === "placeholder" && (
-                      <>
-                        <ContextMenuSeparator />
-                        <ContextMenuItem
-                          disabled={true}
-                        >
-                          Not Linked to any code
-                        </ContextMenuItem>
-                      </>
-                    )}
+                    {row.original.type === "test" &&
+                      row.original.testType !== "placeholder" && (
+                        <>
+                          <ContextMenuSeparator />
+                          <ContextMenuItem
+                            onClick={() => {
+                              setOpenPyTestFileModal(true);
+                              setTestToDisplay(row.original as Test);
+                            }}
+                          >
+                            Consult Code
+                          </ContextMenuItem>
+                        </>
+                      )}
+                    {row.original.type === "test" &&
+                      row.original.testType === "placeholder" && (
+                        <>
+                          <ContextMenuSeparator />
+                          <ContextMenuItem disabled={true}>
+                            Not Linked to any code
+                          </ContextMenuItem>
+                        </>
+                      )}
                     {row.original.type === "test" && (
                       <>
                         <ContextMenuSeparator />
@@ -670,7 +668,7 @@ export function TestTable() {
                             setTestToDisplay(row.original as Test);
                           }}
                         >
-                            Change executable
+                          Change executable
                         </ContextMenuItem>
                       </>
                     )}

@@ -64,8 +64,10 @@ export function DesignBar() {
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
-  const [isCreatePlaceholderTestModalOpen, setIsCreatePlaceholderTestModalOpen] =
-    useState(false);
+  const [
+    isCreatePlaceholderTestModalOpen,
+    setIsCreatePlaceholderTestModalOpen,
+  ] = useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
