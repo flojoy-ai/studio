@@ -85,7 +85,7 @@ export function SequenceTable() {
       enableSorting: false,
       enableHiding: false,
     },
-    
+
     {
       accessorKey: "run",
       header: () => <div>Run</div>,
@@ -344,7 +344,9 @@ export function SequenceTable() {
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
         ) : (
-          <h2 className="ml-1 text-l font-bold text-muted-foreground">Test Sequences </h2>
+          <h2 className="text-l ml-1 font-bold text-muted-foreground">
+            Test Sequences{" "}
+          </h2>
         )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -377,9 +379,7 @@ export function SequenceTable() {
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow 
-                key={headerGroup.id}
-              >
+              <TableRow key={headerGroup.id}>
                 <TableHeader key={"drag&drop"} />
                 {headerGroup.headers.map((header) => {
                   return (

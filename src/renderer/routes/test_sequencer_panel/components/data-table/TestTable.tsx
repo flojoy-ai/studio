@@ -70,7 +70,9 @@ export function TestTable() {
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
   const [testToDisplay, setTestToDisplay] = useState<Test | null>(null);
-  const testSequenceDisplayed = useSequencerStore(useShallow((state) => state.testSequenceDisplayed));
+  const testSequenceDisplayed = useSequencerStore(
+    useShallow((state) => state.testSequenceDisplayed),
+  );
 
   function toggleExportToCloud(id: string) {
     setElems((elems) => {
@@ -157,7 +159,7 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" &&
           row.original.minValue !== undefined ? (
-          <div className="flex justify-center my-2" >
+          <div className="my-2 flex justify-center">
             <code className="text-muted-foreground">
               {row.original.minValue}
             </code>
@@ -165,7 +167,7 @@ export function TestTable() {
         ) : null;
       },
     },
-    
+
     {
       id: "Result",
       accessorFn: (elem) => {
@@ -175,10 +177,8 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" &&
           row.original.measuredValue !== undefined ? (
-          <div className="flex justify-center my-2">
-            <code>
-              {row.original.measuredValue}
-            </code>
+          <div className="my-2 flex justify-center">
+            <code>{row.original.measuredValue}</code>
           </div>
         ) : null;
       },
@@ -193,7 +193,7 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" &&
           row.original.maxValue !== undefined ? (
-          <div className="flex justify-center my-2">
+          <div className="my-2 flex justify-center">
             <code className=" text-muted-foreground">
               {row.original.maxValue}
             </code>
@@ -212,7 +212,7 @@ export function TestTable() {
         return row.original.type === "test" &&
           row.original.unit !== undefined ? (
           <div className="flex justify-center">
-            <code className="text-muted-foreground my-2">
+            <code className="my-2 text-muted-foreground">
               {row.original.unit}
             </code>
           </div>
@@ -322,8 +322,8 @@ export function TestTable() {
     "up-down": false,
     "Completion Time": false,
     "Test Type": isAdmin(),
-    "Status": isAdmin(),
-    "Export": isAdmin(),
+    Status: isAdmin(),
+    Export: isAdmin(),
     selected: isAdmin(),
   });
   const [rowSelection, setRowSelection] = useState({});
@@ -486,11 +486,13 @@ export function TestTable() {
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
         ) : (
-          <h2 className="ml-1 text-l font-bold text-muted-foreground inline-flex">
+          <h2 className="text-l ml-1 inline-flex font-bold text-muted-foreground">
             Test Steps
             <div className="px-1" />
             <p className="font-thin text-muted-foreground">
-            { testSequenceDisplayed !== null ? ` for ${testSequenceDisplayed?.name}` : ""}
+              {testSequenceDisplayed !== null
+                ? ` for ${testSequenceDisplayed?.name}`
+                : ""}
             </p>
           </h2>
         )}
