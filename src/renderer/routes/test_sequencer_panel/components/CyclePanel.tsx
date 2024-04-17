@@ -12,6 +12,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
+import { useState } from "react";
 
 export function CyclePanel() {
   const { tree, isLocked } = useDisplayedSequenceState();
@@ -41,6 +42,14 @@ export function CyclePanel() {
     return null;
   }
 
+  const [value, setValue] = useState(cycleConfig.cycleCount);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.value !== "") {
+      setCycleCount(Number(event.target.value));
+    }
+    setValue(Number(event.target.value));
+  }
+
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -65,10 +74,8 @@ export function CyclePanel() {
                 id="cycle"
                 placeholder="1"
                 disabled={cycleConfig.infinite}
-                value={cycleConfig.cycleCount}
-                onChange={(event) => {
-                  setCycleCount(Number(event.target.value));
-                }}
+                value={value}
+                onChange={handleChange}
               />
             </div>
             <div className="grow" />
