@@ -84,9 +84,9 @@ export const ChangeLinkedTestModal = ({
       <DialogContent>
         <h2 className="text-lg font-bold text-accent1">Select a test to link to</h2>
         <p className="font-bold">Pytest</p>
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex justify-between items-center gap-2 w-[460px]">
           <Select onValueChange={setSelectedPath}>
-            <SelectTrigger>
+            <SelectTrigger className="overflow-clip">
               <SelectValue placeholder="Select a Test" />
             </SelectTrigger>
             <SelectContent>
@@ -94,7 +94,7 @@ export const ChangeLinkedTestModal = ({
                 <SelectLabel>Discover a file to display its tests</SelectLabel>
                 {availableTests.map((test) => {
                     if (test.type === "test") {
-                      return <SelectItem value={test.path}>{test.path}</SelectItem>;
+                      return <SelectItem value={test.path}>{`...${test.path.slice(-35)}`}</SelectItem>;
                     }
                   })
                 }
@@ -116,9 +116,9 @@ export const ChangeLinkedTestModal = ({
           onClick={() => handleSubmitByType("pytest")}
         > Submit Selected Test </Button>
         <Separator className="bg-muted" />
-        <p className="font-bold">Python script</p>
+        <p className="font-bold">Python Script</p>
         <Button variant={"outline"} onClick={() => handleSubmitByType("python")}>
-          Python Script
+          Select a Python Script
         </Button>
         <div className="flex justify-between">
           <div className="grow" />
