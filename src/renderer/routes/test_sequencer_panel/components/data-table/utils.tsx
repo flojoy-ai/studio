@@ -52,7 +52,7 @@ export const mapStatusToDisplay: { [k in StatusType] } = {
             FAIL
           </Badge>
         </HoverCardTrigger>
-        <HoverCardContent className="w-256 h-max-256 z-20 mt-2 overscroll-y-auto rounded-lg border bg-card px-3 py-2 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+        <HoverCardContent className="w-[600px] h-[306px] z-20 mt-2 overscroll-y-auto rounded-lg border bg-card px-3 py-2 text-card-foreground shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
           <h2 className="text-muted-foreground">Error Message:</h2>
           {renderErrorMessage(status)}
         </HoverCardContent>
@@ -61,9 +61,9 @@ export const mapStatusToDisplay: { [k in StatusType] } = {
 };
 
 function renderErrorMessage(text: string): JSX.Element {
-  const lines = text.split("\n");
+  let lines = text.split("\n");
   return (
-    <div className="mt-2 whitespace-pre rounded-md bg-secondary p-2">
+    <div className="mt-2 whitespace-pre rounded-md bg-secondary p-2 overflow-scroll h-[256px]">
       {lines.map((line, index) => (
         <div key={index}>{line}</div>
       ))}
