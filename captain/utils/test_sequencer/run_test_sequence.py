@@ -265,7 +265,7 @@ map_to_handler_run = (
             {
                 TestTypes.python: (None, _run_python),
                 TestTypes.pytest: (None, _run_pytest),
-                TestTypes.placeholder: (None, _run_placeholder)
+                TestTypes.placeholder: (None, _run_placeholder),
             },
         ),
         "conditional": (
