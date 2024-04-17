@@ -35,7 +35,7 @@ const TestNameCell = ({ cellProps: { row }, indentLevels }: Props) => {
 
   return isTest ? (
     <>
-      <div className="flex h-full cursor-pointer space-x-2">
+      <div className="flex h-full cursor-pointer space-x-2 my-2">
         {/* Indent levels */}
         <div className="flex flex-row space-x-1">
           <IndentLine

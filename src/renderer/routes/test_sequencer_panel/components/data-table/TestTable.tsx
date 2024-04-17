@@ -58,6 +58,8 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { WriteMinMaxModal } from "@/renderer/routes/test_sequencer_panel/components/modals/WriteMinMaxModal";
 import { toast } from "sonner";
+import { useSequencerStore } from "@/renderer/stores/sequencer";
+import { useShallow } from "zustand/react/shallow";
 
 export function TestTable() {
   const { elems, setElems } = useDisplayedSequenceState();
@@ -68,6 +70,7 @@ export function TestTable() {
   const indentLevels = getIndentLevels(elems);
   const [openPyTestFileModal, setOpenPyTestFileModal] = useState(false);
   const [testToDisplay, setTestToDisplay] = useState<Test | null>(null);
+  const testSequenceDisplayed = useSequencerStore(useShallow((state) => state.testSequenceDisplayed));
 
   function toggleExportToCloud(id: string) {
     setElems((elems) => {
@@ -154,10 +157,27 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" &&
           row.original.minValue !== undefined ? (
-          <div className="flex justify-center">
+          <div className="flex justify-center my-2" >
             <code className="text-muted-foreground">
               {row.original.minValue}
-              {row.original.unit}
+            </code>
+          </div>
+        ) : null;
+      },
+    },
+    
+    {
+      id: "Result",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "result" : null;
+      },
+      header: () => <div className="pl-4 text-center">Result</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" &&
+          row.original.measuredValue !== undefined ? (
+          <div className="flex justify-center my-2">
+            <code>
+              {row.original.measuredValue}
             </code>
           </div>
         ) : null;
@@ -173,10 +193,9 @@ export function TestTable() {
       cell: ({ row }) => {
         return row.original.type === "test" &&
           row.original.maxValue !== undefined ? (
-          <div className="flex justify-center">
+          <div className="flex justify-center my-2">
             <code className=" text-muted-foreground">
               {row.original.maxValue}
-              {row.original.unit}
             </code>
           </div>
         ) : null;
@@ -184,17 +203,16 @@ export function TestTable() {
     },
 
     {
-      id: "Measured",
+      id: "Unit",
       accessorFn: (elem) => {
-        return elem.type === "test" ? "measured_value" : null;
+        return elem.type === "test" ? "unit" : null;
       },
-      header: () => <div className="pl-4 text-center">Measured</div>,
+      header: () => <div className="pl-4 text-center">Unit</div>,
       cell: ({ row }) => {
         return row.original.type === "test" &&
-          row.original.measuredValue !== undefined ? (
+          row.original.unit !== undefined ? (
           <div className="flex justify-center">
-            <code>
-              {row.original.measuredValue}
+            <code className="text-muted-foreground my-2">
               {row.original.unit}
             </code>
           </div>
@@ -225,23 +243,6 @@ export function TestTable() {
     },
 
     {
-      id: "Status",
-      accessorFn: (elem) => {
-        return elem.type === "test" ? "status" : null;
-      },
-      header: () => <div className="pl-4 text-center">Status</div>,
-      cell: ({ row }) => {
-        return row.original.type === "test" ? (
-          <div className="my-2 flex justify-center">
-            {typeof mapStatusToDisplay[row.original.status] === "function"
-              ? mapStatusToDisplay[row.original.status](row.original.error)
-              : mapStatusToDisplay[row.original.status]}
-          </div>
-        ) : null;
-      },
-    },
-
-    {
       id: "Completion Time",
       accessorFn: (elem) => {
         return elem.type === "test" ? "completionTime" : null;
@@ -253,6 +254,23 @@ export function TestTable() {
             {row.original.completionTime
               ? `${row.original.completionTime.toFixed(2)}s`
               : "0.00s"}
+          </div>
+        ) : null;
+      },
+    },
+
+    {
+      id: "Status",
+      accessorFn: (elem) => {
+        return elem.type === "test" ? "status" : null;
+      },
+      header: () => <div className="pl-4 text-center">Status</div>,
+      cell: ({ row }) => {
+        return row.original.type === "test" ? (
+          <div className="my-2 flex justify-center">
+            {typeof mapStatusToDisplay[row.original.status] === "function"
+              ? mapStatusToDisplay[row.original.status](row.original.error)
+              : mapStatusToDisplay[row.original.status]}
           </div>
         ) : null;
       },
@@ -302,6 +320,10 @@ export function TestTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     "up-down": false,
+    "Completion Time": false,
+    "Test Type": isAdmin(),
+    "Status": isAdmin(),
+    "Export": isAdmin(),
     selected: isAdmin(),
   });
   const [rowSelection, setRowSelection] = useState({});
@@ -464,7 +486,13 @@ export function TestTable() {
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
         ) : (
-          <div />
+          <h2 className="ml-1 text-l font-bold text-muted-foreground inline-flex">
+            Test Steps
+            <div className="px-1" />
+            <p className="font-thin text-muted-foreground">
+            { testSequenceDisplayed !== null ? ` for ${testSequenceDisplayed?.name}` : ""}
+            </p>
+          </h2>
         )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
