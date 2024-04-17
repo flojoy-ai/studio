@@ -235,6 +235,7 @@ export const postSession = (
             pass_: elem.status === "pass",
             completionTime: elem.completionTime ?? 0,
             createdAt: elem.createdAt!,
+            unit: elem.unit ?? "",
           });
         }
       });
@@ -264,6 +265,7 @@ const Measurement = z.object({
   pass_: z.boolean().optional(),
   completionTime: z.number(),
   createdAt: z.string(),
+  unit: z.string(),
 });
 export type Measurement = z.infer<typeof Measurement>;
 
