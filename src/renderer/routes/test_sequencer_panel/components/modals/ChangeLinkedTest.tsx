@@ -1,18 +1,16 @@
 import { Button } from "@/renderer/components/ui/button";
-import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
-import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
-import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
 import { useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { ImportType } from "./ImportTestModal";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/renderer/components/ui/select";
-import { useDiscoverAndImportTests, useDiscoverPytestElements } from "@/renderer/hooks/useTestImport";
+import { useDiscoverPytestElements } from "@/renderer/hooks/useTestImport";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
+import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 
 export const ChangeLinkedTestModal = ({
@@ -26,6 +24,8 @@ export const ChangeLinkedTestModal = ({
 }) => {
   const [availableTests, setAvailableTests] = useState<TestSequenceElement[]>([]);
   const [selectedPath, setSelectedPath] = useState<string>("");
+  const { openErrorModal } = useSequencerModalStore();
+
 
   const { setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
@@ -47,13 +47,20 @@ export const ChangeLinkedTestModal = ({
             setAvailableTests(elements);
           },
           (error) => {
-            // TODO: Handle error in a toast, don't forget to check for size of message ;)
-            console.error(error);
+            toast("Error while attempting to discover tests", {
+              action: {
+                label: "More details",
+                onClick: () => {
+                  openErrorModal(error.message);
+                },
+              },
+            });
           }
         );
       })
       .catch(error => {
-          console.log(error);
+        // User cancelled the file picker
+        console.log(error);
       });
   }
 
@@ -93,10 +100,10 @@ export const ChangeLinkedTestModal = ({
               <SelectGroup>
                 <SelectLabel>Discover a file to display its tests</SelectLabel>
                 {availableTests.map((test) => {
-                    if (test.type === "test") {
-                      return <SelectItem value={test.path}>{`...${test.path.slice(-35)}`}</SelectItem>;
-                    }
-                  })
+                  if (test.type === "test") {
+                    return <SelectItem value={test.path}>{`...${test.path.slice(-35)}`}</SelectItem>;
+                  }
+                })
                 }
               </SelectGroup>
             </SelectContent>
