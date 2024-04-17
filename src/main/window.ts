@@ -46,8 +46,8 @@ export async function createWindow() {
       preload,
       sandbox: false,
     },
-    minHeight: 860,
-    minWidth: 1280,
+    minHeight: 680,
+    minWidth: 1020,
     show: false,
   });
   global.mainWindow = mainWindow;

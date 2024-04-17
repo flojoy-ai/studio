@@ -87,6 +87,24 @@ export function SequenceTable() {
     },
 
     {
+      accessorKey: "run",
+      header: () => <div>Run</div>,
+      cell: ({ row }) => {
+        return (
+          <div>
+            <Checkbox
+              disabled={isLocked}
+              className="relative z-20"
+              checked={row.original.runable}
+              onCheckedChange={() => onToggleSequence([row.index])}
+              aria-label="Select row"
+            />
+          </div>
+        );
+      },
+    },
+
+    {
       accessorKey: "name",
       header: "Sequence name",
       cell: ({ row }) => {
@@ -95,26 +113,35 @@ export function SequenceTable() {
     },
 
     {
-      accessorKey: "description",
-      header: "Description",
+      accessorKey: "Type",
+      header: "Type",
       cell: ({ row }) => {
         return <div>{row.original.project.description}</div>;
       },
     },
 
     {
-      accessorKey: "run",
-      header: () => <div className="pl-4 text-center">Run</div>,
+      accessorKey: "Success Rate",
+      header: () => <div className="pl-4 text-center">Success Rate</div>,
       cell: ({ row }) => {
         return (
           <div className="flex justify-center">
-            <Checkbox
-              disabled={isLocked}
-              className="relative z-20"
-              checked={row.original.runable}
-              onCheckedChange={() => onToggleSequence([row.index])}
-              aria-label="Select row"
-            />
+            <p className="text-primary">
+              {getSuccessRate(row.original.elements).toFixed(2)}%
+            </p>
+          </div>
+        );
+      },
+    },
+
+    {
+      accessorKey: "completion Time",
+      header: () => <div className="pl-4 text-center">Completion Time</div>,
+      cell: ({ row }) => {
+        const time = getCompletionTime(row.original.elements);
+        return (
+          <div className="flex justify-center">
+            <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
         );
       },
@@ -129,33 +156,6 @@ export function SequenceTable() {
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](null)
               : mapStatusToDisplay[row.original.status]}
-          </div>
-        );
-      },
-    },
-
-    {
-      accessorKey: "success_rate",
-      header: () => <div className="pl-4 text-center">Success Rate</div>,
-      cell: ({ row }) => {
-        return (
-          <div className="flex justify-center">
-            <p className="text-primary">
-              {getSuccessRate(row.original.elements).toFixed(2)}%
-            </p>
-          </div>
-        );
-      },
-    },
-
-    {
-      accessorKey: "completion_time",
-      header: () => <div className="pl-4 text-center">Completion Time</div>,
-      cell: ({ row }) => {
-        const time = getCompletionTime(row.original.elements);
-        return (
-          <div className="flex justify-center">
-            <p className="text-primary"> {time.toFixed(2)}s </p>
           </div>
         );
       },
@@ -201,6 +201,7 @@ export function SequenceTable() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     "up-down": false,
+    "Success Rate": isAdmin(),
     selected: isAdmin(),
   });
   const [rowSelection, setRowSelection] = useState({});
@@ -343,7 +344,9 @@ export function SequenceTable() {
             <div className="hidden sm:block">Remove selected items</div>
           </LockableButton>
         ) : (
-          <div />
+          <h2 className="text-l ml-1 font-bold text-muted-foreground">
+            Test Sequences{" "}
+          </h2>
         )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
