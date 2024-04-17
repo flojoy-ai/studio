@@ -119,7 +119,7 @@ export const ChangeLinkedTestModal = ({
           <div className="w-52 justify-end">
             <Button
               variant={"outline"}
-              onClick={() => handleDiscoverPytestElements()}
+              onClick={handleDiscoverPytestElements}
               data-testid="pytest-btn"
             >
               Discover Pytest
