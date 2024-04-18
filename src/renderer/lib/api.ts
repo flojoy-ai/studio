@@ -185,6 +185,7 @@ const Project = z.object({
     .transform((value) => value ?? ""),
   part: Part,
   productName: z.string(),
+  numCycles: z.number(),
 });
 export type Project = z.infer<typeof Project>;
 export const getCloudProjects = () =>
@@ -234,6 +235,7 @@ export const postSession = (
             pass_: elem.status === "pass",
             completionTime: elem.completionTime ?? 0,
             createdAt: elem.createdAt!,
+            unit: elem.unit ?? "",
           });
         }
       });
@@ -263,6 +265,7 @@ const Measurement = z.object({
   pass_: z.boolean().optional(),
   completionTime: z.number(),
   createdAt: z.string(),
+  unit: z.string(),
 });
 export type Measurement = z.infer<typeof Measurement>;
 

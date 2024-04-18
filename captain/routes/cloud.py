@@ -103,6 +103,7 @@ class Project(CloudModel):
     updated_at: Optional[datetime.datetime] = Field(..., alias="updatedAt")
     part_variation_id: str = Field(..., alias="partVariationId")
     repo_url: Optional[str] = Field(..., alias="repoUrl")
+    num_cycles: int = Field(..., alias="numCycles")
 
 
 class Part(CloudModel):
@@ -144,6 +145,7 @@ class Measurement(BaseModel):
     pass_: Optional[bool]
     completion_time: float = Field(..., alias="completionTime")
     created_at: str = Field(..., alias="createdAt")
+    unit: str
 
 
 class Session(BaseModel):
@@ -160,7 +162,7 @@ MeasurementData = bool | pd.DataFrame | int | float
 MeasurementType = Literal["boolean", "dataframe", "scalar"]
 
 
-def make_payload(data: MeasurementData):
+def make_payload(data: MeasurementData, unit: str):
     match data:
         case bool():
             return {"type": "boolean", "value": data}
@@ -172,7 +174,7 @@ def make_payload(data: MeasurementData):
 
             return {"type": "dataframe", "value": value}
         case int() | float():
-            return {"type": "scalar", "value": data}
+            return {"type": "scalar", "value": data, "unit": unit}
         case _:
             raise TypeError(f"Unsupported data type: {type(data)}")
 
@@ -220,6 +222,7 @@ async def get_cloud_projects():
                     "value": p.id,
                     "part": part_var.model_dump(by_alias=True),
                     "repoUrl": p.repo_url,
+                    "numCycles": p.num_cycles,
                     "productName": part.product_name,
                 }
             )
@@ -277,9 +280,10 @@ async def post_cloud_session(_: Response, body: Session):
         payload = body.model_dump(by_alias=True)
         payload["createdAt"] = utcnow_str()
         for i, m in enumerate(payload["measurements"]):
-            m["data"] = make_payload(get_measurement(body.measurements[i]))
+            m["data"] = make_payload(get_measurement(body.measurements[i]), m["unit"])
             m["pass"] = m.pop("pass_")
             m["durationMs"] = int(m.pop("completionTime") * 1000)
+            del m["unit"]
         response = requests.post(url, json=payload, headers=headers_builder())
         if response.status_code == 200:
             return Response(status_code=200, content=json.dumps(response.json()))
