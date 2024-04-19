@@ -1,9 +1,11 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
+import { Input } from "@/renderer/components/ui/input";
+import { PathInput } from "@/renderer/components/ui/path-input";
 import { Separator } from "@/renderer/components/ui/separator";
 import { useDiscoverAndImportTests } from "@/renderer/hooks/useTestImport";
-import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
+import { createNewTest, useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { ExternalLinkIcon } from "lucide-react";
@@ -15,7 +17,7 @@ export type ImportTestSettings = {
   importType: ImportType;
 };
 
-export type ImportType = "pytest" | "python";
+export type ImportType = "pytest" | "python" | "robotframework";
 
 export const ImportTestModal = () => {
   const { isImportTestModalOpen, setIsImportTestModalOpen } =
@@ -30,18 +32,41 @@ export const ImportTestModal = () => {
 
   const openFilePicker = useDiscoverAndImportTests();
   const { setIsLocked } = useDisplayedSequenceState();
+  const { addNewElems } = useDisplayedSequenceState();
 
-  const handleImportTest = (importType: ImportType) => {
+  const handleImportTest = async (importType: ImportType) => {
     setIsLocked(true);
-    openFilePicker(
-      {
-        importType: importType,
-        importAsOneRef: checked,
-      },
-      setIsImportTestModalOpen,
-    );
+    if (importType === "robotframework") {
+      const newElem = createNewTest(
+        testName,
+        filePath,
+        "robotframework",
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        [testName]
+      )
+      console.log(newElem);
+      const res = await addNewElems([newElem]);
+      console.log(res);
+      setIsImportTestModalOpen(false);
+    } else {
+      openFilePicker(
+        {
+          importType: importType,
+          importAsOneRef: checked,
+        },
+        setIsImportTestModalOpen,
+      );
+    }
     setIsLocked(false);
   };
+
+  const [testName, setRobotPath] = useState<string>("");
+  const [filePath, setProjectDirPath] = useState<string>("");
 
   return (
     <Dialog
@@ -49,27 +74,23 @@ export const ImportTestModal = () => {
       onOpenChange={setIsImportTestModalOpen}
     >
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1">Import Tests</h2>
-        <Button
-          variant={"outline"}
-          onClick={() => handleImportTest("pytest")}
-          data-testid="pytest-btn"
-        >
-          Pytest & Unittest
-        </Button>
-        <Button variant={"outline"} onClick={() => handleImportTest("python")}>
-          Python Script
+        <h2 className="text-lg font-bold text-accent1">Robot Framework Test</h2>
+        <Input value={testName} placeholder="Robot.test name" onChange={(e) => setRobotPath(e.target.value)} />
+        <PathInput
+          placeholder="file.robot"
+          allowedExtention={["robot"]}
+          onChange={(event) => {
+            setProjectDirPath(event.target.value);
+          }}
+          pickerType="file"
+          allowDirectoryCreation={true}
+        />
+        <Button variant={"outline"} onClick={() => handleImportTest("robotframework")}>
+          Add Test
         </Button>
         <Separator />
         <div className="flex justify-between">
           <div className="flex items-center space-x-2 text-xs">
-            <Checkbox
-              checked={checked}
-              onCheckedChange={(checked) => {
-                setChecked(checked as boolean);
-              }}
-            />
-            <label>Import all tests as one test</label>
           </div>
           <div className="justify-end">
             <Button

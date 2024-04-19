@@ -2,7 +2,7 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
-import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
+import { BotIcon, FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
 import {
   StatusType,
   Test,
@@ -97,11 +97,11 @@ export function DesignBar() {
                   }}
                   data-testid="import-test-button"
                 >
-                  <FlaskConical
+                  <BotIcon
                     size={16}
                     className="mr-2 stroke-muted-foreground"
                   />
-                  New Test
+                  New Robot Test
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {

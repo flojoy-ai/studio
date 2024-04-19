@@ -108,6 +108,7 @@ export function createNewTest(
   minValue?: number,
   maxValue?: number,
   unit?: string,
+  args?: string[],
 ): Test {
   const newTest: Test = {
     type: "test",
@@ -126,6 +127,7 @@ export function createNewTest(
     minValue: minValue,
     maxValue: maxValue,
     unit: unit,
+    args: args,
   };
   return newTest;
 }
