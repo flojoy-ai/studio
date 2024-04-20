@@ -17,7 +17,7 @@ import useWithPermission from "@/renderer/hooks/useWithPermission";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { useShallow } from "zustand/react/shallow";
 import { v4 as uuidv4 } from "uuid";
-import { Err, Ok, Result, err, ok } from "neverthrow";
+import { Err, Result, err, ok } from "neverthrow";
 import { verifyElementCompatibleWithSequence } from "@/renderer/routes/test_sequencer_panel/utils/SequenceHandler";
 import { toast } from "sonner";
 import { SendJsonMessage } from "react-use-websocket/dist/lib/types";
