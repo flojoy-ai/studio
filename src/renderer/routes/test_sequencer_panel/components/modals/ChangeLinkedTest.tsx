@@ -18,7 +18,6 @@ import {
 import { useDiscoverPytestElements } from "@/renderer/hooks/useTestImport";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
-import { useSequencerModalStore } from "@/renderer/stores/modal";
 
 export const ChangeLinkedTestModal = ({
   isModalOpen,
