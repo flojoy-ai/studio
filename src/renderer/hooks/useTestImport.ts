@@ -1,6 +1,4 @@
-import {
-  TestDiscoverContainer,
-} from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
   useDisplayedSequenceState,
@@ -127,7 +125,6 @@ export const useDiscoverAndImportTests = () => {
 
   return openFilePicker;
 };
-
 
 export const useDiscoverPytestElements = () => {
   const handleUserDepInstall = useCallback(async (depName: string) => {
