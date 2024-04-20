@@ -26,9 +26,9 @@ export const SequencerGalleryModal = ({
 
   const useImport = useImportAllSequencesInFolder();
 
-  const handleSequenceLoad = async (BaseFolderName: string) => {
+  const handleSequenceLoad = (BaseFolderName: string) => {
     const relativePath = `src/renderer/data/apps/sequencer/${BaseFolderName}/`;
-    await useImport(relativePath);
+    useImport(relativePath);
     setIsGalleryOpen(false);
   };
 
