@@ -9,7 +9,7 @@ import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Button } from "@/renderer/components/ui/button";
-import { Avatar, AvatarImage } from "@/renderer/components/ui/avatar";
+import { useImportAllSequencesInFolder } from "@/renderer/hooks/useTestSequencerProject";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -24,24 +24,25 @@ export const SequencerGalleryModal = ({
     setIsGalleryOpen(true);
   };
 
-  const handleAppLoad = async (link: string) => {
-    console.log("Loading app", link);
+  const useImport = useImportAllSequencesInFolder();
+
+  const handleSequenceLoad = async (BaseFolderName: string) => {
+    const relativePath = `src/renderer/data/apps/sequencer/${BaseFolderName}/`;
+    await useImport(relativePath);
   };
 
   const data = [
     {
-      title: "Simplest Sequence",
+      title: "Creating Sequences with Conditional",
       description: "Learn how to create a simple sequence with conditional logic.",
-      imagePath: "assets/appGallery/introToLoops.png",
-      link: "",
+      path: "conditional",
     },
     {
-      title: "Sequence - Expected Values and Export",
-      description: "Learn how to inject the minimum and maximum expected values into a sequence and export the result. Right click on a test to consult the code and edit the expected values!.",
-      imagePath: "assets/appGallery/introToLoops.png",
-      link: "",
+      title: "Test Step with Expected and Exported Values",
+      description: "Learn how to inject the minimum and maximum expected values into a test and export the result. Right-click on a test to consult the code and edit the expected values!",
+      path: "expected_exported_values",
     },
-  ]
+  ];
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
@@ -63,40 +64,31 @@ export const SequencerGalleryModal = ({
             <div className="text-3xl">Sequence Gallery</div>
           </DialogTitle>
         </DialogHeader>
-        <Separator />
-
         <ScrollArea className="">
-          { data.map((SeqExample) => (
-
-              <div className="m-1 min-h-40">
-              <div className="flex w-full">
-                <Avatar className="m-1 h-36 w-36">
-                  <AvatarImage className="object-contain" src={SeqExample.imagePath} />
-                </Avatar>
-                <div className="px-2" />
-
+          {data.map((SeqExample) => (
+            <>
+            <Separator />
+            <div className="inline-flex items-center 1 min-h-20 w-full">
+              <div className="flex w-3/4">
                 <div className="flex grow flex-col items-start">
                   <div className="text-xl font-semibold">{SeqExample.title}</div>
                   <div className="text-sm font-thin">{SeqExample.description}</div>
-
-                  <div className="py-1" />
-
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="gap-2"
-                      data-testid={SeqExample.title.toLowerCase().split(" ").join("_")}
-                      onClick={async () => {
-                        await handleAppLoad(SeqExample.link);
-                      }}
-                    >
-                      Load
-                    </Button>
-                  </div>
                 </div>
               </div>
+              <div className="grow" />
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-2 ml-6"
+                data-testid={SeqExample.title.toLowerCase().split(" ").join("_")}
+                onClick={async () => {
+                  await handleSequenceLoad(SeqExample.path);
+                }}
+              >
+                Load
+              </Button>
             </div>
+            </>
           ))}
         </ScrollArea>
       </DialogContent>

@@ -118,6 +118,61 @@ export const useImportSequences = () => {
   return handleImport;
 };
 
+
+export const useImportAllSequencesInFolder = () => {
+  const manager = usePrepareStateManager();
+  const { isAdmin } = useWithPermission();
+
+  const handleImport = async (path: string, relative: boolean=false) => {
+    async function importSequences(): Promise<Result<void, Error>> {
+      // Confirmation if admin
+      if (!isAdmin()) {
+        return err(Error("Admin only, Connect to Flojoy Cloud and select a Test Profile"));
+      }
+
+      // Find .tjoy files from the profile
+      const result = await window.api.openAllFilesInFolder(
+        path,
+        ["tjoy"],
+        relative,
+      );
+      if (result === undefined) {
+        return err(
+          Error(`Failed to find the directory ${path}`),
+        );
+      }
+      if (!result || result.length === 0) {
+        return err(Error("No .tjoy file found in the selected directory"));
+      }
+
+      // Import them in the sequencer
+      await Promise.all(
+        result.map(async (res, idx) => {
+          const { filePath, fileContent } = res;
+          const result = await importSequence(
+            filePath,
+            fileContent,
+            manager,
+            idx !== 0,
+          );
+          if (result.isErr()) return err(result.error);
+        }),
+      );
+
+      return ok(undefined);
+    }
+
+    toastResultPromise(importSequences(), {
+      loading: `Importing Sequences...`,
+      success: () => `Sequences imported`,
+      error: (e) => `${e}`,
+    });
+  };
+
+  return handleImport;
+};
+
+
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();

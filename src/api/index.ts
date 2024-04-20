@@ -148,11 +148,13 @@ export default {
   openAllFilesInFolder: (
     folderPath: string,
     allowedExtensions: string[] = ["json"],
+    relativePath: boolean = false,
   ): Promise<{ filePath: string; fileContent: string }[] | undefined> =>
     ipcRenderer.invoke(
       API.openAllFilesInFolderPicker,
       folderPath,
       allowedExtensions,
+      relativePath,
     ),
 
   getFileContent: (filepath: string): Promise<string> =>
