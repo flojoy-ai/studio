@@ -28,8 +28,7 @@ def test_max():
 
 
 def test_export_dataframe():
-
-    df = pd.DataFrame({'value': [6.15, 6.15, 6.15]})
+    df = pd.DataFrame({"value": [6.15, 6.15, 6.15]})
     # Boolean and DataFrame values will be exported to the Cloud.
     test_sequencer.export(df)
 
@@ -40,7 +39,7 @@ def test_export():
     value = 6.15
     # Always export as early as possible to avoid missing data.
     test_sequencer.export(value)
-    assert 12 < value   # <-- FAIL
+    assert 12 < value  # <-- FAIL
 
     # Only the last executed export statement will be exported to the Cloud and
     # reported to the sequencer.

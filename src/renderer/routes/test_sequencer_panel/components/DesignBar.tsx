@@ -114,7 +114,7 @@ export function DesignBar() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <SequencerGalleryModal 
+            <SequencerGalleryModal
               isGalleryOpen={isGalleryOpen}
               setIsGalleryOpen={setIsGalleryOpen}
             />

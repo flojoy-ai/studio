@@ -118,16 +118,19 @@ export const useImportSequences = () => {
   return handleImport;
 };
 
-
 export const useImportAllSequencesInFolder = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();
 
-  const handleImport = async (path: string, relative: boolean=false) => {
+  const handleImport = async (path: string, relative: boolean = false) => {
     async function importSequences(): Promise<Result<void, Error>> {
       // Confirmation if admin
       if (!isAdmin()) {
-        return err(Error("Admin only, Connect to Flojoy Cloud and select a Test Profile"));
+        return err(
+          Error(
+            "Admin only, Connect to Flojoy Cloud and select a Test Profile",
+          ),
+        );
       }
 
       // Find .tjoy files from the profile
@@ -137,9 +140,7 @@ export const useImportAllSequencesInFolder = () => {
         relative,
       );
       if (result === undefined) {
-        return err(
-          Error(`Failed to find the directory ${path}`),
-        );
+        return err(Error(`Failed to find the directory ${path}`));
       }
       if (!result || result.length === 0) {
         return err(Error("No .tjoy file found in the selected directory"));
@@ -171,7 +172,6 @@ export const useImportAllSequencesInFolder = () => {
 
   return handleImport;
 };
-
 
 export const useLoadTestProfile = () => {
   const manager = usePrepareStateManager();

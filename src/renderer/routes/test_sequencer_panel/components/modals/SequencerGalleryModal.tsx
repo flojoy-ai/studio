@@ -35,12 +35,14 @@ export const SequencerGalleryModal = ({
   const data = [
     {
       title: "Creating Sequences with Conditional",
-      description: "Learn how to create a simple sequence with conditional logic.",
+      description:
+        "Learn how to create a simple sequence with conditional logic.",
       path: "conditional",
     },
     {
       title: "Test Step with Expected and Exported Values",
-      description: "Learn how to inject the minimum and maximum expected values into a test and export the result. Right-click on a test to consult the code and edit the expected values!",
+      description:
+        "Learn how to inject the minimum and maximum expected values into a test and export the result. Right-click on a test to consult the code and edit the expected values!",
       path: "expected_exported_values",
     },
   ];
@@ -68,27 +70,34 @@ export const SequencerGalleryModal = ({
         <ScrollArea className="">
           {data.map((SeqExample) => (
             <>
-            <Separator />
-            <div className="inline-flex items-center 1 min-h-20 w-full">
-              <div className="flex w-3/4">
-                <div className="flex grow flex-col items-start">
-                  <div className="text-xl font-semibold">{SeqExample.title}</div>
-                  <div className="text-sm font-thin">{SeqExample.description}</div>
+              <Separator />
+              <div className="1 inline-flex min-h-20 w-full items-center">
+                <div className="flex w-3/4">
+                  <div className="flex grow flex-col items-start">
+                    <div className="text-xl font-semibold">
+                      {SeqExample.title}
+                    </div>
+                    <div className="text-sm font-thin">
+                      {SeqExample.description}
+                    </div>
+                  </div>
                 </div>
+                <div className="grow" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="ml-6 gap-2"
+                  data-testid={SeqExample.title
+                    .toLowerCase()
+                    .split(" ")
+                    .join("_")}
+                  onClick={async () => {
+                    await handleSequenceLoad(SeqExample.path);
+                  }}
+                >
+                  Load
+                </Button>
               </div>
-              <div className="grow" />
-              <Button
-                variant="outline"
-                size="sm"
-                className="gap-2 ml-6"
-                data-testid={SeqExample.title.toLowerCase().split(" ").join("_")}
-                onClick={async () => {
-                  await handleSequenceLoad(SeqExample.path);
-                }}
-              >
-                Load
-              </Button>
-            </div>
             </>
           ))}
         </ScrollArea>
@@ -96,5 +105,3 @@ export const SequencerGalleryModal = ({
     </Dialog>
   );
 };
-
-
