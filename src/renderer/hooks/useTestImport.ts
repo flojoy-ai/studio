@@ -129,7 +129,8 @@ export const useDiscoverAndImportTests = () => {
   return openFilePicker;
 };
 
-export async function useDiscoverPytestElements() {
+
+export const useDiscoverPytestElements = () => {
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
     toast.promise(promise, {
@@ -142,9 +143,7 @@ export async function useDiscoverPytestElements() {
     });
   }, []);
 
-  async function getTests(
-    path: string,
-  ): Promise<Result<TestSequenceElement[], Error>> {
+  async function getTests(path: string) {
     const res = await discoverPytest(path, false);
     if (res.isErr()) {
       return err(res.error);
@@ -174,14 +173,9 @@ export async function useDiscoverPytestElements() {
     return ok(newElems);
   }
 
-  const openFilePicker = (): Promise<Result<TestSequenceElement[], Error>> => {
-    return window.api.openTestPicker().then((result) => {
-      if (!result) return err(Error("No file selected."));
-      toast.info("Importing tests...");
-      const { filePath } = result;
-      return getTests(filePath);
-    });
+  // Return a function that takes the file path as an argument
+  return async (filePath: string) => {
+    const result = await getTests(filePath);
+    return result;
   };
-
-  return openFilePicker;
-}
+};

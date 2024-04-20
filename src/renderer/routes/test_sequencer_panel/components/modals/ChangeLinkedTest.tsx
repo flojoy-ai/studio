@@ -41,34 +41,45 @@ export const ChangeLinkedTestModal = ({
     })),
   );
 
-  const openFilePickerPromise = useDiscoverPytestElements();
+  const discoverPytestElement = useDiscoverPytestElements();
 
-  const handleDiscoverPytestElements = () => {
-    openFilePickerPromise
-      .then((useDiscover) => {
-        return useDiscover();
-      })
-      .then((potentialElementsResult) => {
-        potentialElementsResult.match(
-          (elements) => {
-            setAvailableTests(elements);
-          },
-          (error) => {
-            toast("Error while attempting to discover tests", {
-              action: {
-                label: "More details",
-                onClick: () => {
-                  openErrorModal(error.message);
-                },
-              },
-            });
-          },
-        );
-      })
-      .catch((error) => {
-        // User cancelled the file picker
-        console.log(error);
+  const handleDiscoverPytestElements = async (filePath: string) => {
+    try {
+      const result = await discoverPytestElement(filePath);
+      if (result.isOk()) {
+        setAvailableTests(result.value);
+        if (result.value.length > 0) {
+          setSelectedPath(result.value[0].path);
+        }
+      } else {
+        console.error(result.error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openFilePicker = async () => {
+    return new Promise<string | null>((resolve, reject) => {
+      window.api.openTestPicker().then((result) => {
+        if (!result) {
+          reject(new Error("No file selected."));
+        } else {
+          resolve(result.filePath);
+        }
       });
+    });
+  };
+
+  const handleFilePicker = async () => {
+    try {
+      const filePath = await openFilePicker();
+      if (filePath) {
+        await handleDiscoverPytestElements(filePath);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSubmitByType = (testType: ImportType) => {
@@ -119,7 +130,7 @@ export const ChangeLinkedTestModal = ({
           <div className="w-52 justify-end">
             <Button
               variant={"outline"}
-              onClick={handleDiscoverPytestElements}
+              onClick={handleFilePicker}
               data-testid="pytest-btn"
             >
               Discover Pytest
