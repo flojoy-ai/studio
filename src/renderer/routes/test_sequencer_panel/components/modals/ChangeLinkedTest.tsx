@@ -33,7 +33,6 @@ export const ChangeLinkedTestModal = ({
     [],
   );
   const [selectedPath, setSelectedPath] = useState<string>("");
-  const { openErrorModal } = useSequencerModalStore();
 
   const { setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
