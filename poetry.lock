@@ -978,7 +978,7 @@ six = ">=1.12,<2.0"
 
 [[package]]
 name = "flojoy"
-version = "0.4.0"
+version = "0.4.1"
 description = ""
 optional = false
 python-versions = "~3.11"
