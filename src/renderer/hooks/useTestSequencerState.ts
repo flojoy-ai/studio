@@ -28,6 +28,7 @@ import {
   testSequenceStopRequest,
 } from "../routes/test_sequencer_panel/models/models";
 import { produce } from "immer";
+import { z } from "zod";
 
 // sync this with the definition of setElems
 export type SetElemsFn = {
@@ -98,34 +99,38 @@ const validateElements = (
   return !validators.some((validator) => !validator(elems), validators);
 };
 
-export function createNewTest(
-  name: string,
-  path: string,
+export const NewTest = z.object({
+  name: z.string(),
+  path: z.string(),
   type: TestType,
-  exportToCloud?: boolean,
-  id?: string,
-  groupId?: string,
-  minValue?: number,
-  maxValue?: number,
-  unit?: string,
-): Test {
+  exportToCloud: z.boolean().optional(),
+  id: z.string().optional(),
+  groupId: z.string().optional(),
+  minValue: z.number().optional(),
+  maxValue: z.number().optional(),
+  unit: z.string().optional(),
+});
+
+export type NewTest = z.infer<typeof NewTest>;
+
+export function createNewTest(test: NewTest): Test {
   const newTest: Test = {
     type: "test",
-    id: id || uuidv4(),
-    groupId: groupId || uuidv4(),
-    path: path,
-    testName: name,
+    id: test.id || uuidv4(),
+    groupId: test.groupId || uuidv4(),
+    path: test.path,
+    testName: test.name,
     runInParallel: false,
-    testType: type,
+    testType: test.type,
     status: "pending",
     completionTime: undefined,
     error: null,
     isSavedToCloud: false,
-    exportToCloud: exportToCloud === undefined ? true : exportToCloud,
+    exportToCloud: test.exportToCloud || true,
     createdAt: new Date().toISOString(),
-    minValue: minValue,
-    maxValue: maxValue,
-    unit: unit,
+    minValue: test.minValue,
+    maxValue: test.maxValue,
+    unit: test.unit,
   };
   return newTest;
 }

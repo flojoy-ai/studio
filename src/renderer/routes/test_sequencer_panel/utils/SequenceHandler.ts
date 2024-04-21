@@ -272,17 +272,17 @@ async function createExportableSequenceElementsFromTestSequencerElements(
   }
   const elements = [...elems].map((elem) => {
     return elem.type === "test"
-      ? createNewTest(
-          removeBaseFolderFromName(elem.testName, baseFolder),
-          elem.path.replaceAll(baseFolder, ""),
-          elem.testType,
-          elem.exportToCloud,
-          elem.id,
-          elem.groupId,
-          elem.minValue,
-          elem.maxValue,
-          elem.unit,
-        )
+      ? createNewTest({
+          name: removeBaseFolderFromName(elem.testName, baseFolder),
+          path: elem.path.replaceAll(baseFolder, ""),
+          type: elem.testType,
+          exportToCloud: elem.exportToCloud,
+          id: elem.id,
+          groupId: elem.groupId,
+          minValue: elem.minValue,
+          maxValue: elem.maxValue,
+          unit: elem.unit,
+        })
       : {
           ...elem,
           condition: elem.condition.replaceAll(baseFolder, ""),
@@ -298,17 +298,17 @@ async function createTestSequencerElementsFromSequenceElements(
 ): Promise<Result<TestSequenceElement[], Error>> {
   const elements: TestSequenceElement[] = [...sequence.elems].map((elem) => {
     return elem.type === "test"
-      ? createNewTest(
-          removeBaseFolderFromName(elem.testName, baseFolder),
-          baseFolder + elem.path,
-          elem.testType,
-          elem.exportToCloud,
-          elem.id,
-          elem.groupId,
-          elem.minValue,
-          elem.maxValue,
-          elem.unit,
-        )
+      ? createNewTest({
+          name: removeBaseFolderFromName(elem.testName, baseFolder),
+          path: baseFolder + elem.path,
+          type: elem.testType,
+          exportToCloud: elem.exportToCloud,
+          id: elem.id,
+          groupId: elem.groupId,
+          minValue: elem.minValue,
+          maxValue: elem.maxValue,
+          unit: elem.unit,
+        })
       : {
           ...elem,
         };

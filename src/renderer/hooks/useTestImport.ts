@@ -17,11 +17,7 @@ function parseDiscoverContainer(
   settings: ImportTestSettings,
 ) {
   return map(data.response, (container) => {
-    const new_elem = createNewTest(
-      container.testName,
-      container.path,
-      settings.importType,
-    );
+    const new_elem = createNewTest({ name: container.testName, path: container.path, type: settings.importType });
     return new_elem;
   });
 }

@@ -38,17 +38,15 @@ export const CreatePlaceholderTestModal = ({
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const res = await addNewElems([
-      createNewTest(
-        values.name,
-        "",
-        "placeholder",
-        false,
-        undefined,
-        undefined,
-        values.min,
-        values.max,
-        values.unit,
-      ),
+      createNewTest({
+        name: values.name,
+        path: "",
+        type: "placeholder",
+        exportToCloud: false,
+        minValue: values.min,
+        maxValue: values.max,
+        unit: values.unit,
+      }),
     ]);
     if (res.isErr()) {
       return;
