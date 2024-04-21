@@ -1,6 +1,13 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/renderer/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/renderer/components/ui/form";
 import { Input } from "@/renderer/components/ui/input";
 import {
   createNewTest,
@@ -8,14 +15,14 @@ import {
 } from "@/renderer/hooks/useTestSequencerState";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod"
+import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1).regex(/\S/),
   min: z.coerce.number().optional(),
   max: z.coerce.number().optional(),
   unit: z.string().optional(),
-})
+});
 
 export const CreatePlaceholderTestModal = ({
   isModalOpen,
@@ -34,7 +41,7 @@ export const CreatePlaceholderTestModal = ({
       min: undefined,
       max: undefined,
     },
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const res = await addNewElems([
@@ -75,10 +82,7 @@ export const CreatePlaceholderTestModal = ({
                 <FormItem>
                   <FormLabel>Test Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Power Supply Voltage Test"
-                      {...field}
-                    />
+                    <Input placeholder="Power Supply Voltage Test" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,7 +90,9 @@ export const CreatePlaceholderTestModal = ({
             />
 
             <div className="grow pb-1 text-xs">
-              <p className="mb-2 font-bold text-muted-foreground">Expected Value</p>
+              <p className="mb-2 font-bold text-muted-foreground">
+                Expected Value
+              </p>
               <div className="flex gap-2">
                 <div className="grow pb-1 text-xs">
                   <FormField
@@ -96,10 +102,7 @@ export const CreatePlaceholderTestModal = ({
                       <FormItem>
                         <FormLabel>Minimum</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            type="number"
-                          />
+                          <Input {...field} type="number" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -115,10 +118,7 @@ export const CreatePlaceholderTestModal = ({
                       <FormItem>
                         <FormLabel>Maximun</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                            type="number"
-                          />
+                          <Input {...field} type="number" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -134,9 +134,7 @@ export const CreatePlaceholderTestModal = ({
                       <FormItem>
                         <FormLabel>Displayed Unit</FormLabel>
                         <FormControl>
-                          <Input
-                            {...field}
-                          />
+                          <Input {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -145,7 +143,9 @@ export const CreatePlaceholderTestModal = ({
                 </div>
               </div>
             </div>
-            <Button type="submit" className="w-full">Submit</Button>
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
           </form>
         </Form>
       </DialogContent>
