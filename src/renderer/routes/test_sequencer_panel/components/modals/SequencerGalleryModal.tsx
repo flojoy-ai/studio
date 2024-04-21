@@ -9,7 +9,7 @@ import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Button } from "@/renderer/components/ui/button";
-import { useImportAllSequencesInFolder } from "@/renderer/hooks/useTestSequencerProject";
+import { useDownloadAndImportExampleSequence } from "@/renderer/hooks/useTestSequencerProject";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -24,11 +24,10 @@ export const SequencerGalleryModal = ({
     setIsGalleryOpen(true);
   };
 
-  const useImport = useImportAllSequencesInFolder();
+  const useDownloadAndImport = useDownloadAndImportExampleSequence();
 
-  const handleSequenceLoad = (BaseFolderName: string) => {
-    const relativePath = `src/renderer/data/apps/sequencer/${BaseFolderName}/`;
-    useImport(relativePath);
+  const handleSequenceLoad = (url: string) => {
+    useDownloadAndImport(url);
     setIsGalleryOpen(false);
   };
 
@@ -37,13 +36,13 @@ export const SequencerGalleryModal = ({
       title: "Creating Sequences with Conditional",
       description:
         "Learn how to create a simple sequence with conditional logic.",
-      path: "conditional",
+      url: "https://github.com/flojoy-ai/test-sequencer-conditional-example",
     },
     {
       title: "Test Step with Expected and Exported Values",
       description:
-        "Learn how to inject the minimum and maximum expected values into a test and export the result. Right-click on a test to consult the code and edit the expected values!",
-      path: "expected_exported_values",
+        "Learn how to inject the minimum and maximum expected values into a test and export the result.",
+      url: "https://github.com/flojoy-ai/test-sequencer-expected-exported-example.git",
     },
   ];
 
@@ -91,8 +90,8 @@ export const SequencerGalleryModal = ({
                     .toLowerCase()
                     .split(" ")
                     .join("_")}
-                  onClick={async () => {
-                    await handleSequenceLoad(SeqExample.path);
+                  onClick={() => {
+                    handleSequenceLoad(SeqExample.url);
                   }}
                 >
                   Load
