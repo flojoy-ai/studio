@@ -7,17 +7,23 @@ import { useCreateSequence } from "@/renderer/hooks/useTestSequencerProject";
 import { InterpreterType } from "@/renderer/types/test-sequencer";
 import { PathInput } from "@/renderer/components/ui/path-input";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
-import { z } from "zod"
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/renderer/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/renderer/components/ui/form";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50).regex(/\S/),
   description: z.string().max(100),
   projectPath: z.string().min(1).regex(/\S/),
-})
-
+});
 
 export const CreateSequenceModal = () => {
   const { isCreateProjectModalOpen, setIsCreateProjectModalOpen } =
@@ -61,12 +67,12 @@ export const CreateSequenceModal = () => {
       onOpenChange={setIsCreateProjectModalOpen}
     >
       <DialogContent>
-        <h2 className="mb-2 text-lg font-bold text-accent1 ">
-          New Sequence
-        </h2>
+        <h2 className="mb-2 text-lg font-bold text-accent1 ">New Sequence</h2>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
-
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
             <FormField
               control={form.control}
               name="name"
@@ -147,8 +153,8 @@ export const CreateSequenceModal = () => {
             }
             <Button
               data-testid="new-seq-modal-create-btn"
-              type="submit" 
-              className="w-full mt-4"
+              type="submit"
+              className="mt-4 w-full"
             >
               New Sequence
             </Button>
