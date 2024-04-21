@@ -24,10 +24,10 @@ export const SequencerGalleryModal = ({
     setIsGalleryOpen(true);
   };
 
-  const useDownloadAndImport = useDownloadAndImportExampleSequence();
+  const downloadAndImportSequence = useDownloadAndImportExampleSequence();
 
   const handleSequenceLoad = (url: string) => {
-    useDownloadAndImport(url);
+    downloadAndImportSequence(url);
     setIsGalleryOpen(false);
   };
 
