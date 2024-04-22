@@ -120,10 +120,12 @@ export function DesignBar() {
                   onClick={() => setIsGalleryOpen(true)}
                   data-testid="app-gallery-btn"
                 >
-                  <LayoutGrid size={16} className="mr-2 stroke-muted-foreground" />
+                  <LayoutGrid
+                    size={16}
+                    className="mr-2 stroke-muted-foreground"
+                  />
                   Import Example
                 </DropdownMenuItem>
-
               </DropdownMenuContent>
             </DropdownMenu>
             <SequencerGalleryModal
@@ -275,10 +277,10 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-        .map((el) => getGlobalStatus([], el, []))
-        .reduce((prev, curr) =>
-          priority[prev] > priority[curr] ? prev : curr,
-        )
+          .map((el) => getGlobalStatus([], el, []))
+          .reduce((prev, curr) =>
+            priority[prev] > priority[curr] ? prev : curr,
+          )
       : "pending";
 
   if (sequences.length === 0 && data.length === 0) return highestCycle;

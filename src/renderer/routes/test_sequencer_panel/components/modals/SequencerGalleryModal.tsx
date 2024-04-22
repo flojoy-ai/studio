@@ -20,7 +20,6 @@ export const SequencerGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
 }: AppGalleryModalProps) => {
-
   const importSequence = useImportAllSequencesInFolder();
 
   const handleSequenceLoad = (relativePath: string) => {
