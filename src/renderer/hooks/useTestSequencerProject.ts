@@ -118,40 +118,26 @@ export const useImportSequences = () => {
   return handleImport;
 };
 
-export const useDownloadAndImportExampleSequence = () => {
+export const useImportAllSequencesInFolder = () => {
   const manager = usePrepareStateManager();
   const { isAdmin } = useWithPermission();
 
-  const handleImport = async (url: string) => {
+  const handleImport = async (path: string, relative: boolean=false) => {
     async function importSequences(): Promise<Result<void, Error>> {
       // Confirmation if admin
       if (!isAdmin()) {
-        return err(
-          Error(
-            "Admin only, Connect to Flojoy Cloud and select a Test Profile",
-          ),
-        );
+        return err(Error("Admin only, Connect to Flojoy Cloud and select a Test Profile"));
       }
-
-      // Load test example
-      const res = await installTestProfile(url);
-      if (res.isErr()) {
-        return err(Error(`Failed to download example: ${res.error}`));
-      }
-
-      console.log(res.value);
 
       // Find .tjoy files from the profile
       const result = await window.api.openAllFilesInFolder(
-        res.value.profile_root,
+        path,
         ["tjoy"],
+        relative,
       );
-
-      console.log(result);
-
       if (result === undefined) {
         return err(
-          Error(`Failed to find the directory ${res.value.profile_root}`),
+          Error(`Failed to find the directory ${path}`),
         );
       }
       if (!result || result.length === 0) {
@@ -168,7 +154,6 @@ export const useDownloadAndImportExampleSequence = () => {
             manager,
             idx !== 0,
           );
-          console.log(result);
           if (result.isErr()) return err(result.error);
         }),
       );

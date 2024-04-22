@@ -9,7 +9,7 @@ import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Button } from "@/renderer/components/ui/button";
-import { useDownloadAndImportExampleSequence } from "@/renderer/hooks/useTestSequencerProject";
+import { useImportAllSequencesInFolder } from "@/renderer/hooks/useTestSequencerProject";
 
 type AppGalleryModalProps = {
   isGalleryOpen: boolean;
@@ -20,14 +20,11 @@ export const SequencerGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
 }: AppGalleryModalProps) => {
-  const setOpen = () => {
-    setIsGalleryOpen(true);
-  };
 
-  const downloadAndImportSequence = useDownloadAndImportExampleSequence();
+  const importSequence = useImportAllSequencesInFolder();
 
-  const handleSequenceLoad = (url: string) => {
-    downloadAndImportSequence(url);
+  const handleSequenceLoad = (relativePath: string) => {
+    importSequence(relativePath, true);
     setIsGalleryOpen(false);
   };
 
@@ -36,30 +33,18 @@ export const SequencerGalleryModal = ({
       title: "Creating Sequences with Conditional",
       description:
         "Learn how to create a simple sequence with conditional logic.",
-      url: "https://github.com/flojoy-ai/test-sequencer-conditional-example",
+      url: "examples/test-sequencer-conditional-example",
     },
     {
       title: "Test Step with Expected and Exported Values",
       description:
         "Learn how to inject the minimum and maximum expected values into a test and export the result.",
-      url: "https://github.com/flojoy-ai/test-sequencer-expected-exported-example.git",
+      url: "examples/test-sequencer-expected-exported-example",
     },
   ];
 
   return (
     <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
-      <DialogTrigger asChild>
-        <Button
-          onClick={setOpen}
-          data-testid="app-gallery-btn"
-          className="gap-2"
-          variant="ghost"
-        >
-          <LayoutGrid size={20} className="stroke-muted-foreground" />
-          Sequence Gallery
-        </Button>
-      </DialogTrigger>
-
       <DialogContent className="flex h-4/5 max-w-5xl flex-col">
         <DialogHeader>
           <DialogTitle>

@@ -2,7 +2,7 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
-import { FlaskConical, Import, Plus, Route } from "lucide-react";
+import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
 import {
   StatusType,
   Test,
@@ -68,6 +68,10 @@ export function DesignBar() {
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
+      <SequencerGalleryModal
+        isGalleryOpen={isGalleryOpen}
+        setIsGalleryOpen={setIsGalleryOpen}
+      />
       <div className="py-1" />
       <div className="flex">
         {isAdmin() && (
@@ -112,6 +116,14 @@ export function DesignBar() {
                   <Import size={16} className="mr-2 stroke-muted-foreground" />
                   Import Sequence
                 </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setIsGalleryOpen(true)}
+                  data-testid="app-gallery-btn"
+                >
+                  <LayoutGrid size={16} className="mr-2 stroke-muted-foreground" />
+                  Import Example
+                </DropdownMenuItem>
+
               </DropdownMenuContent>
             </DropdownMenu>
             <SequencerGalleryModal
@@ -263,10 +275,10 @@ export const getGlobalStatus = (
   const highestCycle =
     cycleRuns.length > 0
       ? cycleRuns
-          .map((el) => getGlobalStatus([], el, []))
-          .reduce((prev, curr) =>
-            priority[prev] > priority[curr] ? prev : curr,
-          )
+        .map((el) => getGlobalStatus([], el, []))
+        .reduce((prev, curr) =>
+          priority[prev] > priority[curr] ? prev : curr,
+        )
       : "pending";
 
   if (sequences.length === 0 && data.length === 0) return highestCycle;
