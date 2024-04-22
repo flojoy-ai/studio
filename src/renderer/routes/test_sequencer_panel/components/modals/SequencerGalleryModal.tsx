@@ -33,13 +33,13 @@ export const SequencerGalleryModal = ({
       title: "Creating Sequences with Conditional",
       description:
         "Learn how to create a simple sequence with conditional logic.",
-      url: "examples/test-sequencer-conditional-example",
+      dirPath: "examples/test-sequencer-conditional-example/",
     },
     {
       title: "Test Step with Expected and Exported Values",
       description:
         "Learn how to inject the minimum and maximum expected values into a test and export the result.",
-      url: "examples/test-sequencer-expected-exported-example",
+      dirPath: "examples/test-sequencer-expected-exported-example/",
     },
   ];
 
@@ -76,7 +76,7 @@ export const SequencerGalleryModal = ({
                     .split(" ")
                     .join("_")}
                   onClick={() => {
-                    handleSequenceLoad(SeqExample.url);
+                    handleSequenceLoad(SeqExample.dirPath);
                   }}
                 >
                   Load
