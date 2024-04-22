@@ -3,9 +3,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/renderer/components/ui/dialog";
-import { LayoutGrid } from "lucide-react";
 import { ScrollArea } from "@/renderer/components/ui/scroll-area";
 import { Separator } from "@/renderer/components/ui/separator";
 import { Button } from "@/renderer/components/ui/button";

@@ -190,11 +190,11 @@ export const openAllFilesInFolderPicker = (
   _,
   folderPath: string,
   allowedExtensions: string[] = ["json"],
-  relative: boolean = false,
+  relativeToResources: boolean = false,
 ): { filePath: string; fileContent: string }[] | undefined => {
   // Append the current working directory if the path is relative
-  if (relative) {
-    folderPath = join(process.cwd(), folderPath);
+  if (relativeToResources) {
+    folderPath = join(process.resourcesPath, folderPath);
   }
   // Return multiple files or all files with the allowed extensions if a folder is selected
   if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
