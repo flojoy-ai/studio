@@ -80,7 +80,6 @@
     "http-proxy-middleware": "^2.0.6",
     "immer": "^10.0.4",
     "ky": "^1.2.3",
-    "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.357.0",
     "mixpanel-browser": "^2.49.0",
@@ -172,5 +171,5 @@
     ],
     "all": true
   },
-  "packageManager": "pnpm@9.0.1"
+  "packageManager": "pnpm@9.0.5"
 }
