@@ -39,7 +39,10 @@ test.describe("Load a demo test sequence", () => {
     await window.getByTestId(Selectors.openSequenceGalleryBtn).click();
 
     // Open a sequence
-    await window.getByTestId("test_step_with_expected_and_exported_values").nth(1).click();
+    await window
+      .getByTestId("test_step_with_expected_and_exported_values")
+      .nth(1)
+      .click();
 
     // Expect sequence and tests to be loaded
     await expect(
@@ -59,6 +62,8 @@ test.describe("Load a demo test sequence", () => {
     await expect(window.getByTestId(Selectors.globalStatusBadge)).toContainText(
       "FAIL",
     );
-    await expect(window.getByTestId("status-test_min_max")).toContainText("PASS");
+    await expect(window.getByTestId("status-test_min_max")).toContainText(
+      "PASS",
+    );
   });
 });
