@@ -22,7 +22,7 @@ import {
 const formSchema = z.object({
   name: z.string().min(1).max(50).regex(/\S/, {
     message: "The sequence name should not contain white spaces",
-  }),
+  }).transform(val => val.trim()),
   description: z.string().max(100),
   projectPath: z.string().min(1).regex(/\S/, {
     message: "The project path should not contain white spaces",
