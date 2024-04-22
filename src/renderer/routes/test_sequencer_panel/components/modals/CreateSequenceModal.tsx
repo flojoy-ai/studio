@@ -20,9 +20,13 @@ import {
 } from "@/renderer/components/ui/form";
 
 const formSchema = z.object({
-  name: z.string().min(1).max(50).regex(/\S/),
+  name: z.string().min(1).max(50).regex(/\S/, {
+    message: "The sequence name should not contain white spaces",
+  }),
   description: z.string().max(100),
-  projectPath: z.string().min(1).regex(/\S/),
+  projectPath: z.string().min(1).regex(/\S/, {
+    message: "The project path should not contain white spaces",
+  }),
 });
 
 export const CreateSequenceModal = () => {
