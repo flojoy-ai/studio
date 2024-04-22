@@ -118,7 +118,7 @@ export function DesignBar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => setIsGalleryOpen(true)}
-                  data-testid="app-gallery-btn"
+                  data-testid="seq-gallery-btn"
                 >
                   <LayoutGrid
                     size={16}
