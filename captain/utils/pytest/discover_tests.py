@@ -96,7 +96,7 @@ def discover_robot_file(
         suite = builder.build(path)
         logging.info(f"Suite: {suite} - suites in it: {suite.suites} - tests in it: {suite.tests}")
         if one_file:
-            return_val.append(suite.full_name)
+            return_val.append(TestDiscoveryResponse(test_name=suite.full_name, path=pathlib.Path(path).as_posix()))
         else:
             for test in suite.tests:
                 return_val.append(TestDiscoveryResponse(

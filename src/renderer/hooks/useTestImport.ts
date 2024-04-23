@@ -24,6 +24,13 @@ function parseDiscoverContainer(
       container.testName,
       container.path,
       settings.importType,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      settings.importType === "robotframework" && !settings.importAsOneRef ? [container.testName] : undefined,
     );
     return new_elem;
   });
