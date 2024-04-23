@@ -10,7 +10,7 @@ import { map } from "lodash";
 import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
-import { discoverPytest } from "@/renderer/lib/api";
+import { discoverPytest, discoverRobot } from "@/renderer/lib/api";
 import { useSequencerModalStore } from "../stores/modal";
 import { toastResultPromise } from "../utils/report-error";
 import { Result, err, ok } from "neverthrow";
@@ -58,7 +58,12 @@ export const useDiscoverAndImportTests = () => {
         error: null,
       };
     } else {
-      const res = await discoverPytest(path, settings.importAsOneRef);
+      let res: Result<TestDiscoverContainer, Error>;
+      if (settings.importType === "pytest") {
+        res = await discoverPytest(path, settings.importAsOneRef);
+      } else {
+        res = await discoverRobot(path, settings.importAsOneRef);
+      }
       if (res.isErr()) {
         return err(res.error);
       }

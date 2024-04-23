@@ -32,41 +32,18 @@ export const ImportTestModal = () => {
 
   const openFilePicker = useDiscoverAndImportTests();
   const { setIsLocked } = useDisplayedSequenceState();
-  const { addNewElems } = useDisplayedSequenceState();
 
-  const handleImportTest = async (importType: ImportType) => {
+  const handleImportTest = (importType: ImportType) => {
     setIsLocked(true);
-    if (importType === "robotframework") {
-      const newElem = createNewTest(
-        testName,
-        filePath,
-        "robotframework",
-        false,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        undefined,
-        [testName]
-      )
-      console.log(newElem);
-      const res = await addNewElems([newElem]);
-      console.log(res);
-      setIsImportTestModalOpen(false);
-    } else {
-      openFilePicker(
-        {
-          importType: importType,
-          importAsOneRef: checked,
-        },
-        setIsImportTestModalOpen,
-      );
-    }
+    openFilePicker(
+      {
+        importType: importType,
+        importAsOneRef: checked,
+      },
+      setIsImportTestModalOpen,
+    );
     setIsLocked(false);
   };
-
-  const [testName, setRobotPath] = useState<string>("");
-  const [filePath, setProjectDirPath] = useState<string>("");
 
   return (
     <Dialog
@@ -74,23 +51,34 @@ export const ImportTestModal = () => {
       onOpenChange={setIsImportTestModalOpen}
     >
       <DialogContent>
-        <h2 className="text-lg font-bold text-accent1">Robot Framework Test</h2>
-        <Input value={testName} placeholder="Robot.test name" onChange={(e) => setRobotPath(e.target.value)} />
-        <PathInput
-          placeholder="file.robot"
-          allowedExtention={["robot"]}
-          onChange={(event) => {
-            setProjectDirPath(event.target.value);
-          }}
-          pickerType="file"
-          allowDirectoryCreation={true}
-        />
-        <Button variant={"outline"} onClick={() => handleImportTest("robotframework")}>
-          Add Test
+        <h2 className="text-lg font-bold text-accent1">Import Tests</h2>
+        <Button
+          variant={"outline"}
+          onClick={() => handleImportTest("pytest")}
+          data-testid="pytest-btn"
+        >
+          Pytest & Unittest
+        </Button>
+        <Button
+          variant={"outline"}
+          onClick={() => handleImportTest("robotframework")}
+          data-testid="pytest-btn"
+        >
+          Robot Framework
+        </Button>
+        <Button variant={"outline"} onClick={() => handleImportTest("python")}>
+          Python Script
         </Button>
         <Separator />
         <div className="flex justify-between">
           <div className="flex items-center space-x-2 text-xs">
+            <Checkbox
+              checked={checked}
+              onCheckedChange={(checked) => {
+                setChecked(checked as boolean);
+              }}
+            />
+            <label>Import all tests as one test</label>
           </div>
           <div className="justify-end">
             <Button
@@ -105,3 +93,90 @@ export const ImportTestModal = () => {
     </Dialog>
   );
 };
+
+// export const ImportTestModal = () => {
+//   const { isImportTestModalOpen, setIsImportTestModalOpen } =
+//     useSequencerModalStore();
+//   const [checked, setChecked] = useState<boolean>(false);
+//
+//   const { setIsDepManagerModalOpen } = useAppStore(
+//     useShallow((state) => ({
+//       setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
+//     })),
+//   );
+//
+//   const openFilePicker = useDiscoverAndImportTests();
+//   const { setIsLocked } = useDisplayedSequenceState();
+//   const { addNewElems } = useDisplayedSequenceState();
+//
+//   const handleImportTest = async (importType: ImportType) => {
+//     setIsLocked(true);
+//     if (importType === "robotframework") {
+//       const newElem = createNewTest(
+//         testName,
+//         filePath,
+//         "robotframework",
+//         false,
+//         undefined,
+//         undefined,
+//         undefined,
+//         undefined,
+//         undefined,
+//         [testName]
+//       )
+//       console.log(newElem);
+//       const res = await addNewElems([newElem]);
+//       console.log(res);
+//       setIsImportTestModalOpen(false);
+//     } else {
+//       openFilePicker(
+//         {
+//           importType: importType,
+//           importAsOneRef: checked,
+//         },
+//         setIsImportTestModalOpen,
+//       );
+//     }
+//     setIsLocked(false);
+//   };
+//
+//   const [testName, setRobotPath] = useState<string>("");
+//   const [filePath, setProjectDirPath] = useState<string>("");
+//
+//   return (
+//     <Dialog
+//       open={isImportTestModalOpen}
+//       onOpenChange={setIsImportTestModalOpen}
+//     >
+//       <DialogContent>
+//         <h2 className="text-lg font-bold text-accent1">Robot Framework Test</h2>
+//         <Input value={testName} placeholder="Robot.test name" onChange={(e) => setRobotPath(e.target.value)} />
+//         <PathInput
+//           placeholder="file.robot"
+//           allowedExtention={["robot"]}
+//           onChange={(event) => {
+//             setProjectDirPath(event.target.value);
+//           }}
+//           pickerType="file"
+//           allowDirectoryCreation={true}
+//         />
+//         <Button variant={"outline"} onClick={() => handleImportTest("robotframework")}>
+//           Add Test
+//         </Button>
+//         <Separator />
+//         <div className="flex justify-between">
+//           <div className="flex items-center space-x-2 text-xs">
+//           </div>
+//           <div className="justify-end">
+//             <Button
+//               variant={"link"}
+//               onClick={() => setIsDepManagerModalOpen(true)}
+//             >
+//               <ExternalLinkIcon size={15} className="mr-1" /> Dependency Manager
+//             </Button>
+//           </div>
+//         </div>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// };
