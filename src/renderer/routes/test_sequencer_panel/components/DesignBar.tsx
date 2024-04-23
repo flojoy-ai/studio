@@ -2,7 +2,14 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
-import { FlaskConical, Import, LayoutGrid, Plus, Route, TestTube } from "lucide-react";
+import {
+  FlaskConical,
+  Import,
+  LayoutGrid,
+  Plus,
+  Route,
+  TestTube,
+} from "lucide-react";
 import {
   StatusType,
   Test,

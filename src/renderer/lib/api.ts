@@ -156,7 +156,6 @@ export const discoverRobot = async (path: string, oneFile: boolean) => {
   });
 };
 
-
 const User = z.object({
   email: z.string(),
 });

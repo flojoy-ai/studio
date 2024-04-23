@@ -202,9 +202,7 @@ def _run_robotframework(node: TestNode) -> Extract:
         cmd = ["robot", "--test", *node.args, node.path]
     else:
         cmd = ["robot", node.path]
-    result = subprocess.run(
-        cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-    )
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     logger.info(f"[Robot Framework Runner] Running {result}")
     end_time = time.time()
     if result.returncode == 0:
@@ -224,7 +222,6 @@ def _run_robotframework(node: TestNode) -> Extract:
             utcnow_str(),
         ),
     )
-
 
 
 def _eval_condition(

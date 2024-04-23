@@ -27,7 +27,11 @@ export const ChangeLinkedTestModal = ({
 }: {
   isModalOpen: boolean;
   setModalOpen: (value: boolean) => void;
-  handleSubmit: (path: string, testType: ImportType, args: string[] | undefined) => void;
+  handleSubmit: (
+    path: string,
+    testType: ImportType,
+    args: string[] | undefined,
+  ) => void;
 }) => {
   const [availableTests, setAvailableTests] = useState<TestSequenceElement[]>(
     [],
@@ -76,11 +80,13 @@ export const ChangeLinkedTestModal = ({
     if (selectedTestName === "") {
       toast.error("Please select a test to link to");
     }
-    const test = availableTests.find((test) => test.type === "test" && test.testName === selectedTestName);
+    const test = availableTests.find(
+      (test) => test.type === "test" && test.testName === selectedTestName,
+    );
     if (test?.type !== "test" || test.testType === "placeholder") {
-      return
+      return;
     }
-    handleSubmit(test.path, test.testType, test.args)
+    handleSubmit(test.path, test.testType, test.args);
     setModalOpen(false);
   };
 
@@ -97,7 +103,7 @@ export const ChangeLinkedTestModal = ({
       handleSubmit(filePath, "python", undefined);
       setModalOpen(false);
     });
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
@@ -117,23 +123,25 @@ export const ChangeLinkedTestModal = ({
                 {availableTests.map((test) => {
                   if (test.type === "test") {
                     return (
-                      <SelectItem
-                        value={test.testName}
-                      >{test.testName.length > 35 ? `...${test.testName.slice(-35)}`: test.testName}</SelectItem>
+                      <SelectItem value={test.testName}>
+                        {test.testName.length > 35
+                          ? `...${test.testName.slice(-35)}`
+                          : test.testName}
+                      </SelectItem>
                     );
                   }
                 })}
               </SelectGroup>
             </SelectContent>
           </Select>
-            <Button
-              className="w-32"
-              variant={"outline"}
-              onClick={handleDiscoverElements}
-              data-testid="pytest-btn"
-            >
-              Discover
-            </Button>
+          <Button
+            className="w-32"
+            variant={"outline"}
+            onClick={handleDiscoverElements}
+            data-testid="pytest-btn"
+          >
+            Discover
+          </Button>
         </div>
         <Button
           variant={"outline"}
@@ -144,10 +152,7 @@ export const ChangeLinkedTestModal = ({
         </Button>
         <Separator className="bg-muted" />
         <p className="font-bold">Python Script</p>
-        <Button
-          variant={"outline"}
-          onClick={() => handleSubmitPythonScript()}
-        >
+        <Button variant={"outline"} onClick={() => handleSubmitPythonScript()}>
           Select a Python Script
         </Button>
         <div className="flex justify-between">

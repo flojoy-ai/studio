@@ -88,20 +88,26 @@ def discover_pytest_file(
         return_val.extend(test_list)
 
 
-def discover_robot_file(
-    path: str, one_file: bool, return_val: list, errors: list
-):
+def discover_robot_file(path: str, one_file: bool, return_val: list, errors: list):
     try:
         builder = TestSuiteBuilder()
         suite = builder.build(path)
-        logging.info(f"Suite: {suite} - suites in it: {suite.suites} - tests in it: {suite.tests}")
+        logging.info(
+            f"Suite: {suite} - suites in it: {suite.suites} - tests in it: {suite.tests}"
+        )
         if one_file:
-            return_val.append(TestDiscoveryResponse(test_name=suite.full_name, path=pathlib.Path(path).as_posix()))
+            return_val.append(
+                TestDiscoveryResponse(
+                    test_name=suite.full_name, path=pathlib.Path(path).as_posix()
+                )
+            )
         else:
             for test in suite.tests:
-                return_val.append(TestDiscoveryResponse(
-                    test_name=test.full_name, path=pathlib.Path(path).as_posix()
-                ))
+                return_val.append(
+                    TestDiscoveryResponse(
+                        test_name=test.full_name, path=pathlib.Path(path).as_posix()
+                    )
+                )
 
     except Exception as e:
         errors.append(str(e))

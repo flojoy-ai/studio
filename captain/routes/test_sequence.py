@@ -3,7 +3,10 @@ import json
 import pydantic
 from captain.models.pytest.pytest_models import TestDiscoverContainer
 from captain.models.test_sequencer import TestSequenceRun
-from captain.utils.pytest.discover_tests import discover_pytest_file, discover_robot_file
+from captain.utils.pytest.discover_tests import (
+    discover_pytest_file,
+    discover_robot_file,
+)
 from captain.utils.config import ts_manager
 from captain.utils.test_sequencer.handle_data import handle_data
 from captain.utils.logger import logger
@@ -73,5 +76,3 @@ async def discover_robot(params: DiscoverParams = Depends()):
         missing_libraries=[],
         error=errors[0] if len(errors) > 0 else None,
     )
-
-    
