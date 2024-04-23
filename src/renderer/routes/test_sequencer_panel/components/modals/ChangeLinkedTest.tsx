@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { useDiscoverPytestElements } from "@/renderer/hooks/useTestImport";
+import { useDiscoverElements } from "@/renderer/hooks/useTestImport";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
@@ -27,12 +27,12 @@ export const ChangeLinkedTestModal = ({
 }: {
   isModalOpen: boolean;
   setModalOpen: (value: boolean) => void;
-  handleSubmit: (path: string, testType: ImportType) => void;
+  handleSubmit: (path: string, testType: ImportType, args: string[] | undefined) => void;
 }) => {
   const [availableTests, setAvailableTests] = useState<TestSequenceElement[]>(
     [],
   );
-  const [selectedPath, setSelectedPath] = useState<string>("");
+  const [selectedTestName, setSelectedPath] = useState<string>("");
   const { openErrorModal } = useSequencerModalStore();
 
   const { setIsDepManagerModalOpen } = useAppStore(
@@ -41,9 +41,9 @@ export const ChangeLinkedTestModal = ({
     })),
   );
 
-  const openFilePickerPromise = useDiscoverPytestElements();
+  const openFilePickerPromise = useDiscoverElements();
 
-  const handleDiscoverPytestElements = () => {
+  const handleDiscoverElements = () => {
     openFilePickerPromise
       .then((useDiscover) => {
         return useDiscover();
@@ -52,6 +52,7 @@ export const ChangeLinkedTestModal = ({
         potentialElementsResult.match(
           (elements) => {
             setAvailableTests(elements);
+            toast.info("Tests discovered successfully");
           },
           (error) => {
             toast("Error while attempting to discover tests", {
@@ -71,23 +72,32 @@ export const ChangeLinkedTestModal = ({
       });
   };
 
-  const handleSubmitByType = (testType: ImportType) => {
-    if (testType === "pytest") {
-      if (selectedPath === "") {
-        toast.error("Please select a test to link to");
-      }
-      handleSubmit(selectedPath, testType);
-    } else {
-      window.api.openTestPicker().then((result) => {
-        if (!result) {
-          return;
-        }
-        const { filePath } = result;
-        handleSubmit(filePath, testType);
-      });
+  const handleSubmitIndividualTest = () => {
+    if (selectedTestName === "") {
+      toast.error("Please select a test to link to");
     }
+    const test = availableTests.find((test) => test.type === "test" && test.testName === selectedTestName);
+    if (test?.type !== "test" || test.testType === "placeholder") {
+      return
+    }
+    handleSubmit(test.path, test.testType, test.args)
     setModalOpen(false);
   };
+
+  const handleSubmitPythonScript = () => {
+    window.api.openTestPicker().then((result) => {
+      if (!result) {
+        return;
+      }
+      const { filePath } = result;
+      if (!filePath.endsWith(".py")) {
+        toast.error("Please select a Python file");
+        return;
+      }
+      handleSubmit(filePath, "python", undefined);
+      setModalOpen(false);
+    });
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
@@ -95,7 +105,7 @@ export const ChangeLinkedTestModal = ({
         <h2 className="text-lg font-bold text-accent1">
           Select a test to link to
         </h2>
-        <p className="font-bold">Pytest</p>
+        <p className="font-bold">Pytest & Robot Framework</p>
         <div className="flex w-[460px] items-center justify-between gap-2">
           <Select onValueChange={setSelectedPath}>
             <SelectTrigger className="overflow-clip">
@@ -108,27 +118,26 @@ export const ChangeLinkedTestModal = ({
                   if (test.type === "test") {
                     return (
                       <SelectItem
-                        value={test.path}
-                      >{`...${test.path.slice(-35)}`}</SelectItem>
+                        value={test.testName}
+                      >{test.testName.length > 35 ? `...${test.testName.slice(-35)}`: test.testName}</SelectItem>
                     );
                   }
                 })}
               </SelectGroup>
             </SelectContent>
           </Select>
-          <div className="w-52 justify-end">
             <Button
+              className="w-32"
               variant={"outline"}
-              onClick={handleDiscoverPytestElements}
+              onClick={handleDiscoverElements}
               data-testid="pytest-btn"
             >
-              Discover Pytest
+              Discover
             </Button>
-          </div>
         </div>
         <Button
           variant={"outline"}
-          onClick={() => handleSubmitByType("pytest")}
+          onClick={() => handleSubmitIndividualTest()}
         >
           {" "}
           Submit Selected Test{" "}
@@ -137,7 +146,7 @@ export const ChangeLinkedTestModal = ({
         <p className="font-bold">Python Script</p>
         <Button
           variant={"outline"}
-          onClick={() => handleSubmitByType("python")}
+          onClick={() => handleSubmitPythonScript()}
         >
           Select a Python Script
         </Button>

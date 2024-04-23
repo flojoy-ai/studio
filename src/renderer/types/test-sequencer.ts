@@ -7,8 +7,6 @@ export type LockedContextType = {
 export const TestType = z.enum([
   "pytest",
   "python",
-  "flojoy",
-  "matlab",
   "placeholder",
   "robotframework",
 ]);

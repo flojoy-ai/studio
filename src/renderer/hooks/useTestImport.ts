@@ -141,7 +141,7 @@ export const useDiscoverAndImportTests = () => {
   return openFilePicker;
 };
 
-export async function useDiscoverPytestElements() {
+export async function useDiscoverElements() {
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
     toast.promise(promise, {
@@ -157,7 +157,15 @@ export async function useDiscoverPytestElements() {
   async function getTests(
     path: string,
   ): Promise<Result<TestSequenceElement[], Error>> {
-    const res = await discoverPytest(path, false);
+    let res: Result<TestDiscoverContainer, Error>;
+    let type: "pytest" | "robotframework";
+    if (path.endsWith(".robot")) {
+      res = await discoverRobot(path, false);
+      type = "robotframework";
+    } else {
+      res = await discoverPytest(path, false);
+      type = "pytest";
+    }
     if (res.isErr()) {
       return err(res.error);
     }
@@ -178,7 +186,7 @@ export async function useDiscoverPytestElements() {
     }
     const newElems = parseDiscoverContainer(data, {
       importAsOneRef: false,
-      importType: "pytest",
+      importType: type,
     });
     if (newElems.length === 0) {
       return err(Error("No tests were found in the specified file."));
@@ -189,7 +197,6 @@ export async function useDiscoverPytestElements() {
   const openFilePicker = (): Promise<Result<TestSequenceElement[], Error>> => {
     return window.api.openTestPicker().then((result) => {
       if (!result) return err(Error("No file selected."));
-      toast.info("Importing tests...");
       const { filePath } = result;
       return getTests(filePath);
     });
