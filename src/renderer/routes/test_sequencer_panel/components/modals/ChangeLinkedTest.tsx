@@ -42,41 +42,22 @@ export const ChangeLinkedTestModal = ({
   const discoverPytestElement = useDiscoverPytestElements();
 
   const handleDiscoverPytestElements = async (filePath: string) => {
-    try {
-      const result = await discoverPytestElement(filePath);
-      if (result.isOk()) {
-        setAvailableTests(result.value);
-        if (result.value.length > 0) {
-          setSelectedPath(result.value[0].path);
-        }
-      } else {
-        console.error(result.error);
+    const result = await discoverPytestElement(filePath);
+    if (result.isOk()) {
+      setAvailableTests(result.value);
+      if (result.value.length > 0) {
+        setSelectedPath(result.value[0].path);
       }
-    } catch (error) {
-      console.error(error);
+    } else {
+      console.error(result.error);
     }
   };
 
-  const openFilePicker = async () => {
-    return new Promise<string | null>((resolve, reject) => {
-      window.api.openTestPicker().then((result) => {
-        if (!result) {
-          reject(new Error("No file selected."));
-        } else {
-          resolve(result.filePath);
-        }
-      });
-    });
-  };
-
   const handleFilePicker = async () => {
-    try {
-      const filePath = await openFilePicker();
-      if (filePath) {
-        await handleDiscoverPytestElements(filePath);
-      }
-    } catch (error) {
-      console.error(error);
+    const res = await window.api.openTestPicker();
+    if (!res) return;
+    if (res.filePath) {
+      await handleDiscoverPytestElements(res.filePath);
     }
   };
 

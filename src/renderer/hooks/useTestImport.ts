@@ -169,9 +169,5 @@ export const useDiscoverPytestElements = () => {
     return ok(newElems);
   }
 
-  // Return a function that takes the file path as an argument
-  return async (filePath: string) => {
-    const result = await getTests(filePath);
-    return result;
-  };
+  return getTests
 };
