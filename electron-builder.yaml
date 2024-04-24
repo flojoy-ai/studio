@@ -29,6 +29,8 @@ extraResources:
     to: "poetry.lock"
   - from: "blocks"
     to: "blocks"
+  - from: "examples"
+    to: "examples"
 
 mac:
   icon: ./public/favicon.icns

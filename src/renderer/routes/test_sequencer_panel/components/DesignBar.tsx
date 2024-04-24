@@ -36,6 +36,7 @@ import {
 } from "@/renderer/components/ui/hover-card";
 import _ from "lodash";
 import { CreatePlaceholderTestModal } from "./modals/CreatePlaceholderTestModal";
+import { SequencerGalleryModal } from "./modals/SequencerGalleryModal";
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
@@ -71,6 +72,7 @@ export function DesignBar() {
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [
     isCreatePlaceholderTestModalOpen,
     setIsCreatePlaceholderTestModalOpen,
@@ -81,6 +83,10 @@ export function DesignBar() {
       <CreatePlaceholderTestModal
         isModalOpen={isCreatePlaceholderTestModalOpen}
         setModalOpen={setIsCreatePlaceholderTestModalOpen}
+      />
+      <SequencerGalleryModal
+        isGalleryOpen={isGalleryOpen}
+        setIsGalleryOpen={setIsGalleryOpen}
       />
       <div className="py-1" />
       <div className="flex">
@@ -138,15 +144,23 @@ export function DesignBar() {
                   <Import size={16} className="mr-2 stroke-muted-foreground" />
                   Import Sequence
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled={true}>
+                <DropdownMenuItem
+                  onClick={() => setIsGalleryOpen(true)}
+                  data-testid="seq-gallery-btn"
+                >
                   <LayoutGrid
                     size={16}
                     className="mr-2 stroke-muted-foreground"
                   />
-                  Sequence Gallery
+                  Import Example
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <SequencerGalleryModal
+              isGalleryOpen={isGalleryOpen}
+              setIsGalleryOpen={setIsGalleryOpen}
+            />
+
             <div className="grow" />
           </>
         )}

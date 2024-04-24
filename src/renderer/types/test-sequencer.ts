@@ -151,8 +151,8 @@ export type InterpreterType = z.infer<typeof InterpreterType>;
 
 export const Interpreter = z.object({
   type: InterpreterType,
-  path: z.union([z.null(), z.string()]),
-  requirementsPath: z.union([z.null(), z.string()]),
+  path: z.string().nullable(),
+  requirementsPath: z.string().nullable(),
 });
 
 export type Interpreter = z.infer<typeof Interpreter>;
