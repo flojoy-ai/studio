@@ -76,6 +76,7 @@ export const ChangeLinkedTestModal = ({
       });
   };
 
+
   const handleSubmitIndividualTest = () => {
     if (selectedTestName === "") {
       toast.error("Please select a test to link to");
@@ -138,7 +139,7 @@ export const ChangeLinkedTestModal = ({
             className="w-32"
             variant={"outline"}
             onClick={handleDiscoverElements}
-            data-testid="pytest-btn"
+            data-testid="discover-btn"
           >
             Discover
           </Button>
@@ -147,8 +148,7 @@ export const ChangeLinkedTestModal = ({
           variant={"outline"}
           onClick={() => handleSubmitIndividualTest()}
         >
-          {" "}
-          Submit Selected Test{" "}
+          Submit Selected Test
         </Button>
         <Separator className="bg-muted" />
         <p className="font-bold">Python Script</p>

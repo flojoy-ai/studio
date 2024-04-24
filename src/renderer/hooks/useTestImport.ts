@@ -1,7 +1,4 @@
-import {
-  TestDiscoverContainer,
-  TestSequenceElement,
-} from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer, TestSequenceElement } from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
   useDisplayedSequenceState,
@@ -20,20 +17,14 @@ function parseDiscoverContainer(
   settings: ImportTestSettings,
 ) {
   return map(data.response, (container) => {
-    const new_elem = createNewTest(
-      container.testName,
-      container.path,
-      settings.importType,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      settings.importType === "robotframework" && !settings.importAsOneRef
+    const new_elem = createNewTest({
+      name: container.testName,
+      path: container.path,
+      type: settings.importType,
+      args: settings.importType === "robotframework" && !settings.importAsOneRef
         ? [container.testName]
         : undefined,
-    );
+    });
     return new_elem;
   });
 }
@@ -202,7 +193,10 @@ export async function useDiscoverElements() {
       const { filePath } = result;
       return getTests(filePath);
     });
+  // Return a function that takes the file path as an argument
+  // return async (filePath: string) => {
+  //   const result = await getTests(filePath);
+  //   return result;
   };
-
   return openFilePicker;
-}
+};

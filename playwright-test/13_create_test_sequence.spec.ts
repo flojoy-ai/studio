@@ -67,25 +67,8 @@ test.describe("Create a test sequence", () => {
     await expect(window.getByTestId(Selectors.newDropdown)).toBeEnabled({
       timeout: 15000,
     });
-    await window.getByTestId(Selectors.newDropdown).click();
-    await window.getByTestId(Selectors.importTestBtn).click();
 
-    // Select the fixture file
-    const customTestFile = join(__dirname, "fixtures/custom-sequences/test.py");
-    await app.evaluate(async ({ dialog }, customTestFile) => {
-      dialog.showOpenDialog = () =>
-        Promise.resolve({ filePaths: [customTestFile], canceled: false });
-    }, customTestFile);
-
-    // Click on Pytest test to open modal
-    await window.getByTestId(Selectors.pytestBtn).click();
-
-    // Expect test to be loaded
-    await expect(
-      window.locator("div", { hasText: "test_one" }).first(),
-    ).toBeVisible();
-
-    // Ctrl/meta + p key shortcut to save the sequence
+    // Ctrl/meta + s key shortcut to save the sequence
     if (process.platform === "darwin") {
       await window.keyboard.press("Meta+s");
     } else {

@@ -1,12 +1,28 @@
 import { Button } from "@/renderer/components/ui/button";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/renderer/components/ui/form";
 import { Input } from "@/renderer/components/ui/input";
 import {
   createNewTest,
   useDisplayedSequenceState,
 } from "@/renderer/hooks/useTestSequencerState";
-import { useState } from "react";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const formSchema = z.object({
+  name: z.string().min(1).regex(/\S/),
+  min: z.coerce.number().optional(),
+  max: z.coerce.number().optional(),
+  unit: z.string().optional(),
+});
 
 export const CreatePlaceholderTestModal = ({
   isModalOpen,
@@ -15,35 +31,35 @@ export const CreatePlaceholderTestModal = ({
   isModalOpen: boolean;
   setModalOpen: (value: boolean) => void;
 }) => {
-  const [name, setName] = useState<string>("");
-  const [min, setMin] = useState<number>(0);
-  const [max, setMax] = useState<number>(0);
-  const [unit, setUnit] = useState("");
-
   const { addNewElems } = useDisplayedSequenceState();
 
-  const handleCreate = async () => {
-    if (name === "") {
-      toast.error("Please enter a test name");
-    }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      unit: undefined,
+      min: undefined,
+      max: undefined,
+    },
+  });
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     const res = await addNewElems([
-      createNewTest(
-        name,
-        "",
-        "placeholder",
-        false,
-        undefined,
-        undefined,
-        min,
-        max,
-        unit,
-      ),
+      createNewTest({
+        name: values.name,
+        path: "",
+        type: "placeholder",
+        exportToCloud: false,
+        minValue: values.min,
+        maxValue: values.max,
+        unit: values.unit,
+      }),
     ]);
     if (res.isErr()) {
       return;
     }
     setModalOpen(false);
-  };
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
@@ -57,55 +73,81 @@ export const CreatePlaceholderTestModal = ({
           value without being link to any code. The code can be added later.
         </p>
 
-        <div className="grow pb-1 text-xs">
-          <p className="mb-2 font-bold text-muted-foreground">Test Name</p>
-          <Input
-            placeholder="Power Supply Voltage Test"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-
-        <div className="grow pb-1 text-xs">
-          <p className="mb-2 font-bold text-muted-foreground">Expected Value</p>
-          <div className="flex gap-2">
-            <div className="grow pb-1 text-xs">
-              <p className="mb-1 text-muted-foreground">Mininum</p>
-              <Input
-                type="number"
-                placeholder="11.5..."
-                value={min}
-                onChange={(e) => {
-                  setMin(parseFloat(e.target.value));
-                }}
-              />
-            </div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Test Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Power Supply Voltage Test" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="grow pb-1 text-xs">
-              <p className="mb-1 text-muted-foreground">Maximum</p>
-              <Input
-                type="number"
-                placeholder="12.5..."
-                value={max}
-                onChange={(e) => {
-                  setMax(parseFloat(e.target.value));
-                }}
-              />
-            </div>
+              <p className="mb-2 font-bold text-muted-foreground">
+                Expected Value
+              </p>
+              <div className="flex gap-2">
+                <div className="grow pb-1 text-xs">
+                  <FormField
+                    control={form.control}
+                    name="min"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Minimum</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="number" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-            <div className="grow pb-1 text-xs">
-              <p className="mb-1 text-muted-foreground">Displayed Unit</p>
-              <Input
-                placeholder="Volt"
-                value={unit}
-                onChange={(e) => {
-                  setUnit(e.target.value);
-                }}
-              />
+                <div className="grow pb-1 text-xs">
+                  <FormField
+                    control={form.control}
+                    name="max"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Maximun</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="number" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grow pb-1 text-xs">
+                  <FormField
+                    control={form.control}
+                    name="unit"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Displayed Unit</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <Button onClick={() => handleCreate()}>Create</Button>
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
