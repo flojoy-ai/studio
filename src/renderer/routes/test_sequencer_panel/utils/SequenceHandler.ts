@@ -229,7 +229,7 @@ async function saveToDisk(
 }
 
 async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
-  if (sequence.interpreter.requirementsPath !== null) {
+  if (sequence.interpreter.requirementsPath === null) {
     return true;
   }
   const success = await window.api.poetryInstallRequirementsUserGroup(

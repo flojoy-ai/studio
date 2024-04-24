@@ -9,7 +9,7 @@ import { Separator } from "@/renderer/components/ui/separator";
 import { Button } from "@/renderer/components/ui/button";
 import { useImportAllSequencesInFolder } from "@/renderer/hooks/useTestSequencerProject";
 
-type AppGalleryModalProps = {
+type SequencerGalleryModalProps = {
   isGalleryOpen: boolean;
   setIsGalleryOpen: (open: boolean) => void;
 };
@@ -17,7 +17,7 @@ type AppGalleryModalProps = {
 export const SequencerGalleryModal = ({
   isGalleryOpen,
   setIsGalleryOpen,
-}: AppGalleryModalProps) => {
+}: SequencerGalleryModalProps) => {
   const importSequence = useImportAllSequencesInFolder();
 
   const handleSequenceLoad = (relativePath: string) => {
@@ -49,17 +49,17 @@ export const SequencerGalleryModal = ({
           </DialogTitle>
         </DialogHeader>
         <ScrollArea className="">
-          {data.map((SeqExample) => (
+          {data.map((seqExample) => (
             <>
               <Separator />
               <div className="1 inline-flex min-h-20 w-full items-center">
                 <div className="flex w-3/4">
                   <div className="flex grow flex-col items-start">
                     <div className="text-xl font-semibold">
-                      {SeqExample.title}
+                      {seqExample.title}
                     </div>
                     <div className="text-sm font-thin">
-                      {SeqExample.description}
+                      {seqExample.description}
                     </div>
                   </div>
                 </div>
@@ -68,12 +68,12 @@ export const SequencerGalleryModal = ({
                   variant="outline"
                   size="sm"
                   className="ml-6 gap-2"
-                  data-testid={SeqExample.title
+                  data-testid={seqExample.title
                     .toLowerCase()
                     .split(" ")
                     .join("_")}
                   onClick={() => {
-                    handleSequenceLoad(SeqExample.dirPath);
+                    handleSequenceLoad(seqExample.dirPath);
                   }}
                 >
                   Load
