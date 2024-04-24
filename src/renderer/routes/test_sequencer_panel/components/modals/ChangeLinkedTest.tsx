@@ -76,7 +76,6 @@ export const ChangeLinkedTestModal = ({
       });
   };
 
-
   const handleSubmitIndividualTest = () => {
     if (selectedTestName === "") {
       toast.error("Please select a test to link to");
