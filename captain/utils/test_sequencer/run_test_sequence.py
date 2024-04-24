@@ -198,7 +198,7 @@ def _run_robotframework(node: TestNode) -> Extract:
     """
     start_time = time.time()
     logger.info(f"[Robot Framework Runner] Running {node.path}")
-    if node.args != None:
+    if node.args is not None:
         cmd = ["robot", "--test", *node.args, node.path]
     else:
         cmd = ["robot", node.path]
