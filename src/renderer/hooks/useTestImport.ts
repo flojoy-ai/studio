@@ -193,10 +193,10 @@ export async function useDiscoverElements() {
       const { filePath } = result;
       return getTests(filePath);
     });
-  // Return a function that takes the file path as an argument
-  // return async (filePath: string) => {
-  //   const result = await getTests(filePath);
-  //   return result;
+    // Return a function that takes the file path as an argument
+    // return async (filePath: string) => {
+    //   const result = await getTests(filePath);
+    //   return result;
   };
   return openFilePicker;
 };
