@@ -2,7 +2,14 @@ import { useSequencerModalStore } from "@/renderer/stores/modal";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { Button } from "@/renderer/components/ui/button";
 import { ACTIONS_HEIGHT } from "@/renderer/routes/common/Layout";
-import { FlaskConical, Import, LayoutGrid, Plus, Route } from "lucide-react";
+import {
+  FlaskConical,
+  Import,
+  LayoutGrid,
+  Plus,
+  Route,
+  TestTube,
+} from "lucide-react";
 import {
   StatusType,
   Test,
@@ -65,11 +72,11 @@ export function DesignBar() {
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [
     isCreatePlaceholderTestModalOpen,
     setIsCreatePlaceholderTestModalOpen,
   ] = useState(false);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
@@ -103,7 +110,7 @@ export function DesignBar() {
                   }}
                   data-testid="import-test-button"
                 >
-                  <FlaskConical
+                  <TestTube
                     size={16}
                     className="mr-2 stroke-muted-foreground"
                   />

@@ -109,6 +109,7 @@ export const NewTest = z.object({
   minValue: z.number().optional(),
   maxValue: z.number().optional(),
   unit: z.string().optional(),
+  args: z.string().array().optional(),
 });
 
 export type NewTest = z.infer<typeof NewTest>;
@@ -131,6 +132,7 @@ export function createNewTest(test: NewTest): Test {
     minValue: test.minValue,
     maxValue: test.maxValue,
     unit: test.unit,
+    args: test.args,
   };
   return newTest;
 }

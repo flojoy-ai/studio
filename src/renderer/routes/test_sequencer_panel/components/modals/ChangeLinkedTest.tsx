@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/renderer/components/ui/select";
-import { useDiscoverPytestElements } from "@/renderer/hooks/useTestImport";
+import { useDiscoverElements } from "@/renderer/hooks/useTestImport";
 import { TestSequenceElement } from "@/renderer/types/test-sequencer";
 import { toast } from "sonner";
 
@@ -26,29 +26,33 @@ export const ChangeLinkedTestModal = ({
 }: {
   isModalOpen: boolean;
   setModalOpen: (value: boolean) => void;
-  handleSubmit: (path: string, testType: ImportType) => void;
+  handleSubmit: (
+    path: string,
+    testType: ImportType,
+    args: string[] | undefined,
+  ) => void;
 }) => {
   const [availableTests, setAvailableTests] = useState<TestSequenceElement[]>(
     [],
   );
-  const [selectedPath, setSelectedPath] = useState<string>("");
-
+  const [selectedTestName, setSelectedPath] = useState<string>("");
   const { setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
       setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
     })),
   );
 
-  const discoverPytestElement = useDiscoverPytestElements();
+  const discoverElement = useDiscoverElements();
 
-  const handleDiscoverPytestElements = async (filePath: string) => {
-    const result = await discoverPytestElement(filePath);
+  const handleDiscoverElements = async (filePath: string) => {
+    const result = await discoverElement(filePath);
     if (result.isOk()) {
       setAvailableTests(result.value);
       if (result.value.length > 0) {
         setSelectedPath(result.value[0].path);
       }
     } else {
+      toast.error(`Failed to discover tests: ${result.error}`);
       console.error(result.error);
     }
   };
@@ -57,26 +61,37 @@ export const ChangeLinkedTestModal = ({
     const res = await window.api.openTestPicker();
     if (!res) return;
     if (res.filePath) {
-      await handleDiscoverPytestElements(res.filePath);
+      await handleDiscoverElements(res.filePath);
     }
   };
 
-  const handleSubmitByType = (testType: ImportType) => {
-    if (testType === "pytest") {
-      if (selectedPath === "") {
-        toast.error("Please select a test to link to");
-      }
-      handleSubmit(selectedPath, testType);
-    } else {
-      window.api.openTestPicker().then((result) => {
-        if (!result) {
-          return;
-        }
-        const { filePath } = result;
-        handleSubmit(filePath, testType);
-      });
+  const handleSubmitIndividualTest = () => {
+    if (selectedTestName === "") {
+      toast.error("Please select a test to link to");
     }
+    const test = availableTests.find(
+      (test) => test.type === "test" && test.testName === selectedTestName,
+    );
+    if (test?.type !== "test" || test.testType === "placeholder") {
+      return;
+    }
+    handleSubmit(test.path, test.testType, test.args);
     setModalOpen(false);
+  };
+
+  const handleSubmitPythonScript = () => {
+    window.api.openTestPicker().then((result) => {
+      if (!result) {
+        return;
+      }
+      const { filePath } = result;
+      if (!filePath.endsWith(".py")) {
+        toast.error("Please select a Python file");
+        return;
+      }
+      handleSubmit(filePath, "python", undefined);
+      setModalOpen(false);
+    });
   };
 
   return (
@@ -85,7 +100,7 @@ export const ChangeLinkedTestModal = ({
         <h2 className="text-lg font-bold text-accent1">
           Select a test to link to
         </h2>
-        <p className="font-bold">Pytest</p>
+        <p className="font-bold">Pytest & Robot Framework</p>
         <div className="flex w-[460px] items-center justify-between gap-2">
           <Select onValueChange={setSelectedPath}>
             <SelectTrigger className="overflow-clip">
@@ -97,38 +112,35 @@ export const ChangeLinkedTestModal = ({
                 {availableTests.map((test) => {
                   if (test.type === "test") {
                     return (
-                      <SelectItem
-                        value={test.path}
-                      >{`...${test.path.slice(-35)}`}</SelectItem>
+                      <SelectItem value={test.testName}>
+                        {test.testName.length > 35
+                          ? `...${test.testName.slice(-35)}`
+                          : test.testName}
+                      </SelectItem>
                     );
                   }
                 })}
               </SelectGroup>
             </SelectContent>
           </Select>
-          <div className="w-52 justify-end">
-            <Button
-              variant={"outline"}
-              onClick={handleFilePicker}
-              data-testid="pytest-btn"
-            >
-              Discover Pytest
-            </Button>
-          </div>
+          <Button
+            className="w-32"
+            variant={"outline"}
+            onClick={handleFilePicker}
+            data-testid="discover-btn"
+          >
+            Discover
+          </Button>
         </div>
         <Button
           variant={"outline"}
-          onClick={() => handleSubmitByType("pytest")}
+          onClick={() => handleSubmitIndividualTest()}
         >
-          {" "}
-          Submit Selected Test{" "}
+          Submit Selected Test
         </Button>
         <Separator className="bg-muted" />
         <p className="font-bold">Python Script</p>
-        <Button
-          variant={"outline"}
-          onClick={() => handleSubmitByType("python")}
-        >
+        <Button variant={"outline"} onClick={() => handleSubmitPythonScript()}>
           Select a Python Script
         </Button>
         <div className="flex justify-between">

@@ -139,7 +139,16 @@ export const setLogLevel = async (level: string) => {
 };
 
 export const discoverPytest = async (path: string, oneFile: boolean) => {
-  return get("discover-pytest", TestDiscoverContainer, {
+  return get("discover/pytest", TestDiscoverContainer, {
+    searchParams: {
+      path,
+      oneFile,
+    },
+  });
+};
+
+export const discoverRobot = async (path: string, oneFile: boolean) => {
+  return get("discover/robot", TestDiscoverContainer, {
     searchParams: {
       path,
       oneFile,

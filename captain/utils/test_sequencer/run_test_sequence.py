@@ -186,6 +186,44 @@ def _run_placeholder(node: TestNode) -> Extract:
     )
 
 
+@_with_stream_test_result
+def _run_robotframework(node: TestNode) -> Extract:
+    """
+    runs python file.
+    @params file_path: path to the file
+    @returns:
+        bool: result of the test
+        float: time taken to execute the test
+        str: error message if any
+    """
+    start_time = time.time()
+    logger.info(f"[Robot Framework Runner] Running {node.path}")
+    if node.args is not None:
+        cmd = ["robot", "--test", *node.args, node.path]
+    else:
+        cmd = ["robot", node.path]
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    logger.info(f"[Robot Framework Runner] Running {result}")
+    end_time = time.time()
+    if result.returncode == 0:
+        is_pass = True
+    else:
+        logger.info(
+            f"TEST {node.path} FAILED:\nSTDOUT: {result.stdout.decode()}\nSTDERR: {result.stderr.decode()}"
+        )
+        is_pass = False
+    return (
+        lambda _: None,
+        TestResult(
+            node,
+            is_pass,
+            end_time - start_time,
+            result.stderr.decode() if not is_pass else None,
+            utcnow_str(),
+        ),
+    )
+
+
 def _eval_condition(
     result_dict: dict[str, TestResult], condition: str, identifiers: set[str]
 ):
@@ -266,6 +304,7 @@ map_to_handler_run = (
                 TestTypes.python: (None, _run_python),
                 TestTypes.pytest: (None, _run_pytest),
                 TestTypes.placeholder: (None, _run_placeholder),
+                TestTypes.robotframework: (None, _run_robotframework),
             },
         ),
         "conditional": (

@@ -15,7 +15,8 @@ export type ImportTestSettings = {
   importType: ImportType;
 };
 
-export type ImportType = "pytest" | "python";
+export type discoverableTestTypes = "pytest" | "robotframework";
+export type ImportType = discoverableTestTypes | "python";
 
 export const ImportTestModal = () => {
   const { isImportTestModalOpen, setIsImportTestModalOpen } =
@@ -56,6 +57,13 @@ export const ImportTestModal = () => {
           data-testid="pytest-btn"
         >
           Pytest & Unittest
+        </Button>
+        <Button
+          variant={"outline"}
+          onClick={() => handleImportTest("robotframework")}
+          data-testid="pytest-btn"
+        >
+          Robot Framework
         </Button>
         <Button variant={"outline"} onClick={() => handleImportTest("python")}>
           Python Script

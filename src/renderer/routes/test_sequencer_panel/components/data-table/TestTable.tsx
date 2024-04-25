@@ -447,7 +447,11 @@ export function TestTable() {
   const [openLinkedTestModal, setOpenLinkedTestModal] = useState(false);
   const testRef = useRef(-1);
 
-  const handleChangeLinkedTest = (newPath: string, testType: ImportType) => {
+  const handleChangeLinkedTest = (
+    newPath: string,
+    testType: ImportType,
+    args: string[] | undefined,
+  ) => {
     setElems((data) => {
       const new_data = [...data];
       const test = new_data[testRef.current] as Test;
@@ -455,6 +459,7 @@ export function TestTable() {
         ...test,
         path: newPath,
         testType: testType,
+        args: args,
       };
       return new_data;
     });

@@ -154,7 +154,7 @@ export const registerIpcMainHandlers = () => {
 
   ipcMain.handle(
     API.openTestPicker,
-    async (e) => await openFilePicker(e, "Test", ["json", "py"]),
+    async (e) => await openFilePicker(e, "Test", ["json", "py", "robot"]),
   );
   ipcMain.handle(API.openEditorWindow, (_, filepath) => {
     createEditorWindow(filepath);

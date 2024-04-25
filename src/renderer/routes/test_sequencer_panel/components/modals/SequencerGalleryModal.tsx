@@ -38,6 +38,12 @@ export const SequencerGalleryModal = ({
         "Learn how to inject the minimum and maximum expected values into a test and export the result.",
       dirPath: "examples/test-sequencer-expected-exported-example/",
     },
+    {
+      title: "Robot Framework & Flojoy",
+      description:
+        "Learn how to inject the minimum and maximum expected values into a robot test and export the result.",
+      dirPath: "examples/test-sequencer-robot-framework-example/",
+    },
   ];
 
   return (

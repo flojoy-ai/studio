@@ -7,9 +7,8 @@ export type LockedContextType = {
 export const TestType = z.enum([
   "pytest",
   "python",
-  "flojoy",
-  "matlab",
   "placeholder",
+  "robotframework",
 ]);
 export type TestType = z.infer<typeof TestType>;
 
@@ -78,6 +77,7 @@ export const Test = z.object({
   maxValue: z.number().optional(),
   measuredValue: z.number().optional(),
   unit: z.string().optional(),
+  args: z.string().array().optional(),
 });
 
 export type Test = z.infer<typeof Test>;
