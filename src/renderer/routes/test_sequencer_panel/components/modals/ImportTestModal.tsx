@@ -2,7 +2,7 @@ import { Button } from "@/renderer/components/ui/button";
 import { Checkbox } from "@/renderer/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/renderer/components/ui/dialog";
 import { Separator } from "@/renderer/components/ui/separator";
-import { useTestImport } from "@/renderer/hooks/useTestImport";
+import { useDiscoverAndImportTests } from "@/renderer/hooks/useTestImport";
 import { useDisplayedSequenceState } from "@/renderer/hooks/useTestSequencerState";
 import { useAppStore } from "@/renderer/stores/app";
 import { useSequencerModalStore } from "@/renderer/stores/modal";
@@ -28,7 +28,7 @@ export const ImportTestModal = () => {
     })),
   );
 
-  const openFilePicker = useTestImport();
+  const openFilePicker = useDiscoverAndImportTests();
   const { setIsLocked } = useDisplayedSequenceState();
 
   const handleImportTest = (importType: ImportType) => {
