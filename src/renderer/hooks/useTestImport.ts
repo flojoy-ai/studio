@@ -1,6 +1,5 @@
 import {
   TestDiscoverContainer,
-  TestSequenceElement,
 } from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
