@@ -28,6 +28,7 @@ import {
   HoverCardTrigger,
 } from "@/renderer/components/ui/hover-card";
 import _ from "lodash";
+import { SequencerGalleryModal } from "./modals/SequencerGalleryModal";
 
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
@@ -63,9 +64,14 @@ export function DesignBar() {
   }, [elems, sequences, cycleRuns]);
 
   const [displayTotal, setDisplayTotal] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   return (
     <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
+      <SequencerGalleryModal
+        isGalleryOpen={isGalleryOpen}
+        setIsGalleryOpen={setIsGalleryOpen}
+      />
       <div className="py-1" />
       <div className="flex">
         {isAdmin() && (
@@ -110,15 +116,23 @@ export function DesignBar() {
                   <Import size={16} className="mr-2 stroke-muted-foreground" />
                   Import Sequence
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled={true}>
+                <DropdownMenuItem
+                  onClick={() => setIsGalleryOpen(true)}
+                  data-testid="seq-gallery-btn"
+                >
                   <LayoutGrid
                     size={16}
                     className="mr-2 stroke-muted-foreground"
                   />
-                  Sequence Gallery
+                  Import Example
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <SequencerGalleryModal
+              isGalleryOpen={isGalleryOpen}
+              setIsGalleryOpen={setIsGalleryOpen}
+            />
+
             <div className="grow" />
           </>
         )}

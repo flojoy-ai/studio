@@ -267,7 +267,10 @@ export function TestTable() {
       header: () => <div className="pl-4 text-center">Status</div>,
       cell: ({ row }) => {
         return row.original.type === "test" ? (
-          <div className="my-2 flex justify-center">
+          <div
+            className="my-2 flex justify-center"
+            data-testid={`status-${row.original.testName}`}
+          >
             {typeof mapStatusToDisplay[row.original.status] === "function"
               ? mapStatusToDisplay[row.original.status](row.original.error)
               : mapStatusToDisplay[row.original.status]}
