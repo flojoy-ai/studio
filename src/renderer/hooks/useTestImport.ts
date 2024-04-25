@@ -7,7 +7,10 @@ import {
   useDisplayedSequenceState,
 } from "./useTestSequencerState";
 import { map } from "lodash";
-import { ImportTestSettings, discoverableTestTypes as DiscoverableTestTypes } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
+import {
+  ImportTestSettings,
+  discoverableTestTypes as DiscoverableTestTypes,
+} from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { discoverPytest, discoverRobot } from "@/renderer/lib/api";
@@ -61,10 +64,16 @@ export const useDiscoverAndImportTests = () => {
           response: [{ testName: path, path: path }],
           missingLibraries: [],
           error: null,
-        })
+        });
       })
-      .with("pytest", async () => await discoverPytest(path, settings.importAsOneRef))
-      .with("robotframework", async () => await discoverRobot(path, settings.importAsOneRef))
+      .with(
+        "pytest",
+        async () => await discoverPytest(path, settings.importAsOneRef),
+      )
+      .with(
+        "robotframework",
+        async () => await discoverRobot(path, settings.importAsOneRef),
+      )
       .exhaustive();
     if (dataResponse.isErr()) {
       return err(dataResponse.error);
