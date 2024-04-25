@@ -78,7 +78,6 @@ export function DesignBar() {
         isModalOpen={isCreatePlaceholderTestModalOpen}
         setModalOpen={setIsCreatePlaceholderTestModalOpen}
       />
-    <div className=" border-b" style={{ height: ACTIONS_HEIGHT }}>
       <SequencerGalleryModal
         isGalleryOpen={isGalleryOpen}
         setIsGalleryOpen={setIsGalleryOpen}
