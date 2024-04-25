@@ -169,5 +169,5 @@ export const useDiscoverPytestElements = () => {
     return ok(newElems);
   }
 
-  return getTests
+  return getTests;
 };

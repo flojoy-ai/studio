@@ -31,7 +31,6 @@ import _ from "lodash";
 import { CreatePlaceholderTestModal } from "./modals/CreatePlaceholderTestModal";
 import { SequencerGalleryModal } from "./modals/SequencerGalleryModal";
 
-
 export function DesignBar() {
   const { setIsImportTestModalOpen, setIsCreateProjectModalOpen } =
     useSequencerModalStore();
