@@ -43,6 +43,7 @@ export enum Selectors {
   pytestBtn = "pytest-btn",
   newDropdown = "new-dropdown",
   importTestBtn = "import-test-button",
+  openSequenceGalleryBtn = "seq-gallery-btn",
   globalStatusBadge = "global-status-badge",
   newSeqModalNameInput = "new-seq-modal-name-input",
   newSeqModalDescInput = "new-seq-modal-desc-input",

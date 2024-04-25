@@ -171,5 +171,5 @@
     ],
     "all": true
   },
-  "packageManager": "pnpm@9.0.5"
+  "packageManager": "pnpm@9.0.6"
 }
