@@ -144,7 +144,7 @@ export const useDiscoverAndImportTests = () => {
   return openFilePicker;
 };
 
-export async function useDiscoverElements() {
+export const useDiscoverElements = () => {
   const handleUserDepInstall = useCallback(async (depName: string) => {
     const promise = () => window.api.poetryInstallDepUserGroup(depName);
     toast.promise(promise, {
@@ -157,9 +157,7 @@ export async function useDiscoverElements() {
     });
   }, []);
 
-  async function getTests(
-    path: string,
-  ): Promise<Result<TestSequenceElement[], Error>> {
+  async function getTests(path: string) {
     let res: Result<TestDiscoverContainer, Error>;
     let type: DiscoverableTestTypes;
     if (path.endsWith(".robot")) {
@@ -197,16 +195,5 @@ export async function useDiscoverElements() {
     return ok(newElems);
   }
 
-  const openFilePicker = (): Promise<Result<TestSequenceElement[], Error>> => {
-    return window.api.openTestPicker().then((result) => {
-      if (!result) return err(Error("No file selected."));
-      const { filePath } = result;
-      return getTests(filePath);
-    });
-    // Return a function that takes the file path as an argument
-    // return async (filePath: string) => {
-    //   const result = await getTests(filePath);
-    //   return result;
-  };
-  return openFilePicker;
-}
+  return getTests;
+};

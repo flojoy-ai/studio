@@ -37,43 +37,33 @@ export const ChangeLinkedTestModal = ({
     [],
   );
   const [selectedTestName, setSelectedPath] = useState<string>("");
-  const { openErrorModal } = useSequencerModalStore();
-
   const { setIsDepManagerModalOpen } = useAppStore(
     useShallow((state) => ({
       setIsDepManagerModalOpen: state.setIsDepManagerModalOpen,
     })),
   );
 
-  const openFilePickerPromise = useDiscoverElements();
+  const discoverElement = useDiscoverElements();
 
-  const handleDiscoverElements = () => {
-    openFilePickerPromise
-      .then((useDiscover) => {
-        return useDiscover();
-      })
-      .then((potentialElementsResult) => {
-        potentialElementsResult.match(
-          (elements) => {
-            setAvailableTests(elements);
-            toast.info("Tests discovered successfully");
-          },
-          (error) => {
-            toast("Error while attempting to discover tests", {
-              action: {
-                label: "More details",
-                onClick: () => {
-                  openErrorModal(error.message);
-                },
-              },
-            });
-          },
-        );
-      })
-      .catch((error) => {
-        // User cancelled the file picker
-        console.log(error);
-      });
+  const handleDiscoverElements = async (filePath: string) => {
+    const result = await discoverElement(filePath);
+    if (result.isOk()) {
+      setAvailableTests(result.value);
+      if (result.value.length > 0) {
+        setSelectedPath(result.value[0].path);
+      }
+    } else {
+      toast.error(`Failed to discover tests: ${result.error}`);
+      console.error(result.error);
+    }
+  };
+
+  const handleFilePicker = async () => {
+    const res = await window.api.openTestPicker();
+    if (!res) return;
+    if (res.filePath) {
+      await handleDiscoverElements(res.filePath);
+    }
   };
 
   const handleSubmitIndividualTest = () => {
@@ -104,6 +94,7 @@ export const ChangeLinkedTestModal = ({
       setModalOpen(false);
     });
   };
+
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setModalOpen}>
@@ -137,7 +128,7 @@ export const ChangeLinkedTestModal = ({
           <Button
             className="w-32"
             variant={"outline"}
-            onClick={handleDiscoverElements}
+            onClick={handleFilePicker}
             data-testid="discover-btn"
           >
             Discover

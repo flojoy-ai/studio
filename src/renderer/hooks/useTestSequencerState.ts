@@ -127,7 +127,7 @@ export function createNewTest(test: NewTest): Test {
     completionTime: undefined,
     error: null,
     isSavedToCloud: false,
-    exportToCloud: test.exportToCloud || true,
+    exportToCloud: test.exportToCloud === undefined ? true : test.exportToCloud,
     createdAt: new Date().toISOString(),
     minValue: test.minValue,
     maxValue: test.maxValue,
