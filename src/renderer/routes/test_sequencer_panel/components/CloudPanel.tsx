@@ -358,7 +358,7 @@ export function CloudPanel() {
               ))}
               <Separator />
               <Button
-                className="text-center w-full gap-2 text-xs text-muted-foreground h-8"
+                className="h-8 w-full gap-2 text-center text-xs text-muted-foreground"
                 onClick={() => projectsQuery.refetch()}
                 variant={"link"}
                 disabled={projectsQuery.isFetching}
@@ -386,13 +386,9 @@ export function CloudPanel() {
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No station found</strong>
                   {projectsQuery.data.length === 0 ? (
-                    <p>
-                      Select a test profile to load the available stations.
-                    </p>
+                    <p>Select a test profile to load the available stations.</p>
                   ) : (
-                    <p>
-                      No station found for the selected test profile.
-                    </p>
+                    <p>No station found for the selected test profile.</p>
                   )}
                 </div>
               )}
@@ -403,7 +399,7 @@ export function CloudPanel() {
               ))}
               <Separator />
               <Button
-                className="text-center w-full gap-2 text-xs text-muted-foreground h-8"
+                className="h-8 w-full gap-2 text-center text-xs text-muted-foreground"
                 onClick={() => stationsQuery.refetch()}
                 variant={"link"}
                 disabled={stationsQuery.isFetching}
