@@ -39,6 +39,8 @@ import { getGlobalStatus } from "./DesignBar";
 import { useSequencerStore } from "@/renderer/stores/sequencer";
 import { Autocomplete } from "@/renderer/components/ui/autocomplete";
 import { useLoadTestProfile } from "@/renderer/hooks/useTestSequencerProject";
+import { RefreshCcw } from "lucide-react";
+import { Separator } from "@/renderer/components/ui/separator";
 
 export function CloudPanel() {
   const queryClient = useQueryClient();
@@ -346,12 +348,6 @@ export function CloudPanel() {
               {projectsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No Test Profile found</strong>
-                  <Button
-                    onClick={() => projectsQuery.refetch()}
-                    variant={"ghost"}
-                  >
-                    Refresh
-                  </Button>
                 </div>
               )}
               {projectsQuery.data.map((option) => (
@@ -360,6 +356,20 @@ export function CloudPanel() {
                   {option.label}
                 </SelectItem>
               ))}
+              <Separator />
+              <Button
+                className="h-8 w-full gap-2 text-center text-xs text-muted-foreground"
+                onClick={() => projectsQuery.refetch()}
+                variant={"link"}
+                disabled={projectsQuery.isFetching}
+              >
+                <RefreshCcw size={10} />
+                {projectsQuery.isFetching ? (
+                  <p> Loading... </p>
+                ) : (
+                  <p> Refresh </p>
+                )}
+              </Button>
             </SelectContent>
           </Select>
 
@@ -375,13 +385,10 @@ export function CloudPanel() {
               {stationsQuery.data.length === 0 && (
                 <div className="flex flex-col items-center justify-center gap-2 p-2 text-sm">
                   <strong>No station found</strong>
-                  {stationsQuery.isFetching ? (
-                    <p> Loading... </p>
+                  {projectsQuery.data.length === 0 ? (
+                    <p>Select a test profile to load the available stations.</p>
                   ) : (
-                    <p>
-                      {" "}
-                      Select a test profile to load the available stations{" "}
-                    </p>
+                    <p>No station found for the selected test profile.</p>
                   )}
                 </div>
               )}
@@ -390,6 +397,20 @@ export function CloudPanel() {
                   {option.label}
                 </SelectItem>
               ))}
+              <Separator />
+              <Button
+                className="h-8 w-full gap-2 text-center text-xs text-muted-foreground"
+                onClick={() => stationsQuery.refetch()}
+                variant={"link"}
+                disabled={stationsQuery.isFetching}
+              >
+                <RefreshCcw size={10} />
+                {stationsQuery.isFetching ? (
+                  <p> Loading... </p>
+                ) : (
+                  <p> Refresh </p>
+                )}
+              </Button>
             </SelectContent>
           </Select>
           <div className="mt-2 grid grid-flow-row grid-cols-2 gap-1 text-xs text-muted-foreground">
