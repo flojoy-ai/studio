@@ -14,6 +14,7 @@ import { discoverPytest, discoverRobot } from "@/renderer/lib/api";
 import { useSequencerModalStore } from "../stores/modal";
 import { toastResultPromise } from "../utils/report-error";
 import { Result, err, ok } from "neverthrow";
+import { match } from "ts-pattern";
 
 function parseDiscoverContainer(
   data: TestDiscoverContainer,
@@ -54,25 +55,21 @@ export const useDiscoverAndImportTests = () => {
     settings: ImportTestSettings,
     setModalOpen: (val: boolean) => void,
   ): Promise<Result<void, Error>> {
-    let data: TestDiscoverContainer;
-    if (settings.importType == "python") {
-      data = {
-        response: [{ testName: path, path: path }],
-        missingLibraries: [],
-        error: null,
-      };
-    } else {
-      let res: Result<TestDiscoverContainer, Error>;
-      if (settings.importType === "pytest") {
-        res = await discoverPytest(path, settings.importAsOneRef);
-      } else {
-        res = await discoverRobot(path, settings.importAsOneRef);
-      }
-      if (res.isErr()) {
-        return err(res.error);
-      }
-      data = res.value;
+    const dataResponse = await match(settings.importType)
+      .with("python", async () => {
+        return ok({
+          response: [{ testName: path, path: path }],
+          missingLibraries: [],
+          error: null,
+        })
+      })
+      .with("pytest", async () => await discoverPytest(path, settings.importAsOneRef))
+      .with("robotframework", async () => await discoverRobot(path, settings.importAsOneRef))
+      .exhaustive();
+    if (dataResponse.isErr()) {
+      return err(dataResponse.error);
     }
+    const data = dataResponse.value;
     if (data.error) {
       return err(Error(data.error));
     }

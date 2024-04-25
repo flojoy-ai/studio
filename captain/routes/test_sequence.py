@@ -42,7 +42,7 @@ class DiscoverParams(BaseModel):
     one_file: bool = Field(..., alias="oneFile")
 
 
-@router.get("/discover-pytest/")
+@router.get("/discover/pytest/")
 async def discover_pytest(params: DiscoverParams = Depends()):
     path = params.path
     one_file = params.one_file
@@ -60,7 +60,7 @@ async def discover_pytest(params: DiscoverParams = Depends()):
     )
 
 
-@router.get("/discover-robot/")
+@router.get("/discover/robot/")
 async def discover_robot(params: DiscoverParams = Depends()):
     path = params.path
     one_file = params.one_file
