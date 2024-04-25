@@ -12,7 +12,7 @@ export const flojoySyntaxTheme: SyntaxTheme = {
     background: "rgb(var(--color-modal))",
   },
   "hljs-comment": {
-    color: "rgb(var(--foreground))",
+    color: "rgb(var(--color-accent4))",
     fontStyle: "italic",
   },
   "hljs-quote": {
