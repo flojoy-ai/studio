@@ -15,7 +15,8 @@ export type ImportTestSettings = {
   importType: ImportType;
 };
 
-export type ImportType = "pytest" | "python" | "robotframework";
+export type discoverableTestTypes = "pytest" | "robotframework";
+export type ImportType = discoverableTestTypes | "python";
 
 export const ImportTestModal = () => {
   const { isImportTestModalOpen, setIsImportTestModalOpen } =

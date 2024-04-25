@@ -7,7 +7,7 @@ import {
   useDisplayedSequenceState,
 } from "./useTestSequencerState";
 import { map } from "lodash";
-import { ImportTestSettings } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
+import { ImportTestSettings, discoverableTestTypes as DiscoverableTestTypes } from "@/renderer/routes/test_sequencer_panel/components/modals/ImportTestModal";
 import { toast } from "sonner";
 import { useCallback } from "react";
 import { discoverPytest, discoverRobot } from "@/renderer/lib/api";
@@ -152,7 +152,7 @@ export async function useDiscoverElements() {
     path: string,
   ): Promise<Result<TestSequenceElement[], Error>> {
     let res: Result<TestDiscoverContainer, Error>;
-    let type: "pytest" | "robotframework";
+    let type: DiscoverableTestTypes;
     if (path.endsWith(".robot")) {
       res = await discoverRobot(path, false);
       type = "robotframework";
