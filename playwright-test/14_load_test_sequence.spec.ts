@@ -49,6 +49,9 @@ test.describe("Create a test sequence", () => {
       await window.keyboard.press("Control+o");
     }
 
+    // Small delay
+    await window.waitForTimeout(2000);
+
     // To Debug CI
     await window.screenshot({
       path: "test-results/load-complex-sequence.jpeg",
