@@ -61,7 +61,7 @@ export const ImportTestModal = () => {
         <Button
           variant={"outline"}
           onClick={() => handleImportTest("robotframework")}
-          data-testid="pytest-btn"
+          data-testid="robot-btn"
         >
           Robot Framework
         </Button>

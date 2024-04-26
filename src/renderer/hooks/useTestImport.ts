@@ -1,6 +1,4 @@
-import {
-  TestDiscoverContainer,
-} from "@/renderer/types/test-sequencer";
+import { TestDiscoverContainer } from "@/renderer/types/test-sequencer";
 import {
   createNewTest,
   useDisplayedSequenceState,
