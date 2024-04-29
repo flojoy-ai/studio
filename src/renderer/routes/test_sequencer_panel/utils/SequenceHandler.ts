@@ -17,6 +17,7 @@ import {
 } from "@/renderer/types/test-sequencer";
 import { createNewTest } from "@/renderer/hooks/useTestSequencerState";
 import { err, ok, Result } from "neverthrow";
+import { toast } from "sonner";
 
 // Exposed API
 export type StateManager = {
@@ -235,7 +236,10 @@ async function installDeps(sequence: TestSequencerProject): Promise<boolean> {
   const success = await window.api.poetryInstallRequirementsUserGroup(
     sequence.projectPath + sequence.interpreter.requirementsPath,
   );
-  return success;
+  if (!success) {
+    toast.error("Not able to installing dependencies");
+  }
+  return true;
 }
 
 async function syncSequence(
@@ -285,6 +289,7 @@ async function createExportableSequenceElementsFromTestSequencerElements(
           minValue: elem.minValue,
           maxValue: elem.maxValue,
           unit: elem.unit,
+          args: elem.args,
         })
       : {
           ...elem,
@@ -311,6 +316,7 @@ async function createTestSequencerElementsFromSequenceElements(
           minValue: elem.minValue,
           maxValue: elem.maxValue,
           unit: elem.unit,
+          args: elem.args,
         })
       : {
           ...elem,
