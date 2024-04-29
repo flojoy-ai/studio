@@ -235,17 +235,17 @@ typecheck = ["mypy"]
 
 [[package]]
 name = "boto3"
-version = "1.34.92"
+version = "1.34.93"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.92-py3-none-any.whl", hash = "sha256:db7bbb1c6059e99b74dcf634e497b04addcac4c527ae2b2696e47c39eccc6c50"},
-    {file = "boto3-1.34.92.tar.gz", hash = "sha256:684cba753d64978a486e8ea9645d53de0d4e3b4a3ab1495b26bd04b9541cea2d"},
+    {file = "boto3-1.34.93-py3-none-any.whl", hash = "sha256:b59355bf4a1408563969526f314611dbeacc151cf90ecb22af295dcc4fe18def"},
+    {file = "boto3-1.34.93.tar.gz", hash = "sha256:e39516e4ca21612932599819662759c04485d53ca457996a913163da11f052a4"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.92,<1.35.0"
+botocore = ">=1.34.93,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -254,13 +254,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.92"
+version = "1.34.93"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.92-py3-none-any.whl", hash = "sha256:4211a22a1f6c6935e70cbb84c2cd93b29f9723eaf5036d59748dd104f389a681"},
-    {file = "botocore-1.34.92.tar.gz", hash = "sha256:d1ca4886271f184445ec737cd2e752498648cca383887c5a37b2e01c8ab94039"},
+    {file = "botocore-1.34.93-py3-none-any.whl", hash = "sha256:6fbd5a53a2adc9b3d4ebd90ae0ede83a91a41d96231f8a5984051f75495f246d"},
+    {file = "botocore-1.34.93.tar.gz", hash = "sha256:79d39b0b87e962991c6dd55e78ce15155099f6fb741be88b1b8a456a702cc150"},
 ]
 
 [package.dependencies]
@@ -785,13 +785,13 @@ test = ["pandas[test]", "pre-commit", "pytest", "pytest-cov", "pytest-rerunfailu
 
 [[package]]
 name = "dataclasses-json"
-version = "0.6.4"
+version = "0.6.5"
 description = "Easily serialize dataclasses to and from JSON."
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "<4.0,>=3.7"
 files = [
-    {file = "dataclasses_json-0.6.4-py3-none-any.whl", hash = "sha256:f90578b8a3177f7552f4e1a6e535e84293cd5da421fcce0642d49c0d7bdf8df2"},
-    {file = "dataclasses_json-0.6.4.tar.gz", hash = "sha256:73696ebf24936560cca79a2430cbc4f3dd23ac7bf46ed17f38e5e5e7657a6377"},
+    {file = "dataclasses_json-0.6.5-py3-none-any.whl", hash = "sha256:f49c77aa3a85cac5bf5b7f65f4790ca0d2be8ef4d92c75e91ba0103072788a39"},
+    {file = "dataclasses_json-0.6.5.tar.gz", hash = "sha256:1c287594d9fcea72dc42d6d3836cf14848c2dc5ce88f65ed61b36b57f515fe26"},
 ]
 
 [package.dependencies]
@@ -2589,30 +2589,30 @@ grpc = ["grpcio (>=1.49.0,<2.0)", "protobuf (>=4.21,<5.0)"]
 
 [[package]]
 name = "nidmm"
-version = "1.4.7"
+version = "1.4.8"
 description = "NI-DMM Python API"
 optional = false
 python-versions = "*"
 files = [
-    {file = "nidmm-1.4.7-py3-none-any.whl", hash = "sha256:b6616977647dff55b93a1087355a1775fbd4b085716d6e51b65cc91ca41a7ccb"},
-    {file = "nidmm-1.4.7.tar.gz", hash = "sha256:9b688403d3b74304d666ba5123a9bd0cd76bf18e9b5eae210baec2b91d8fcaa7"},
+    {file = "nidmm-1.4.8-py3-none-any.whl", hash = "sha256:6c0a4da4e4b6898d3e490148643142cc56e5135d400f4957e384da10c6ca346a"},
+    {file = "nidmm-1.4.8.tar.gz", hash = "sha256:17526b0d22cde02409632adf6cef739fe5605f237c19b0f679853d3fd323d1ce"},
 ]
 
 [package.dependencies]
 hightime = ">=0.2.0"
 
 [package.extras]
-grpc = ["grpcio (>=1.49.1,<2.0)", "protobuf (>=4.21,<5.0)"]
+grpc = ["grpcio (>=1.59.0,<2.0)", "protobuf (>=4.21.6,<5.0)"]
 
 [[package]]
 name = "nimodinst"
-version = "1.4.7"
+version = "1.4.8"
 description = "NI-ModInst Python API"
 optional = false
 python-versions = "*"
 files = [
-    {file = "nimodinst-1.4.7-py3-none-any.whl", hash = "sha256:9d950277e0227c1983bd850771cdc006af1a07760ee0556d84a1de0636bf92f8"},
-    {file = "nimodinst-1.4.7.tar.gz", hash = "sha256:bd8277b69e488d357bb7dec0bb78633f3ed0633e0310993aa351a63015fc7a3b"},
+    {file = "nimodinst-1.4.8-py3-none-any.whl", hash = "sha256:3a704dfd8e4a033ec483cc69cf31568889e445cb796216b823d8350da9b132c3"},
+    {file = "nimodinst-1.4.8.tar.gz", hash = "sha256:21498ab3e06ebc2a643df0b60c97692046a7d5e77037bb50fe089a135e00109a"},
 ]
 
 [package.dependencies]
@@ -4582,13 +4582,13 @@ doc = ["reno", "sphinx", "tornado (>=4.5)"]
 
 [[package]]
 name = "threadpoolctl"
-version = "3.4.0"
+version = "3.5.0"
 description = "threadpoolctl"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "threadpoolctl-3.4.0-py3-none-any.whl", hash = "sha256:8f4c689a65b23e5ed825c8436a92b818aac005e0f3715f6a1664d7c7ee29d262"},
-    {file = "threadpoolctl-3.4.0.tar.gz", hash = "sha256:f11b491a03661d6dd7ef692dd422ab34185d982466c49c8f98c8f716b5c93196"},
+    {file = "threadpoolctl-3.5.0-py3-none-any.whl", hash = "sha256:56c1e26c150397e58c4926da8eeee87533b1e32bef131bd4bf6a2f45f3185467"},
+    {file = "threadpoolctl-3.5.0.tar.gz", hash = "sha256:082433502dd922bf738de0d8bcc4fdcbf0979ff44c42bd40f5af8a282f6fa107"},
 ]
 
 [[package]]
@@ -4946,13 +4946,13 @@ test = ["Cython (>=0.29.36,<0.30.0)", "aiohttp (==3.9.0b0)", "aiohttp (>=3.8.1)"
 
 [[package]]
 name = "versioningit"
-version = "3.1.0"
+version = "3.1.1"
 description = "Versioning It with your Version In Git"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "versioningit-3.1.0-py3-none-any.whl", hash = "sha256:a2f94968a37fac1192b5b6465356c64e77ae05fc7d32a7d7dddf10339ad147a0"},
-    {file = "versioningit-3.1.0.tar.gz", hash = "sha256:7aac713c31a53eb367a6bbc2e8b3de8cc2b86d10d45c5101afd651446cb10fd7"},
+    {file = "versioningit-3.1.1-py3-none-any.whl", hash = "sha256:3f5a855d98a2a85e909264f2eac3cce380b71f7632e7de55bc22bff9f03639ee"},
+    {file = "versioningit-3.1.1.tar.gz", hash = "sha256:b0ba586e5af08b87dbe3354082910a1d0502c36202d496e1ae60ef3b41ee29c1"},
 ]
 
 [package.dependencies]
@@ -5376,4 +5376,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "8c34c30422817371ebe2752058632e8451c5779fa31e1b3668da1ea09ac06343"
+content-hash = "2aa25d13fe76989a7c08732bdf1724e3ccbdb616ee7d22c31d8c79a6af5ecb0a"
