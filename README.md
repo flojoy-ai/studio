@@ -34,13 +34,13 @@ If interested in using Flojoy in a context where the AGPL license is prohibitive
 
 To use the test sequencer, simply import existing pytest, Python, and/or Robot Framework scripts. For pytest, the test sequencer will automatically atomize your tests as rows.
 
-<img width="1440" alt="Test Sequencer" src="https://github.com/flojoy-ai/studio/assets/56351875/26d8c59d-edf4-491c-a24b-874ed6e5b95d">
+![image](https://github.com/flojoy-ai/studio/assets/1865834/b1efa4f7-a58a-4406-9b37-2311611fb1bd)
 
 ## No-code script builder
 
 Quickly build test & measure automation apps by wiring together premade "blocks." Custom blocks can also be written in Python.
 
-<img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
+![image](https://github.com/flojoy-ai/studio/assets/1865834/9cfcfb86-24bc-46fd-82de-e9fd9db2ef3b)
 
 # Architecture
 
