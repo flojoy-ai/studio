@@ -28,11 +28,20 @@ The Flojoy copyright is owned by Flojoy Inc, and contributors are asked to sign 
 
 If interested in using Flojoy in a context where the AGPL license is prohibitive, [please get in touch](mailto:jp@flojoy.io) or [contact sales](https://www.flojoy.ai/contact-sales).
 
-# Architecture diagram
-
-![backend-architecture](https://github.com/flojoy-ai/studio/assets/69379081/ed72cea2-17bb-4aa3-a26d-7eec19b24685)
-
 # Screenshots
 
-<img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
+## Test sequencer
+
+To use the test sequencer, simply import existing pytest, Python, and/or Robot Framework scripts. For pytest, the test sequencer will automatically atomize your tests as rows.
+
 <img width="1440" alt="Test Sequencer" src="https://github.com/flojoy-ai/studio/assets/56351875/26d8c59d-edf4-491c-a24b-874ed6e5b95d">
+
+## No-code script builder
+
+Quickly build test & measure automation apps by wiring together premade "blocks." Custom blocks can also be written in Python.
+
+<img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
+
+# Architecture
+
+![backend-architecture](https://github.com/flojoy-ai/studio/assets/69379081/ed72cea2-17bb-4aa3-a26d-7eec19b24685)
