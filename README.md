@@ -2,9 +2,15 @@
 
 # Flojoy Studio
 
-Flojoy Studio is a desktop visual scripting IDE for running Python scripts - primarily for [DAQ](https://en.wikipedia.org/wiki/Data_acquisition), test benches, robotics control, and no-code embedded systems.
+_Open-source test sequencer for hardware validation_ 🟢 🟡 🔴 
 
-Please see [CONTRIBUTING](https://docs.flojoy.ai/contribution/blocks/custom-flojoy-block/) to add your own custom Python blocks to Flojoy apps.
+Use to validate mission critical components such as PCB boards, wire harnesses, and battery packs.
+
+### Features
+- Automate pytest, Python, and/or Robot Framework scripts as saveable test sequences
+- No-code GUI to run test sequences - clearly report pass 🟢 / fail 🔴 status to operator
+- No-code, visual scripting interface for common test & measure automation routines
+- Optionally sync test runs with [Flojoy Cloud](https://github.com/flojoy-ai/cloud/)
 
 ---
 
@@ -26,7 +32,7 @@ If interested in using Flojoy in a context where the AGPL license is prohibitive
 
 ![backend-architecture](https://github.com/flojoy-ai/studio/assets/69379081/ed72cea2-17bb-4aa3-a26d-7eec19b24685)
 
-# Product screenshots
+# Screenshots
 
 <img width="1440" alt="Flowchart" src="https://github.com/flojoy-ai/studio/assets/56351875/d89e35b5-f57b-4d77-b960-eb75818db12c">
 <img width="1440" alt="Test Sequencer" src="https://github.com/flojoy-ai/studio/assets/56351875/26d8c59d-edf4-491c-a24b-874ed6e5b95d">
