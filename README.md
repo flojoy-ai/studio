@@ -4,7 +4,7 @@
 
 _Open-source test sequencer for hardware validation_ 🟢 🟡 🔴 
 
-Use to validate mission critical components such as PCB boards, wire harnesses, and battery packs.
+Use to validate mission critical components such as PCBs, wire harnesses, and battery packs.
 
 ### Features
 - Automate pytest, Python, and/or Robot Framework scripts as saveable test sequences
