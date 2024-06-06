@@ -15,10 +15,10 @@ readme = "README.md"
 python = "~3.11"
 uvicorn = { extras = ["standard"], version = "^0.23.2" }
 flojoy = { path = "pkgs/flojoy", develop = true }
-fastapi = "^0.104.1"
+fastapi = "^0.109.1"
 pyyaml = "^6.0.1"
 python-dotenv = "^1.0.0"
-requests = "^2.31.0"
+requests = "^2.32.2"
 debugpy = "^1.8.0"
 opencv-python-headless = "^4.8.1.78"
 pyserial = "^3.5"
