@@ -22,11 +22,7 @@ Please find installer downloads for Mac, Windows, and Linux at https://docs.floj
 
 # License and Copyright
 
-Flojoy is released under the [AGPLv3 license](https://www.gnu.org/licenses/agpl-3.0.en.html). This is a copy-left license in the GPL family of licenses. As with all [OSI approved licenses](https://opensource.org/licenses/alphabetical), there are no restrictions on what code licensed under AGPLv3 can be used for. However, the requirements for what must be shared publicly are greater than for licenses that are more commonly used in the Python ecosystem like [Apache-2](https://opensource.org/licenses/Apache-2.0), [MIT](https://opensource.org/licenses/MIT), and [BSD-3](https://opensource.org/licenses/BSD-3-Clause).
-
-The Flojoy copyright is owned by Flojoy Inc, and contributors are asked to sign a Contributor License Agreement (based on the Oracle CLA) that grants the company the non-exclusive right to re-license the contribution in the future. For example, the project could be re-licensed to one of the more permissive licenses above (eg MIT or BSD).
-
-If interested in using Flojoy in a context where the AGPL license is prohibitive, [please get in touch](mailto:jp@flojoy.io) or [contact sales](https://www.flojoy.ai/contact-sales).
+MIT licensed. This is free software - please use and modify however you wish.
 
 # Screenshots
 
