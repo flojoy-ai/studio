@@ -6,7 +6,8 @@ icon: ./public/favicon.ico
 asar: true
 asarUnpack:
   - resources/**
-afterSign: ./scripts/notarize.js
+# Notarization is currently disabled as it requires Apple Developer credentials and incurs additional costs.
+# afterSign: ./scripts/notarize.js
 files:
   - out/**/*
 
@@ -60,7 +61,8 @@ linux:
 
 win:
   icon: ./public/favicon.ico
-  sign: ./scripts/winSign.js
+  # Signing is currently disabled as it requires Apple Developer credentials and incurs additional costs.
+  # sign: ./scripts/winSign.js
   target: nsis
 extraMetadata:
   main: out/main/index.js
