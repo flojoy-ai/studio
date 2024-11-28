@@ -81,7 +81,7 @@
     "immer": "^10.0.4",
     "ky": "^1.2.3",
     "lodash": "^4.17.21",
-    "lucide-react": "^0.357.0",
+    "lucide-react": "^0.364.0",
     "mixpanel-browser": "^2.49.0",
     "neverthrow": "^6.1.0",
     "plotly.js-dist-min": "^2.30.1",
