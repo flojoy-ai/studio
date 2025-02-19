@@ -14,6 +14,8 @@ on:
       - reopened
       - synchronize
       - ready_for_review
+    branches:
+      - 'benchmark/**'
 # When pushing new commits, cancel any running builds on that branch
 concurrency:
   group: ${{ github.ref }}
